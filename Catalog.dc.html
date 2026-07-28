@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #F8FAFC;
+    color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: #2563EB; color: #fff; }
+  button { font-family: inherit; cursor: pointer; }
+  input, select, textarea { font-family: inherit; }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+</style>
+</helmet>
+
+<div style="background:#F8FAFC; color:#0F172A; min-width:100%; overflow-x:hidden;">
+
+  <!-- ================= NAV ================= -->
+  <nav style="position:sticky; top:0; z-index:50; background:rgba(248,250,252,0.82); backdrop-filter:saturate(140%) blur(14px); -webkit-backdrop-filter:saturate(140%) blur(14px); border-bottom:1px solid rgba(15,23,42,0.06);">
+    <div style="max-width:1320px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:32px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="width:26px; height:26px; border-radius:50%; background:#0F172A; position:relative; display:flex; align-items:center; justify-content:center;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#2563EB;"></div>
+        </div>
+        <span style="font-size:15px; font-weight:600; letter-spacing:-0.01em;">Volta&thinsp;—&thinsp;Mobilité</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:36px; font-size:14px; color:#334155;">
+        <a href="#collection" style="color:inherit; text-decoration:none;">Collection</a>
+        <a href="#comparer" style="color:inherit; text-decoration:none;">Comparer</a>
+        <a href="#faq" style="color:inherit; text-decoration:none;">FAQ</a>
+        <a href="#commander" style="color:inherit; text-decoration:none;">Commander</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span style="font-size:11px; color:#64748B; letter-spacing:0.04em;">+212 6 00 00 00 00</span>
+        <a href="#commander" style="background:#0F172A; color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:500; text-decoration:none; letter-spacing:-0.005em;">Commander</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section style="max-width:1320px; margin:0 auto; padding:56px 32px 72px;">
+    <div style="display:grid; grid-template-columns: 1.05fr 1fr; gap:64px; align-items:end;">
+      <div>
+        <div style="display:inline-flex; align-items:center; gap:10px; padding:7px 14px; border:1px solid rgba(15,23,42,0.12); border-radius:999px; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#334155;">
+          <span style="width:6px; height:6px; border-radius:50%; background:#10B981;"></span>
+          Showroom Casablanca · Livraison Maroc
+        </div>
+        <h1 style="margin:28px 0 24px; font-size:96px; line-height:0.96; letter-spacing:-0.045em; font-weight:500; color:#0F172A;">
+          Réinventez vos<br>
+          déplacements <em style="font-style:italic; font-weight:500;">quotidiens.</em>
+        </h1>
+        <p style="max-width:540px; font-size:19px; line-height:1.55; color:#475569; margin:0 0 36px; letter-spacing:-0.005em;">
+          Une nouvelle génération de trottinettes électriques sélectionnées pour la ville moderne&nbsp;: entrée de gamme accessible, performance routière et flagships hors-piste. Paiement à la livraison, partout au Maroc.
+        </p>
+        <div style="display:flex; gap:14px; align-items:center;">
+          <a href="#collection" style="background:#0F172A; color:#fff; padding:16px 26px; border-radius:999px; font-size:14px; font-weight:500; text-decoration:none; display:inline-flex; align-items:center; gap:10px;">
+            Découvrir la collection
+            <span style="font-size:12px;">↗</span>
+          </a>
+          <a href="#whatsapp" style="background:transparent; color:#0F172A; padding:16px 22px; border-radius:999px; font-size:14px; font-weight:500; text-decoration:none; border:1px solid rgba(15,23,42,0.14);">
+            Contacter sur WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero placeholder -->
+      <div style="aspect-ratio: 4/5; position:relative;">
+        <div style="position:absolute; inset:0; border-radius:14px; background-color:#EEF2F7; background-image:repeating-linear-gradient(135deg, transparent 0 14px, rgba(15,23,42,0.045) 14px 15px); overflow:hidden;">
+          <div style="position:absolute; top:18px; left:18px; right:18px; display:flex; justify-content:space-between; font-size:10px; letter-spacing:0.1em; color:#64748B; text-transform:uppercase;">
+            <span>HERO / 4:5</span>
+            <span>01 — FLAGSHIP SHOT</span>
+          </div>
+          <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); text-align:center;">
+            <div style="font-size:11px; letter-spacing:0.15em; color:#475569; text-transform:uppercase;">drop product photo</div>
+            <div style="margin-top:8px; font-size:10px; color:#94A3B8;">1600 × 2000 · transparent or studio bg</div>
+          </div>
+          <div style="position:absolute; bottom:18px; left:18px; right:18px; display:flex; justify-content:space-between; font-size:10px; letter-spacing:0.1em; color:#64748B; text-transform:uppercase;">
+            <span>VOLTA · 2026</span>
+            <span>NANROBOT 4000W</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero stat strip -->
+    <div style="margin-top:80px; padding-top:24px; border-top:1px solid rgba(15,23,42,0.08); display:grid; grid-template-columns: repeat(4, 1fr); gap:48px;">
+      <div>
+        <div style="font-size:11px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Modèles en stock</div>
+        <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:500;">06</div>
+      </div>
+      <div>
+        <div style="font-size:11px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Autonomie max.</div>
+        <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:500;">100<span style="font-size:18px; color:#64748B;"> km</span></div>
+      </div>
+      <div>
+        <div style="font-size:11px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Vitesse max.</div>
+        <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:500;">+70<span style="font-size:18px; color:#64748B;"> km/h</span></div>
+      </div>
+      <div>
+        <div style="font-size:11px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Garantie incluse</div>
+        <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:500;">12<span style="font-size:18px; color:#64748B;"> mois</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRUST STRIP ================= -->
+  <section style="background:#0F172A; color:#F8FAFC;">
+    <div style="max-width:1320px; margin:0 auto; padding:28px 32px; display:flex; gap:48px; align-items:center; justify-content:space-between; flex-wrap:wrap; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#CBD5E1;">
+      <span>✓&nbsp;&nbsp;Paiement à la livraison</span>
+      <span>✓&nbsp;&nbsp;Livraison partout au Maroc</span>
+      <span>✓&nbsp;&nbsp;Garantie 12 mois incluse</span>
+      <span>✓&nbsp;&nbsp;Atelier &amp; SAV interne</span>
+      <span>✓&nbsp;&nbsp;Showroom Casablanca</span>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED COLLECTION ================= -->
+  <section id="collection" style="max-width:1320px; margin:0 auto; padding:120px 32px 80px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:64px; gap:48px;">
+      <div>
+        <div style="font-size:11px; letter-spacing:0.18em; color:#64748B; text-transform:uppercase;">— La collection</div>
+        <h2 style="margin:18px 0 0; font-size:64px; line-height:1; letter-spacing:-0.04em; font-weight:500; max-width:720px;">
+          Six trottinettes, <em style="font-style:italic; font-weight:500;">une pour chaque trajet.</em>
+        </h2>
+      </div>
+      <p style="max-width:340px; font-size:15px; line-height:1.55; color:#475569; margin:0;">
+        De l'urbain quotidien au tout-terrain sportif&nbsp;— chaque modèle est testé, livré monté et accompagné d'un essai au showroom.
+      </p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:24px;">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
+        <article style="background:#fff; border-radius:20px; overflow:hidden; border:1px solid rgba(15,23,42,0.06); display:flex; flex-direction:column;">
+          <!-- Image placeholder -->
+          <div style="aspect-ratio: 4/3; position:relative; background-color:#EEF2F7; background-image:repeating-linear-gradient(135deg, transparent 0 12px, rgba(15,23,42,0.045) 12px 13px); border-bottom:1px solid rgba(15,23,42,0.06);">
+            <div style="position:absolute; top:14px; left:14px; right:14px; display:flex; justify-content:space-between; font-size:10px; letter-spacing:0.1em; color:#64748B; text-transform:uppercase;">
+              <span>{{ p.index }} / 06</span>
+              <span>{{ p.category }}</span>
+            </div>
+            <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); text-align:center; font-size:10px; color:#94A3B8; letter-spacing:0.1em;">
+              <div style="text-transform:uppercase; color:#475569;">drop&nbsp;·&nbsp;{{ p.name }}</div>
+              <div style="margin-top:4px;">side view · 1600×1200</div>
+            </div>
+            <div style="position:absolute; bottom:14px; left:14px; padding:5px 10px; background:#fff; border-radius:999px; font-size:10px; letter-spacing:0.08em; color:#0F172A; text-transform:uppercase;">
+              {{ p.badge }}
+            </div>
+          </div>
+
+          <div style="padding:24px 24px 28px; display:flex; flex-direction:column; flex:1;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
+              <h3 style="margin:0; font-size:22px; letter-spacing:-0.02em; font-weight:500;">{{ p.name }}</h3>
+              <span style="font-size:11px; color:#64748B; letter-spacing:0.06em;">{{ p.tag }}</span>
+            </div>
+            <p style="margin:10px 0 22px; font-size:14px; line-height:1.55; color:#475569;">{{ p.desc }}</p>
+
+            <!-- Specs grid -->
+            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:2px; background:rgba(15,23,42,0.06); border-radius:14px; overflow:hidden; margin-bottom:22px;">
+              <sc-for list="{{ p.specs }}" as="s" hint-placeholder-count="3">
+                <div style="background:#fff; padding:12px 12px 14px;">
+                  <div style="font-size:9px; letter-spacing:0.12em; color:#94A3B8; text-transform:uppercase;">{{ s.label }}</div>
+                  <div style="margin-top:4px; font-size:15px; letter-spacing:-0.01em; font-weight:500;">{{ s.value }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center; padding-top:18px; border-top:1px solid rgba(15,23,42,0.06);">
+              <div>
+                <div style="font-size:10px; letter-spacing:0.1em; color:#94A3B8; text-transform:uppercase;">À partir de</div>
+                <div style="font-size:18px; letter-spacing:-0.01em; font-weight:500; margin-top:2px;">{{ p.price }} <span style="font-size:12px; color:#64748B; font-weight:400;">MAD</span></div>
+              </div>
+              <button onClick="{{ orderProduct }}" data-product="{{ p.name }}" style="background:#0F172A; color:#fff; border:none; padding:11px 18px; border-radius:999px; font-size:13px; font-weight:500; display:inline-flex; align-items:center; gap:8px;">
+                Commander
+                <span style="font-size:11px;">→</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ================= COMPARISON ================= -->
+  <section id="comparer" style="background:#0F172A; color:#F8FAFC;">
+    <div style="max-width:1320px; margin:0 auto; padding:120px 32px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; gap:48px;">
+        <div>
+          <div style="font-size:11px; letter-spacing:0.18em; color:#94A3B8; text-transform:uppercase;">— Comparer</div>
+          <h2 style="margin:18px 0 0; font-size:56px; line-height:1; letter-spacing:-0.04em; font-weight:500;">
+            Côte à côte, <em style="font-style:italic; font-weight:500; color:#CBD5E1;">décidez vite.</em>
+          </h2>
+        </div>
+        <p style="max-width:320px; font-size:14px; line-height:1.6; color:#94A3B8; margin:0;">
+          Les six modèles, alignés sur les critères qui comptent vraiment&nbsp;: puissance, autonomie, vitesse, et usage recommandé.
+        </p>
+      </div>
+
+      <div style="border:1px solid rgba(248,250,252,0.1); border-radius:20px; overflow:hidden;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead>
+            <tr style="background:rgba(248,250,252,0.04);">
+              <th style="text-align:left; padding:18px 20px; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#94A3B8; font-weight:400; border-bottom:1px solid rgba(248,250,252,0.08);">Modèle</th>
+              <th style="text-align:left; padding:18px 20px; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#94A3B8; font-weight:400; border-bottom:1px solid rgba(248,250,252,0.08);">Catégorie</th>
+              <th style="text-align:left; padding:18px 20px; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#94A3B8; font-weight:400; border-bottom:1px solid rgba(248,250,252,0.08);">Puissance</th>
+              <th style="text-align:left; padding:18px 20px; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#94A3B8; font-weight:400; border-bottom:1px solid rgba(248,250,252,0.08);">Vitesse</th>
+              <th style="text-align:left; padding:18px 20px; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#94A3B8; font-weight:400; border-bottom:1px solid rgba(248,250,252,0.08);">Autonomie</th>
+              <th style="text-align:left; padding:18px 20px; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#94A3B8; font-weight:400; border-bottom:1px solid rgba(248,250,252,0.08);">Usage</th>
+              <th style="text-align:left; padding:18px 20px; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#94A3B8; font-weight:400; border-bottom:1px solid rgba(248,250,252,0.08);">Prix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
+              <tr style="border-bottom:1px solid rgba(248,250,252,0.06);">
+                <td style="padding:22px 20px; font-size:15px; letter-spacing:-0.01em; font-weight:500;">{{ p.name }}</td>
+                <td style="padding:22px 20px; color:#CBD5E1;">{{ p.category }}</td>
+                <td style="padding:22px 20px; color:#F8FAFC;">{{ p.power }}</td>
+                <td style="padding:22px 20px; color:#F8FAFC;">{{ p.speed }}</td>
+                <td style="padding:22px 20px; color:#F8FAFC;">{{ p.range }}</td>
+                <td style="padding:22px 20px; color:#CBD5E1;">{{ p.usage }}</td>
+                <td style="padding:22px 20px; color:#F8FAFC;">{{ p.price }} MAD</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:24px; font-size:11px; color:#64748B; letter-spacing:0.04em;">
+        Données indicatives constructeur · pesée et essai disponibles en showroom.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section id="faq" style="background:#fff; border-top:1px solid rgba(15,23,42,0.06); border-bottom:1px solid rgba(15,23,42,0.06);">
+    <div style="max-width:1320px; margin:0 auto; padding:120px 32px; display:grid; grid-template-columns: 1fr 1.4fr; gap:96px;">
+      <div>
+        <div style="font-size:11px; letter-spacing:0.18em; color:#64748B; text-transform:uppercase;">— FAQ</div>
+        <h2 style="margin:18px 0 24px; font-size:56px; line-height:1; letter-spacing:-0.04em; font-weight:500;">
+          Toutes les <em style="font-style:italic; font-weight:500;">réponses.</em>
+        </h2>
+        <p style="font-size:15px; line-height:1.6; color:#475569; margin:0 0 24px;">
+          Une question qui n'apparaît pas ici&nbsp;? Notre équipe répond en moins de 10 minutes sur WhatsApp, 7j/7.
+        </p>
+        <a href="#whatsapp" style="display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:500; color:#0F172A; text-decoration:none; border-bottom:1px solid #0F172A; padding-bottom:4px;">
+          Ouvrir une conversation
+          <span style="">↗</span>
+        </a>
+      </div>
+
+      <div>
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+          <details style="border-top:1px solid rgba(15,23,42,0.1);" data-faq-item>
+            <summary style="padding:24px 0; display:flex; justify-content:space-between; align-items:center; gap:24px;">
+              <span style="font-size:18px; letter-spacing:-0.015em; font-weight:500; color:#0F172A;">{{ f.q }}</span>
+              <span style="font-size:14px; color:#64748B; flex-shrink:0;" data-faq-icon>+</span>
+            </summary>
+            <div style="padding:0 0 24px; max-width:640px; font-size:15px; line-height:1.6; color:#475569;">
+              {{ f.a }}
+            </div>
+          </details>
+        </sc-for>
+        <div style="border-top:1px solid rgba(15,23,42,0.1);"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHATSAPP ORDER FORM ================= -->
+  <section id="commander" style="max-width:1320px; margin:0 auto; padding:120px 32px;">
+    <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:96px; align-items:start;">
+      <div style="position:sticky; top:120px;">
+        <div style="font-size:11px; letter-spacing:0.18em; color:#64748B; text-transform:uppercase;">— Commander</div>
+        <h2 style="margin:18px 0 28px; font-size:64px; line-height:0.98; letter-spacing:-0.04em; font-weight:500;">
+          Trois minutes,<br>
+          <em style="font-style:italic; font-weight:500;">une commande.</em>
+        </h2>
+        <p style="font-size:16px; line-height:1.6; color:#475569; margin:0 0 32px; max-width:420px;">
+          Pas de paiement en ligne, pas de compte à créer. Remplissez le formulaire&nbsp;— un conseiller vous appelle dans l'heure pour confirmer la livraison et la date.
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="font-size:11px; color:#94A3B8; min-width:30px; padding-top:4px;">01</div>
+            <div>
+              <div style="font-size:14px; font-weight:500; color:#0F172A;">Vous remplissez</div>
+              <div style="font-size:13px; color:#64748B; margin-top:2px;">Nom, téléphone, ville et modèle.</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="font-size:11px; color:#94A3B8; min-width:30px; padding-top:4px;">02</div>
+            <div>
+              <div style="font-size:14px; font-weight:500; color:#0F172A;">On vous rappelle</div>
+              <div style="font-size:13px; color:#64748B; margin-top:2px;">Confirmation et créneau de livraison.</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="font-size:11px; color:#94A3B8; min-width:30px; padding-top:4px;">03</div>
+            <div>
+              <div style="font-size:14px; font-weight:500; color:#0F172A;">Vous payez à la livraison</div>
+              <div style="font-size:13px; color:#64748B; margin-top:2px;">Cash. Vérification avant règlement.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div id="whatsapp" style="background:#fff; border:1px solid rgba(15,23,42,0.08); border-radius:24px; padding:40px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:34px; height:34px; border-radius:50%; background:#10B981; display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px;">✦</div>
+            <div>
+              <div style="font-size:14px; font-weight:500;">Commande WhatsApp</div>
+              <div style="font-size:11px; color:#64748B;">réponse &lt; 10 min · 7j/7</div>
+            </div>
+          </div>
+          <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:10px; letter-spacing:0.12em; color:#10B981; text-transform:uppercase;">✓ Envoyé</div>
+          </sc-if>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:18px;">
+          <label style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Nom complet</span>
+            <input type="text" value="{{ form.name }}" onChange="{{ updateField }}" data-field="name" placeholder="Mehdi Alaoui" style="border:none; border-bottom:1px solid rgba(15,23,42,0.18); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#0F172A;">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Téléphone</span>
+            <input type="tel" value="{{ form.phone }}" onChange="{{ updateField }}" data-field="phone" placeholder="+212 6 — — — —" style="border:none; border-bottom:1px solid rgba(15,23,42,0.18); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#0F172A;">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:8px; grid-column: span 2;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Adresse de livraison</span>
+            <input type="text" value="{{ form.address }}" onChange="{{ updateField }}" data-field="address" placeholder="Rue, quartier, étage…" style="border:none; border-bottom:1px solid rgba(15,23,42,0.18); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#0F172A;">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Ville</span>
+            <select value="{{ form.city }}" onChange="{{ updateField }}" data-field="city" style="border:none; border-bottom:1px solid rgba(15,23,42,0.18); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#0F172A; appearance:none;">
+              <option>Casablanca</option>
+              <option>Rabat</option>
+              <option>Marrakech</option>
+              <option>Tanger</option>
+              <option>Fès</option>
+              <option>Agadir</option>
+              <option>Meknès</option>
+              <option>Oujda</option>
+              <option>Autre ville</option>
+            </select>
+          </label>
+          <label style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Quantité</span>
+            <select value="{{ form.qty }}" onChange="{{ updateField }}" data-field="qty" style="border:none; border-bottom:1px solid rgba(15,23,42,0.18); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#0F172A; appearance:none;">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4+</option>
+            </select>
+          </label>
+        </div>
+
+        <div style="margin-top:32px;">
+          <div style="font-size:10px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase; margin-bottom:14px;">Modèle</div>
+          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;">
+            <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
+              <button onClick="{{ selectProduct }}" data-product="{{ p.name }}" data-selected="{{ p.isSelected }}" style="text-align:left; padding:14px; border:1px solid {{ p.borderColor }}; background:{{ p.bgColor }}; color:{{ p.textColor }}; border-radius:14px; transition: all 0.15s;">
+                <div style="font-size:9px; letter-spacing:0.1em; opacity:0.7; text-transform:uppercase;">{{ p.category }}</div>
+                <div style="margin-top:6px; font-size:13px; font-weight:500; letter-spacing:-0.005em;">{{ p.name }}</div>
+                <div style="margin-top:4px; font-size:10px; opacity:0.7;">{{ p.price }} MAD</div>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="margin-top:32px; padding-top:24px; border-top:1px solid rgba(15,23,42,0.08); display:flex; justify-content:space-between; align-items:center; gap:24px;">
+          <div>
+            <div style="font-size:10px; letter-spacing:0.12em; color:#64748B; text-transform:uppercase;">Total estimé</div>
+            <div style="margin-top:6px; font-size:28px; letter-spacing:-0.025em; font-weight:500;">
+              {{ total }} <span style="font-size:14px; color:#64748B; font-weight:400;">MAD</span>
+            </div>
+            <div style="font-size:10px; color:#10B981; margin-top:4px; letter-spacing:0.06em;">+ Livraison offerte · Paiement cash</div>
+          </div>
+          <button onClick="{{ submitOrder }}" style="background:#10B981; color:#fff; border:none; padding:18px 28px; border-radius:999px; font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:10px;">
+            Commander via WhatsApp
+            <span style="font-size:12px;">↗</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT / FOOTER ================= -->
+  <section style="background:#0F172A; color:#F8FAFC;">
+    <div style="max-width:1320px; margin:0 auto; padding:96px 32px 40px;">
+      <div style="display:grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap:64px; padding-bottom:64px; border-bottom:1px solid rgba(248,250,252,0.1);">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:24px;">
+            <div style="width:26px; height:26px; border-radius:50%; background:#F8FAFC; position:relative; display:flex; align-items:center; justify-content:center;">
+              <div style="width:8px; height:8px; border-radius:50%; background:#2563EB;"></div>
+            </div>
+            <span style="font-size:15px; font-weight:600;">Volta&thinsp;—&thinsp;Mobilité</span>
+          </div>
+          <p style="font-size:15px; line-height:1.55; color:#94A3B8; max-width:380px; margin:0 0 24px;">
+            Showroom, atelier et livraison nationale&nbsp;— une équipe marocaine qui roule, teste et répare ce qu'elle vend.
+          </p>
+          <div style="font-size:11px; letter-spacing:0.08em; color:#CBD5E1;">
+            Bd Zerktouni, Casablanca · Lun–Sam · 9h–20h
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px; letter-spacing:0.16em; color:#64748B; text-transform:uppercase; margin-bottom:18px;">Collection</div>
+          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:14px; color:#CBD5E1;">
+            <li>TEKNES PRO+</li>
+            <li>NXRIDE 700W</li>
+            <li>NXRIDE SET PRO 2.0</li>
+            <li>K2 MASTER</li>
+            <li>BISON GT</li>
+            <li>NANROBOT 4000W</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:10px; letter-spacing:0.16em; color:#64748B; text-transform:uppercase; margin-bottom:18px;">Service</div>
+          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:14px; color:#CBD5E1;">
+            <li>Livraison Maroc</li>
+            <li>Paiement à la livraison</li>
+            <li>Garantie 12 mois</li>
+            <li>Atelier &amp; SAV</li>
+            <li>Pièces détachées</li>
+            <li>Essai en showroom</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:10px; letter-spacing:0.16em; color:#64748B; text-transform:uppercase; margin-bottom:18px;">Contact</div>
+          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:14px; color:#CBD5E1;">
+            <li>WhatsApp</li>
+            <li>Téléphone</li>
+            <li>Instagram</li>
+            <li>contact@volta.ma</li>
+          </ul>
+        </div>
+      </div>
+      <div style="padding-top:32px; display:flex; justify-content:space-between; align-items:center; font-size:11px; letter-spacing:0.08em; color:#64748B;">
+        <span>© 2026 Volta Mobilité · Casablanca, Maroc</span>
+        <span>Mentions légales · Conditions de vente · Politique de retour</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STICKY WHATSAPP ================= -->
+  <a href="#commander" style="position:fixed; bottom:28px; right:28px; z-index:60; background:#10B981; color:#fff; padding:16px 22px; border-radius:999px; text-decoration:none; font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:12px; box-shadow: 0 12px 32px rgba(16,185,129,0.35), 0 4px 12px rgba(15,23,42,0.18);">
+    <span style="width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.18); display:flex; align-items:center; justify-content:center; font-size:14px;">✦</span>
+    Commander sur WhatsApp
+  </a>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = {
+    selectedProduct: "TEKNES PRO+",
+    submitted: false,
+    form: {
+      name: "",
+      phone: "",
+      address: "",
+      city: "Casablanca",
+      qty: "1"
+    }
+  };
+
+  PRODUCTS = [
+    { name: "NXRIDE 700W", category: "Entry Level", tag: "Urbain", badge: "Meilleur rapport Q/P", desc: "Idéale pour la ville avec suspension avant et accélération fluide. Le premier vélo électrique sans compromis.", power: "700 W", speed: "35 km/h", range: "25 km", usage: "Trajets quotidiens urbains", price: "4 990", specs: [{label:"Puissance",value:"700 W"},{label:"Vitesse max.",value:"35 km/h"},{label:"Autonomie",value:"25 km"}] },
+    { name: "TEKNES PRO+", category: "City Premium", tag: "Urbain Premium", badge: "Bestseller urbain", desc: "Conçue pour les trajets urbains et périurbains. Excellente stabilité, design moderne et confort de conduite.", power: "850 W", speed: "40 km/h", range: "35 km", usage: "Urbain · périurbain", price: "7 490", specs: [{label:"Puissance",value:"850 W"},{label:"Vitesse max.",value:"40 km/h"},{label:"Autonomie",value:"35 km"}] },
+    { name: "NXRIDE SET PRO 2.0", category: "Utility", tag: "Utilitaire", badge: "Confort premium", desc: "Version utilitaire équipée d'un siège et d'un top case pour les déplacements longue durée.", power: "800 W", speed: "50 km/h", range: "35 km", usage: "Longue durée · livreurs", price: "8 990", specs: [{label:"Puissance",value:"800 W"},{label:"Vitesse max.",value:"50 km/h"},{label:"Autonomie",value:"35 km"}] },
+    { name: "BISON GT", category: "Sport", tag: "Sport routier", badge: "Grande autonomie", desc: "Trottinette robuste offrant une excellente autonomie et une conduite confortable sur tout type de route.", power: "1000 W", speed: "50 km/h", range: "40 km", usage: "Route · longue distance", price: "11 490", specs: [{label:"Puissance",value:"1000 W"},{label:"Vitesse max.",value:"50 km/h"},{label:"Autonomie",value:"40 km"}] },
+    { name: "K2 MASTER", category: "Off-Road", tag: "Tout-terrain", badge: "Performance extrême", desc: "Trottinette double moteur orientée performance et tout-terrain. Pour les passionnés de sensations.", power: "2 000 W", speed: "60 km/h", range: "45 km", usage: "Off-road · sportif", price: "14 990", specs: [{label:"Puissance",value:"2 × 1000 W"},{label:"Vitesse max.",value:"60 km/h"},{label:"Autonomie",value:"45 km"}] },
+    { name: "NANROBOT 4000W", category: "Flagship", tag: "Hyper performance", badge: "Flagship ultra perf.", desc: "Machine hautes performances pour les passionnés qui recherchent puissance et autonomie maximales.", power: "4 000 W", speed: "72 km/h", range: "100 km", usage: "Tout-terrain intensif", price: "19 990", specs: [{label:"Puissance",value:"2 × 2000 W"},{label:"Vitesse max.",value:"72 km/h"},{label:"Autonomie",value:"100 km"}] }
+  ];
+
+  PRICES_NUM = {
+    "NXRIDE 700W": 4990,
+    "TEKNES PRO+": 7490,
+    "NXRIDE SET PRO 2.0": 8990,
+    "BISON GT": 11490,
+    "K2 MASTER": 14990,
+    "NANROBOT 4000W": 19990
+  };
+
+  FAQS = [
+    { q: "Comment fonctionne le paiement à la livraison ?", a: "Vous payez en cash directement au livreur, après avoir vérifié et essayé la trottinette devant lui. Aucune avance n'est demandée, et vous pouvez refuser la livraison si quelque chose ne correspond pas à votre commande." },
+    { q: "Quelle est la durée de garantie ?", a: "Toutes nos trottinettes incluent une garantie de 12 mois sur le moteur, la batterie et le contrôleur. Nous gérons les réparations dans notre propre atelier à Casablanca — pas d'envoi à l'étranger, pas d'attente." },
+    { q: "Livrez-vous partout au Maroc ?", a: "Oui. Casablanca et Rabat sous 24 à 48h. Marrakech, Tanger, Fès, Agadir, Meknès, Oujda sous 3 à 5 jours ouvrés. Les autres villes selon disponibilité du transporteur — un conseiller confirme le délai au téléphone." },
+    { q: "Puis-je essayer avant d'acheter ?", a: "Absolument. Notre showroom Bd Zerktouni à Casablanca dispose des six modèles en essai. Sur RDV, comptez 30 minutes pour tester deux ou trois trottinettes sur notre parcours dédié." },
+    { q: "Que se passe-t-il en cas de panne ?", a: "Vous contactez notre WhatsApp SAV. Si la panne est couverte par la garantie, nous récupérons la trottinette à domicile (Casablanca/Rabat) ou organisons le retour par transporteur. Réparation sous 7 jours en moyenne." },
+    { q: "Avez-vous des pièces détachées ?", a: "Oui — batteries, contrôleurs, pneus, freins, gâchettes, écrans, chargeurs. Nous stockons les pièces des six modèles que nous vendons, ce qui garantit une réparation rapide même hors garantie." }
+  ];
+
+  renderVals() {
+    const sel = this.state.selectedProduct;
+    const qty = parseInt(this.state.form.qty) || 1;
+    const unit = this.PRICES_NUM[sel] || 0;
+    const total = (unit * qty).toLocaleString('fr-FR').replace(/,/g, ' ');
+
+    const products = this.PRODUCTS.map((p, i) => {
+      const isSelected = p.name === sel;
+      return {
+        ...p,
+        index: String(i + 1).padStart(2, '0'),
+        isSelected,
+        borderColor: isSelected ? '#0F172A' : 'rgba(15,23,42,0.12)',
+        bgColor: isSelected ? '#0F172A' : '#fff',
+        textColor: isSelected ? '#F8FAFC' : '#0F172A'
+      };
+    });
+
+    return {
+      products,
+      faqs: this.FAQS,
+      form: this.state.form,
+      submitted: this.state.submitted,
+      total,
+      selectProduct: (e) => {
+        const name = e.currentTarget.dataset.product;
+        this.setState({ selectedProduct: name, submitted: false });
+      },
+      orderProduct: (e) => {
+        const name = e.currentTarget.dataset.product;
+        this.setState({ selectedProduct: name, submitted: false });
+        const el = document.getElementById('commander');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      },
+      updateField: (e) => {
+        const field = e.currentTarget.dataset.field;
+        const value = e.currentTarget.value;
+        this.setState({ form: { ...this.state.form, [field]: value } });
+      },
+      submitOrder: () => {
+        this.setState({ submitted: true });
+      }
+    };
+  }
+
+  componentDidMount() {
+    // FAQ +/- toggle
+    document.querySelectorAll('[data-faq-item]').forEach(d => {
+      d.addEventListener('toggle', () => {
+        const icon = d.querySelector('[data-faq-icon]');
+        if (icon) icon.textContent = d.open ? '–' : '+';
+      });
+    });
+  }
+}
+</script>
+</body>
+</html>

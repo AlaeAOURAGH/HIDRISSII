@@ -1,0 +1,7 @@
+# Keep the deploy small: raw photos, the design-source .dc.html files,
+# and the local-only ingest script never need to reach Vercel.
+uploads/
+*.dc.html
+.thumbnail
+scripts/
+node_modules/sharp/

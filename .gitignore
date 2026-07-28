@@ -1,0 +1,10 @@
+node_modules/
+.vercel/
+.env
+.env*.local
+npm-debug.log*
+
+# Raw source photos — heavy (HEIC + multi-MB JPEG). Kept locally for
+# re-running the image pipeline; never deployed. The optimized WebP in
+# /img is what ships.
+uploads/

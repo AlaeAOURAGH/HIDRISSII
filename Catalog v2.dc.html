@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #0E1621;
+    color: #F3ECDD;
+    -webkit-font-smoothing: antialiased;
+  }
+  [dir="rtl"], [dir="rtl"] input, [dir="rtl"] select, [dir="rtl"] button {
+    font-family: "Tajawal", "Manrope", sans-serif;
+  }
+  ::selection { background: #338FFF; color: #fff; }
+  button { font-family: inherit; cursor: pointer; }
+  a { -webkit-tap-highlight-color: transparent; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @keyframes waPulse { 0% { box-shadow:0 0 0 0 rgba(37,211,102,0.5); } 70% { box-shadow:0 0 0 16px rgba(37,211,102,0); } 100% { box-shadow:0 0 0 0 rgba(37,211,102,0); } }
+  @media (max-width: 920px) {
+    .resp-hero { grid-template-columns: 1fr !important; gap: 36px !important; }
+    .resp-detail { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .resp-order { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .resp-order-sticky { position: static !important; }
+    .resp-grid-3 { grid-template-columns: 1fr 1fr !important; }
+    .resp-h1 { font-size: 52px !important; }
+    .resp-h2 { font-size: 40px !important; }
+    .nav-links { display: none !important; }
+    .resp-store { grid-template-columns: 1fr !important; gap: 28px !important; }
+    .resp-store-side-sticky { position: static !important; }
+    .store-nav { flex-direction: row !important; flex-wrap: wrap !important; }
+    .store-nav-item { width: auto !important; }
+  }
+  @media (max-width: 600px) {
+    .resp-grid-3 { grid-template-columns: 1fr !important; }
+    .resp-stats { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+    .resp-pad { padding-left: 20px !important; padding-right: 20px !important; }
+    .resp-h1 { font-size: 40px !important; line-height: 1.08 !important; }
+    .resp-h2 { font-size: 32px !important; }
+    .resp-trust { gap: 14px !important; font-size: 11px !important; }
+    .resp-form-card { padding: 24px !important; }
+    .resp-detail-price { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; }
+    .resp-table-wrap { overflow-x: auto !important; }
+    .resp-table { min-width: 560px !important; }
+    .resp-nav-pad { padding: 14px 20px !important; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/libheif-js@1.18.2/libheif-wasm/libheif-bundle.js"></script>
+</helmet>
+
+<div dir="{{ dir }}" style="background:#0E1621; color:#F3ECDD; min-width:100%; overflow-x:hidden;">
+
+  <!-- NAV -->
+  <nav style="position:sticky; top:0; z-index:50; background:rgba(14,22,33,0.85); backdrop-filter:saturate(140%) blur(14px); -webkit-backdrop-filter:saturate(140%) blur(14px); border-bottom:1px solid rgba(255,255,255,0.07);">
+    <div class="resp-nav-pad" style="max-width:1320px; margin:0 auto; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; gap:32px;">
+      <a href="#" onClick="{{ goHome }}" style="display:flex; align-items:center;">
+        <img src="uploads/logo-white.png" alt="HIDRISSI" style="height:26px; width:auto; display:block;">
+      </a>
+      <div class="nav-links" style="display:flex; align-items:center; gap:28px; font-size:14px; color:#C3CCD5;">
+        <a href="#" onClick="{{ goHome }}" style="color:inherit; text-decoration:none; font-weight:500;">{{ t.navHome }}</a>
+        <a href="#collection" style="color:inherit; text-decoration:none;">{{ t.navCollection }}</a>
+        <a href="#commander" style="color:inherit; text-decoration:none;">{{ t.navOrder }}</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <button onClick="{{ toggleLang }}" style="display:inline-flex; align-items:center; gap:7px; background:none; border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:7px 14px; font-size:13px; font-weight:600; color:#F3ECDD;">
+          <span style="font-size:14px;">{{ t.langGlobe }}</span>
+          {{ t.langSwitch }}
+        </button>
+        <a href="#commander" style="background:#25D366; color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          {{ t.navOrder }}
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PRODUCT DETAIL VIEW -->
+  <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1320px; margin:0 auto; padding:32px 32px 80px;">
+      <button onClick="{{ goHome }}" style="background:none; border:none; font-size:14px; color:#8A96A3; display:inline-flex; align-items:center; gap:8px; padding:8px 0; margin-bottom:24px;">
+        <span style="font-size:18px;">{{ t.backArrow }}</span> {{ t.backToCollection }}
+      </button>
+
+      <div class="resp-detail" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
+        <!-- Gallery -->
+        <div>
+          <div style="position:relative; aspect-ratio:1; border-radius:16px; overflow:hidden; background:#1E2C3A; border:1px solid rgba(255,255,255,0.07); margin-bottom:12px;">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:30px; height:30px; border:3px solid rgba(255,255,255,0.14); border-top-color:#E0A645; border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
+            <img ref="{{ currentImageRef }}" style="position:relative; width:100%; height:100%; object-fit:cover;" alt="{{ currentProduct.name }}">
+          </div>
+          <div style="display:flex; gap:8px; overflow-x:auto; padding:4px 0;">
+            <sc-for list="{{ currentProduct.images }}" as="img" hint-placeholder-count="4">
+              <button onClick="{{ selectImage }}" data-idx="{{ $index }}" style="position:relative; flex:none; width:72px; height:72px; border-radius:10px; overflow:hidden; border:2px solid {{ img.borderColor }}; padding:0; background:#1E2C3A; cursor:pointer;">
+                <img ref="{{ img.srcRef }}" style="width:100%; height:100%; object-fit:cover;" alt="">
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div style="padding-top:8px;">
+          <div style="font-size:11px; letter-spacing:0.14em; color:#8A96A3; text-transform:uppercase; margin-bottom:12px;">{{ currentProduct.category }}</div>
+          <h1 style="font-size:42px; font-weight:800; letter-spacing:-0.03em; line-height:1.1; margin-bottom:16px;">{{ currentProduct.name }}</h1>
+          <p style="font-size:16px; line-height:1.7; color:#AEB9C4; margin-bottom:32px; max-width:480px;">{{ currentProduct.desc }}</p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; background:rgba(255,255,255,0.07); border-radius:14px; overflow:hidden; margin-bottom:32px;">
+            <sc-for list="{{ currentProduct.specs }}" as="s" hint-placeholder-count="3">
+              <div style="background:#16222F; padding:16px;">
+                <div style="font-size:10px; letter-spacing:0.1em; color:#74808E; text-transform:uppercase;">{{ s.label }}</div>
+                <div style="margin-top:6px; font-size:18px; font-weight:700; letter-spacing:-0.01em;">{{ s.value }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="margin-bottom:32px;">
+            <div style="font-size:12px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase; margin-bottom:14px;">{{ t.features }}</div>
+            <sc-for list="{{ currentProduct.features }}" as="feat" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.07); font-size:14px; color:#C3CCD5;">
+                <span style="color:#E0A645; font-size:14px;">✓</span>
+                {{ feat }}
+              </div>
+            </sc-for>
+          </div>
+
+          <div class="resp-detail-price" style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:24px; background:#16222F; border:1px solid rgba(255,255,255,0.09); border-radius:16px;">
+            <div>
+              <div style="font-size:10px; letter-spacing:0.1em; color:#74808E; text-transform:uppercase;">{{ t.price }}</div>
+              <div style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin-top:4px; color:#E0A645;">{{ currentProduct.price }} <span style="font-size:16px; color:#8A96A3; font-weight:500;">{{ t.currency }}</span></div>
+              <div style="font-size:11px; color:#E0A645; margin-top:4px;">{{ t.freeDelivery }}</div>
+            </div>
+            <a href="#commander" onClick="{{ selectFromDetail }}" style="background:#E0A645; color:#0E1621; border:none; padding:16px 28px; border-radius:999px; font-size:14px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px; white-space:nowrap;">
+              {{ t.order }} <span style="font-size:12px;">{{ t.fwdArrow }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- HOME VIEW -->
+  <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+
+    <!-- HERO -->
+    <section style="max-width:1320px; margin:0 auto; padding:56px 32px 72px;">
+      <div class="resp-hero" style="display:grid; grid-template-columns:1.1fr 1fr; gap:56px; align-items:end;">
+        <div>
+          <div style="font-size:13px; letter-spacing:0.04em; color:#C3CCD5;">{{ t.heroBadge }}</div>
+          <h1 class="resp-h1" style="margin:28px 0 24px; font-size:80px; line-height:1.02; letter-spacing:-0.04em; font-weight:800;">{{ t.heroTitle }}</h1>
+          <p style="max-width:520px; font-size:18px; line-height:1.6; color:#AEB9C4; margin:0 0 36px;">{{ t.heroSubtitle }}</p>
+          <div style="display:flex; gap:14px; align-items:center;">
+            <a href="#collection" style="background:#E0A645; color:#0E1621; padding:16px 26px; border-radius:999px; font-size:14px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px;">
+              {{ t.heroCta }} <span style="font-size:12px;">{{ t.upArrow }}</span>
+            </a>
+          </div>
+        </div>
+        <div style="position:relative; aspect-ratio:4/5; border-radius:16px; overflow:hidden; background:#1E2C3A; border:1px solid rgba(255,255,255,0.07);">
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:30px; height:30px; border:3px solid rgba(255,255,255,0.14); border-top-color:#E0A645; border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
+          <img ref="{{ heroRef }}" style="position:relative; width:100%; height:100%; object-fit:cover;" alt="HIDRISSI">
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="resp-stats" style="margin-top:72px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.09); display:grid; grid-template-columns:repeat(4,1fr); gap:48px;">
+        <div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:#8A96A3; text-transform:uppercase;">{{ t.statModels }}</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">16</div>
+        </div>
+        <div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:#8A96A3; text-transform:uppercase;">{{ t.statRange }}</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">100<span style="font-size:18px; color:#8A96A3;"> {{ t.km }}</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:#8A96A3; text-transform:uppercase;">{{ t.statSpeed }}</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">+70<span style="font-size:18px; color:#8A96A3;"> {{ t.kmh }}</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:#8A96A3; text-transform:uppercase;">{{ t.statWarranty }}</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">12<span style="font-size:18px; color:#8A96A3;"> {{ t.months }}</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <section style="background:#0A131D; color:#F3ECDD;">
+      <div class="resp-trust" style="max-width:1320px; margin:0 auto; padding:24px 32px; display:flex; gap:32px; align-items:center; justify-content:space-between; flex-wrap:wrap; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:#9AA6B2;">
+        <span>✓&nbsp; {{ t.trust1 }}</span>
+        <span>✓&nbsp; {{ t.trust2 }}</span>
+        <span>✓&nbsp; {{ t.trust3 }}</span>
+        <span>✓&nbsp; {{ t.trust4 }}</span>
+      </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section id="collection" style="max-width:1320px; margin:0 auto; padding:100px 32px 80px;">
+      <div style="margin-bottom:32px;">
+        <div style="font-size:11px; letter-spacing:0.16em; color:#8A96A3; text-transform:uppercase;">{{ t.collectionEyebrow }}</div>
+        <h2 class="resp-h2" style="margin:16px 0 0; font-size:54px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ t.collectionTitle }}</h2>
+        <p style="margin:18px 0 0; max-width:580px; font-size:15px; line-height:1.65; color:#AEB9C4;">{{ t.collectionGoal }}</p>
+      </div>
+
+      <div class="resp-store" style="display:grid; grid-template-columns:232px 1fr; gap:40px; align-items:start;">
+
+        <!-- STORE SIDEBAR -->
+        <aside>
+          <div class="resp-store-side-sticky" style="position:sticky; top:96px;">
+            <div style="font-size:10px; letter-spacing:0.14em; color:#74808E; text-transform:uppercase; padding:0 6px 14px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px;">{{ t.catTitle }}</div>
+            <nav class="store-nav" style="display:flex; flex-direction:column; gap:4px;">
+              <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="4">
+                <button class="store-nav-item" onClick="{{ selectCat }}" data-cat="{{ c.key }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:none; border-radius:12px; background:{{ c.bg }}; color:{{ c.color }}; font-size:14px; font-weight:{{ c.weight }}; text-align:start; cursor:pointer;" style-hover="background:rgba(255,255,255,0.05);">
+                  <span style="display:inline-flex; align-items:center; gap:10px;">
+                    <span style="width:3px; height:15px; border-radius:2px; background:{{ c.bar }};"></span>
+                    {{ c.label }}
+                  </span>
+                  <span style="font-size:11px; font-weight:600; min-width:24px; text-align:center; padding:3px 8px; border-radius:999px; background:{{ c.countBg }}; color:{{ c.countColor }};">{{ c.count }}</span>
+                </button>
+              </sc-for>
+            </nav>
+
+            <div style="font-size:10px; letter-spacing:0.14em; color:#74808E; text-transform:uppercase; padding:22px 6px 14px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px;">{{ t.brandTitle }}</div>
+            <nav class="store-nav" style="display:flex; flex-direction:column; gap:4px;">
+              <sc-for list="{{ brandChips }}" as="c" hint-placeholder-count="6">
+                <button class="store-nav-item" onClick="{{ selectBrand }}" data-brand="{{ c.key }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:none; border-radius:12px; background:{{ c.bg }}; color:{{ c.color }}; font-size:14px; font-weight:{{ c.weight }}; text-align:start; cursor:pointer;" style-hover="background:rgba(255,255,255,0.05);">
+                  <span style="display:inline-flex; align-items:center; gap:10px;">
+                    <span style="width:3px; height:15px; border-radius:2px; background:{{ c.bar }};"></span>
+                    {{ c.label }}
+                  </span>
+                  <span style="font-size:11px; font-weight:600; min-width:24px; text-align:center; padding:3px 8px; border-radius:999px; background:{{ c.countBg }}; color:{{ c.countColor }};">{{ c.count }}</span>
+                </button>
+              </sc-for>
+            </nav>
+          </div>
+        </aside>
+
+        <!-- PRODUCTS -->
+        <div>
+          <div style="position:relative; margin-bottom:20px;">
+            <span style="position:absolute; inset-inline-start:18px; top:50%; transform:translateY(-50%); color:#74808E; font-size:18px; pointer-events:none;">⌕</span>
+            <input type="text" value="{{ search }}" onInput="{{ onSearch }}" placeholder="{{ t.searchPlaceholder }}" style="width:100%; background:#16222F; border:1px solid rgba(255,255,255,0.1); border-radius:999px; padding:15px 18px 15px 46px; font-size:15px; color:#F3ECDD; outline:none;">
+          </div>
+
+          <div style="font-size:12px; letter-spacing:0.04em; color:#74808E; margin-bottom:22px;">{{ resultLabel }}</div>
+
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:72px 24px; text-align:center; color:#74808E; border:1px dashed rgba(255,255,255,0.14); border-radius:18px; font-size:15px;">{{ t.noResults }}</div>
+          </sc-if>
+
+          <div class="resp-grid-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+        <sc-for list="{{ filteredProducts }}" as="p" hint-placeholder-count="6">
+          <article onClick="{{ openProduct }}" data-idx="{{ $index }}" style="background:#16222F; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,0.07); cursor:pointer; display:flex; flex-direction:column;" style-hover="box-shadow:0 8px 32px rgba(0,0,0,0.55);">
+            <div style="position:relative; aspect-ratio:4/3; background:#1E2C3A; overflow:hidden; border-bottom:1px solid rgba(255,255,255,0.07);">
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:26px; height:26px; border:3px solid rgba(255,255,255,0.14); border-top-color:#E0A645; border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
+              <img ref="{{ p.thumbRef }}" style="position:relative; width:100%; height:100%; object-fit:cover;" alt="{{ p.name }}">
+              <div style="position:absolute; top:12px; inset-inline-start:12px; padding:5px 10px; background:rgba(224,166,69,0.95); backdrop-filter:blur(6px); border-radius:999px; font-size:10px; letter-spacing:0.06em; color:#0E1621; text-transform:uppercase; font-weight:700;">
+                {{ p.badge }}
+              </div>
+              <div style="position:absolute; bottom:12px; inset-inline-end:12px; padding:5px 10px; background:rgba(15,23,42,0.75); backdrop-filter:blur(6px); border-radius:999px; font-size:10px; color:#fff; letter-spacing:0.04em;">
+                {{ p.imageCountLabel }}
+              </div>
+            </div>
+
+            <div style="padding:20px 20px 24px; display:flex; flex-direction:column; flex:1;">
+              <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
+                <h3 style="font-size:20px; letter-spacing:-0.02em; font-weight:800;">{{ p.name }}</h3>
+                <span style="font-size:10px; color:#8A96A3; letter-spacing:0.05em; text-transform:uppercase; flex-shrink:0;">{{ p.category }}</span>
+              </div>
+              <p style="margin:8px 0 18px; font-size:13px; line-height:1.6; color:#8A96A3;">{{ p.shortDesc }}</p>
+
+              <div style="display:flex; gap:14px; margin-bottom:18px; font-size:12px; color:#AEB9C4; flex-wrap:wrap;">
+                <span>{{ p.power }}</span>
+                <span style="color:#9AA6B2;">·</span>
+                <span>{{ p.speed }}</span>
+                <span style="color:#9AA6B2;">·</span>
+                <span>{{ p.range }}</span>
+              </div>
+
+              <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid rgba(255,255,255,0.07);">
+                <div style="font-size:20px; font-weight:800; letter-spacing:-0.01em; color:#E0A645;">{{ p.price }} <span style="font-size:12px; color:#8A96A3; font-weight:500;">{{ t.currency }}</span></div>
+                <span style="font-size:13px; color:#E0A645; font-weight:600; display:inline-flex; align-items:center; gap:6px;">
+                  {{ t.viewDetails }} <span style="font-size:11px;">{{ t.fwdArrow }}</span>
+                </span>
+              </div>
+            </div>
+          </article>
+        </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section style="background:#0A131D; color:#F3ECDD;">
+      <div style="max-width:1320px; margin:0 auto; padding:100px 32px;">
+        <div style="margin-bottom:48px;">
+          <div style="font-size:11px; letter-spacing:0.16em; color:#74808E; text-transform:uppercase;">{{ t.compareEyebrow }}</div>
+          <h2 class="resp-h2" style="margin:16px 0 0; font-size:46px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ t.compareTitle }}</h2>
+        </div>
+
+        <div class="resp-table-wrap" style="border:1px solid rgba(248,250,252,0.1); border-radius:16px; overflow:hidden;">
+          <table class="resp-table" style="width:100%; border-collapse:collapse; font-size:13px;">
+            <thead>
+              <tr style="background:rgba(248,250,252,0.04);">
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colModel }}</th>
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colPower }}</th>
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colSpeed }}</th>
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colRange }}</th>
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colPrice }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
+                <tr style="border-bottom:1px solid rgba(248,250,252,0.06);">
+                  <td style="padding:18px 20px; font-weight:700;">{{ p.name }}</td>
+                  <td style="padding:18px 20px; color:#F3ECDD;">{{ p.power }}</td>
+                  <td style="padding:18px 20px; color:#F3ECDD;">{{ p.speed }}</td>
+                  <td style="padding:18px 20px; color:#F3ECDD;">{{ p.range }}</td>
+                  <td style="padding:18px 20px; color:#F3ECDD;">{{ p.price }} {{ t.currency }}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDER -->
+    <section id="commander" style="max-width:1320px; margin:0 auto; padding:100px 32px;">
+      <div class="resp-order" style="display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:start;">
+        <div class="resp-order-sticky" style="position:sticky; top:100px;">
+          <div style="font-size:11px; letter-spacing:0.16em; color:#8A96A3; text-transform:uppercase;">{{ t.orderEyebrow }}</div>
+          <h2 class="resp-h2" style="margin:16px 0 24px; font-size:54px; line-height:1.02; letter-spacing:-0.04em; font-weight:800;">{{ t.orderTitle }}</h2>
+          <p style="font-size:15px; line-height:1.7; color:#AEB9C4; margin:0 0 28px; max-width:400px;">{{ t.orderSubtitle }}</p>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div style="font-size:11px; color:#74808E; min-width:28px; padding-top:3px;">01</div>
+              <div>
+                <div style="font-size:14px; font-weight:700;">{{ t.step1Title }}</div>
+                <div style="font-size:13px; color:#8A96A3; margin-top:2px;">{{ t.step1Desc }}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div style="font-size:11px; color:#74808E; min-width:28px; padding-top:3px;">02</div>
+              <div>
+                <div style="font-size:14px; font-weight:700;">{{ t.step2Title }}</div>
+                <div style="font-size:13px; color:#8A96A3; margin-top:2px;">{{ t.step2Desc }}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div style="font-size:11px; color:#74808E; min-width:28px; padding-top:3px;">03</div>
+              <div>
+                <div style="font-size:14px; font-weight:700;">{{ t.step3Title }}</div>
+                <div style="font-size:13px; color:#8A96A3; margin-top:2px;">{{ t.step3Desc }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="resp-form-card" style="background:#16222F; border:1px solid rgba(255,255,255,0.09); border-radius:20px; padding:36px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:28px;">
+            <div style="width:36px; height:36px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; color:#fff;"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
+            <div>
+              <div style="font-size:14px; font-weight:700;">{{ t.waTitle }}</div>
+              <div style="font-size:11px; color:#8A96A3;">{{ t.waSubtitle }}</div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <label style="display:flex; flex-direction:column; gap:6px;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldName }}</span>
+              <input type="text" value="{{ form.name }}" onChange="{{ updateField }}" data-field="name" placeholder="{{ t.phName }}" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldPhone }}</span>
+              <input type="tel" value="{{ form.phone }}" onChange="{{ updateField }}" data-field="phone" placeholder="+212 6 — — —" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldCity }}</span>
+              <select value="{{ form.city }}" onChange="{{ updateField }}" data-field="city" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD; appearance:none;">
+                <sc-for list="{{ cities }}" as="c" hint-placeholder-count="7">
+                  <option>{{ c }}</option>
+                </sc-for>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldQty }}</span>
+              <select value="{{ form.qty }}" onChange="{{ updateField }}" data-field="qty" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD; appearance:none;">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px; grid-column:1 / -1;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldAddress }}</span>
+              <input type="text" value="{{ form.address }}" onChange="{{ updateField }}" data-field="address" placeholder="{{ t.phAddress }}" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px; grid-column:1 / -1;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldNote }}</span>
+              <input type="text" value="{{ form.note }}" onChange="{{ updateField }}" data-field="note" placeholder="{{ t.phNote }}" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
+            </label>
+          </div>
+            <div style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase; margin-bottom:12px;">{{ t.fieldModel }}</div>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+              <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
+                <button onClick="{{ selectProduct }}" data-product="{{ p.name }}" style="text-align:start; padding:12px; border:1px solid {{ p.borderColor }}; background:{{ p.bgColor }}; color:{{ p.textColor }}; border-radius:12px;">
+                  <div style="font-size:9px; letter-spacing:0.08em; opacity:0.7; text-transform:uppercase;">{{ p.category }}</div>
+                  <div style="margin-top:4px; font-size:13px; font-weight:700;">{{ p.name }}</div>
+                  <div style="margin-top:2px; font-size:10px; opacity:0.7;">{{ p.price }} {{ t.currency }}</div>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="margin-top:28px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.09); display:flex; justify-content:space-between; align-items:center; gap:20px;">
+            <div>
+              <div style="font-size:10px; letter-spacing:0.08em; color:#74808E; text-transform:uppercase;">{{ t.total }}</div>
+              <div style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin-top:4px; color:#E0A645;">{{ total }} <span style="font-size:14px; color:#8A96A3; font-weight:500;">{{ t.currency }}</span></div>
+            </div>
+            <button onClick="{{ submitOrder }}" style="background:#25D366; color:#fff; border:none; padding:16px 26px; border-radius:999px; font-size:14px; font-weight:700; display:inline-flex; align-items:center; gap:10px; white-space:nowrap;">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              {{ t.waCta }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section style="background:#0A131D; color:#F3ECDD;">
+      <div style="max-width:1320px; margin:0 auto; padding:64px 32px 32px;">
+        <div style="display:flex; justify-content:space-between; align-items:start; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(248,250,252,0.1); flex-wrap:wrap;">
+          <div>
+            <div style="margin-bottom:16px;">
+              <img src="uploads/logo-white.png" alt="HIDRISSI" style="height:30px; width:auto; display:block;">
+            </div>
+            <p style="font-size:13px; color:#74808E; max-width:320px; line-height:1.6;">{{ t.footerTagline }}</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:13px; color:#9AA6B2;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:#8A96A3; text-transform:uppercase; margin-bottom:4px;">{{ t.contact }}</span>
+            <a href="{{ waLink }}" target="_blank" rel="noopener" style="color:inherit; text-decoration:none; display:inline-flex; align-items:center; gap:8px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>WhatsApp</a>
+            <a href="https://instagram.com/hidrissi" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Instagram</a>
+            <a href="mailto:contact@hidrissi.ma" style="color:inherit; text-decoration:none;">contact@hidrissi.ma</a>
+          </div>
+        </div>
+        <div style="padding-top:24px; font-size:11px; color:#8A96A3;">{{ t.copyright }}</div>
+      </div>
+    </section>
+
+  </sc-if>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="WhatsApp" style="position:fixed; bottom:24px; inset-inline-end:24px; z-index:60; width:60px; height:60px; border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(37,211,102,0.45); text-decoration:none; animation:waPulse 2.4s infinite;">
+    <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  </a>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  // ⚠️ CHANGE THIS to your real WhatsApp number (country code, no +, no spaces)
+  WA_NUMBER = '212602070099';
+
+  state = {
+    view: 'home',
+    activeProduct: 0,
+    activeImage: 0,
+    selectedProduct: 'WATHIUM RS-2',
+    lang: 'fr',
+    form: { name: '', phone: '', city: '', qty: '1', address: '', note: '' },
+    imgMap: {},
+    search: '',
+    cat: 'all',
+    brand: 'all'
+  };
+
+  placeholderUrl() {
+    const phSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#1E2C3A"/><g fill="none" stroke="#3D4D5E" stroke-width="8"><rect x="140" y="150" width="120" height="100" rx="8"/><circle cx="172" cy="182" r="12"/><path d="M150 240l34-34 30 28 26-22 30 28"/></g></svg>';
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(phSvg);
+  }
+
+  _done = {};   // src -> true once converted/attempted
+  _queue = [];  // pending srcs
+  _running = false;
+
+  componentDidMount() {
+    // Seed every image with a placeholder so the browser never tries to load a raw HEIC
+    const ph = this.placeholderUrl();
+    const init = {};
+    for (const p of this.PRODUCTS) for (const s of p.imagePaths) init[s] = ph;
+    this.setState({ imgMap: init });
+    // Only decode the 5 visible card thumbnails up front. Full galleries are decoded
+    // on demand when a product is opened (see openProduct -> prioritize), so the main
+    // thread isn't churning through ~30 heavy HEIC decodes at load.
+    this.enqueue(this.PRODUCTS.map(p => p.imagePaths[0]));
+  }
+
+  // Add srcs to the FRONT of the queue (prioritized) when not already done
+  prioritize(srcs) {
+    const add = srcs.filter(s => !this._done[s] && !this._queue.includes(s));
+    this._queue = add.concat(this._queue);
+    this.runQueue();
+  }
+  // Add srcs to the BACK of the queue
+  enqueue(srcs) {
+    for (const s of srcs) if (!this._done[s] && !this._queue.includes(s)) this._queue.push(s);
+    this.runQueue();
+  }
+
+  async getDecoder() {
+    if (this._mod !== undefined) return this._mod;
+    let tries = 0;
+    while (typeof window.libheif === 'undefined' && tries < 120) {
+      await new Promise(r => setTimeout(r, 100)); tries++;
+    }
+    try {
+      const lib = window.libheif();
+      this._mod = (lib && typeof lib.then === 'function') ? await lib : lib;
+    } catch (e) { this._mod = null; }
+    return this._mod;
+  }
+
+  async runQueue() {
+    if (this._running) return;
+    this._running = true;
+    const placeholder = this.placeholderUrl();
+    const MAXW = 1400;
+    const mod = await this.getDecoder();
+    while (this._queue.length) {
+      const src = this._queue.shift();
+      if (this._done[src]) continue;
+      this._done[src] = true;
+      let url = src;
+      try {
+        const resp = await fetch(src);
+        const buf = await resp.arrayBuffer();
+        const bytes = new Uint8Array(buf);
+        const isHeic = String.fromCharCode(...bytes.slice(4, 8)) === 'ftyp';
+        if (isHeic) {
+          url = placeholder;
+          if (mod) {
+            const decoder = new mod.HeifDecoder();
+            const imgs = decoder.decode(bytes);
+            if (imgs && imgs.length) {
+              const image = imgs[0];
+              const w = image.get_width(), h = image.get_height();
+              const full = document.createElement('canvas');
+              full.width = w; full.height = h;
+              const fctx = full.getContext('2d');
+              const imageData = fctx.createImageData(w, h);
+              await new Promise((res, rej) => {
+                image.display(imageData, (dd) => dd ? (fctx.putImageData(dd, 0, 0), res()) : rej('display fail'));
+              });
+              const scale = Math.min(1, MAXW / w);
+              const ow = Math.round(w * scale), oh = Math.round(h * scale);
+              const out = document.createElement('canvas');
+              out.width = ow; out.height = oh;
+              out.getContext('2d').drawImage(full, 0, 0, ow, oh);
+              const jpegBlob = await new Promise(r => out.toBlob(r, 'image/jpeg', 0.85));
+              if (jpegBlob) url = URL.createObjectURL(jpegBlob);
+              if (image.free) image.free();
+            }
+          }
+        }
+      } catch (err) { url = placeholder; }
+      this.setState({ imgMap: { ...this.state.imgMap, [src]: url } });
+      // Yield to the event loop so the page stays responsive between heavy decodes
+      await new Promise(r => setTimeout(r, 16));
+    }
+    this._running = false;
+  }
+
+  T = {
+    fr: {
+      navHome: 'Accueil', navCollection: 'Boutique', navOrder: 'Commander',
+      langGlobe: '🌐', langSwitch: 'العربية',
+      backArrow: '←', fwdArrow: '→', upArrow: '↗',
+      backToCollection: 'Retour à la collection',
+      features: 'Caractéristiques', price: 'Prix', currency: 'MAD',
+      freeDelivery: 'Livraison offerte · Paiement à la livraison', order: 'Commander',
+      heroBadge: 'Showroom basé à Aïn Aouda, Rabat',
+      heroTitle: 'Réinventez vos déplacements quotidiens.',
+      heroSubtitle: 'Trottinettes électriques sélectionnées pour la ville moderne. Paiement à la livraison, partout au Maroc.',
+      heroCta: 'Découvrir la collection',
+      statModels: 'Modèles', statRange: 'Autonomie max.', statSpeed: 'Vitesse max.', statWarranty: 'Garantie',
+      km: 'km', kmh: 'km/h', months: 'mois',
+      trust1: 'Paiement à la livraison', trust2: 'Livraison partout au Maroc', trust3: 'Garantie 12 mois', trust4: 'Atelier & SAV interne',
+      collectionEyebrow: '— La collection',
+      collectionTitle: 'Tout le catalogue, en un coup d\'œil.',
+      collectionGoal: 'Notre objectif : la bonne trottinette pour chaque besoin et chaque budget. Cherchez par nom, ou filtrez par usage — performance, ville ou format compact.',
+      catTitle: 'Catégories', brandTitle: 'Marques', allBrands: 'Toutes les marques',
+      searchPlaceholder: 'Rechercher par nom (ex. WATHIUM, KEPOW, SEGWAY…)',
+      noResults: 'Aucune trottinette ne correspond à votre recherche.',
+      viewDetails: 'Voir détails',
+      compareEyebrow: '— Comparer', compareTitle: 'Côte à côte, décidez vite.',
+      colModel: 'Modèle', colPower: 'Puissance', colSpeed: 'Vitesse', colRange: 'Autonomie', colPrice: 'Prix',
+      orderEyebrow: '— Commander', orderTitle: 'Trois minutes, une commande.',
+      orderSubtitle: 'Pas de paiement en ligne. Remplissez le formulaire — un conseiller vous appelle pour confirmer.',
+      step1Title: 'Vous remplissez', step1Desc: 'Nom, téléphone, ville et modèle.',
+      step2Title: 'On vous rappelle', step2Desc: 'Confirmation sous 1h.',
+      step3Title: 'Payez à la livraison', step3Desc: 'Cash. Vérification avant paiement.',
+      waTitle: 'Commande WhatsApp', waSubtitle: 'réponse < 10 min',
+      fieldName: 'Nom complet', fieldPhone: 'Téléphone', fieldCity: 'Ville', fieldQty: 'Quantité', fieldModel: 'Modèle',
+      fieldAddress: 'Adresse de livraison', phAddress: 'Quartier, rue, n° — repère éventuel',
+      fieldNote: 'Note (optionnel)', phNote: 'Couleur, heure de livraison, précision…',
+      phName: 'Mehdi Alaoui',
+      total: 'Total', waCta: 'Commander via WhatsApp',
+      footerTagline: 'Showroom, atelier et livraison nationale — Aïn Aouda, Maroc.',
+      contact: 'Contact', copyright: '© 2026 HIDRISSI · Aïn Aouda',
+      cities: ['Casablanca', 'Rabat', 'Marrakech', 'Tanger', 'Fès', 'Agadir', 'Autre ville'],
+      photos: (n) => n + ' photos'
+    },
+    ar: {
+      navHome: 'الرئيسية', navCollection: 'المتجر', navOrder: 'اطلب الآن',
+      langGlobe: '🌐', langSwitch: 'Français',
+      backArrow: '→', fwdArrow: '←', upArrow: '↖',
+      backToCollection: 'العودة إلى المنتجات',
+      features: 'المميزات', price: 'الثمن', currency: 'درهم',
+      freeDelivery: 'توصيل مجاني · الدفع عند الاستلام', order: 'اطلب الآن',
+      heroBadge: 'متجر في عين عودة، الرباط',
+      heroTitle: 'أعد اكتشاف تنقّلاتك اليومية.',
+      heroSubtitle: 'دراجات كهربائية مختارة للمدينة العصرية. الدفع عند الاستلام، في كل أنحاء المغرب.',
+      heroCta: 'اكتشف المنتجات',
+      statModels: 'موديلات', statRange: 'أقصى مدى', statSpeed: 'أقصى سرعة', statWarranty: 'الضمان',
+      km: 'كلم', kmh: 'كلم/س', months: 'شهر',
+      trust1: 'الدفع عند الاستلام', trust2: 'توصيل لكل المغرب', trust3: 'ضمان 12 شهر', trust4: 'ورشة وخدمة ما بعد البيع',
+      collectionEyebrow: '— المنتجات',
+      collectionTitle: 'كل المنتجات، بنظرة واحدة.',
+      collectionGoal: 'هدفنا: الدراجة المناسبة لكل حاجة وكل ميزانية. ابحث بالاسم، أو صفّ حسب الاستعمال — أداء، مدينة أو حجم مدمج.',
+      catTitle: 'الفئات', brandTitle: 'الماركات', allBrands: 'كل الماركات',
+      searchPlaceholder: 'ابحث بالاسم (مثلاً WATHIUM، KEPOW، SEGWAY…)',
+      noResults: 'لا توجد دراجة تطابق بحثك.',
+      viewDetails: 'عرض التفاصيل',
+      compareEyebrow: '— قارِن', compareTitle: 'جنباً إلى جنب، قرّر بسرعة.',
+      colModel: 'الموديل', colPower: 'القوة', colSpeed: 'السرعة', colRange: 'المدى', colPrice: 'الثمن',
+      orderEyebrow: '— اطلب', orderTitle: 'ثلاث دقائق، طلب واحد.',
+      orderSubtitle: 'لا دفع عبر الإنترنت. املأ النموذج — سيتّصل بك مستشار للتأكيد.',
+      step1Title: 'تملأ النموذج', step1Desc: 'الاسم، الهاتف، المدينة والموديل.',
+      step2Title: 'نتّصل بك', step2Desc: 'تأكيد خلال ساعة.',
+      step3Title: 'تدفع عند الاستلام', step3Desc: 'نقداً. تتحقّق قبل الدفع.',
+      waTitle: 'طلب عبر واتساب', waSubtitle: 'الرد خلال أقل من 10 دقائق',
+      fieldName: 'الاسم الكامل', fieldPhone: 'الهاتف', fieldCity: 'المدينة', fieldQty: 'الكمية', fieldModel: 'الموديل',
+      fieldAddress: 'عنوان التوصيل', phAddress: 'الحي، الشارع، الرقم — نقطة دلالة',
+      fieldNote: 'ملاحظة (اختياري)', phNote: 'اللون، وقت التوصيل، توضيح…',
+      phName: 'مهدي العلوي',
+      total: 'المجموع', waCta: 'اطلب عبر واتساب',
+      footerTagline: 'معرض، ورشة وتوصيل وطني — عين عودة، المغرب.',
+      contact: 'اتصل بنا', copyright: '© 2026 هدريسي · عين عودة',
+      cities: ['الدار البيضاء', 'الرباط', 'مراكش', 'طنجة', 'فاس', 'أكادير', 'مدينة أخرى'],
+      photos: (n) => n + ' صور'
+    }
+  };
+
+  PRODUCTS = [
+    {
+      name: 'WATHIUM RS-2',
+      category: { fr: 'Performance', ar: 'أداء عالٍ' },
+      badge: { fr: 'Bestseller', ar: 'الأكثر مبيعاً' },
+      shortDesc: { fr: 'Double moteur 2000W, homologuée 2026. Puissance et autonomie pour la ville et au-delà.', ar: 'محرّكان 2000 واط، مرخّصة 2026. قوة ومدى للمدينة وأبعد.' },
+      desc: { fr: 'La WATHIUM RS-2 combine deux moteurs de 2000W pour une puissance maximale de 4000W. Homologuée 2026, elle offre 55 km/h et jusqu\'à 70 km d\'autonomie. Idéale pour les trajets urbains exigeants et les sorties péri-urbaines.', ar: 'تجمع WATHIUM RS-2 بين محرّكين بقوة 2000 واط لقوة قصوى تبلغ 4000 واط. مرخّصة لعام 2026، توفّر سرعة 55 كلم/س ومدى يصل إلى 70 كلم. مثالية للتنقّلات الحضرية الصعبة والخرجات خارج المدينة.' },
+      power: '2×2000W', speed: { fr: '55 km/h', ar: '55 كلم/س' }, range: { fr: '60-70 km', ar: '60-70 كلم' },
+      price: '5 990', priceNum: 5990,
+      specs: [
+        { label: { fr: 'Puissance', ar: 'القوة' }, value: '2×2000W' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '55 km/h', ar: '55 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '60-70 km', ar: '60-70 كلم' } }
+      ],
+      features: {
+        fr: ['Double moteur 2000W', 'Batterie 48V 20Ah', 'Trottinette homologuée 2026', 'Suspension avant et arrière', 'Freins hydrauliques'],
+        ar: ['محرّكان 2000 واط', 'بطارية 48 فولت 20 أمبير', 'دراجة مرخّصة 2026', 'تعليق أمامي وخلفي', 'فرامل هيدروليكية']
+      },
+      imagePaths: ['uploads/1 (2).jpg', 'uploads/1 (3).jpg', 'uploads/1-32058e25.jpg']
+    },
+    {
+      name: 'HEZZO GT06 PRO',
+      category: { fr: 'Tout-terrain', ar: 'كل الطرقات' },
+      badge: { fr: 'Nouveauté', ar: 'جديد' },
+      shortDesc: { fr: 'Moteur 1200W, batterie 48V 15,6Ah et double suspension. Puissance et confort, en ville comme en tout-terrain.', ar: 'محرّك 1200 واط، بطارية 48 فولت 15,6 أمبير وتعليق مزدوج. قوة وراحة في المدينة وخارجها.' },
+      desc: { fr: 'La HEZZO GT06 PRO allie performance, autonomie et confort. Son moteur brushless 1200W offre une accélération fluide jusqu\'à 55 km/h, avec assez de couple pour grimper des pentes jusqu\'à ~20°. La batterie lithium 48V 15,6Ah atteint jusqu\'à 56 km en mode éco et se recharge en 6 à 8h. Suspensions avant et arrière, freins à disque, éclairage LED avec clignotants, écran LCD et 3 modes de conduite (Éco, Normal, Sport).', ar: 'تجمع HEZZO GT06 PRO بين الأداء والمدى والراحة. محرّكها brushless بقوة 1200 واط يوفّر تسارعًا سلسًا حتى 55 كلم/س، مع قوة كافية لتسلّق المنحدرات حتى 20 درجة تقريبًا. بطارية ليثيوم 48 فولت 15,6 أمبير تصل إلى 56 كلم في الوضع الاقتصادي وتُشحن في 6 إلى 8 ساعات. تعليق أمامي وخلفي، فرامل قرصية، إضاءة LED مع إشارات انعطاف، شاشة LCD و3 أوضاع للقيادة (اقتصادي، عادي، رياضي).' },
+      power: '1200W', speed: { fr: '55 km/h', ar: '55 كلم/س' }, range: { fr: 'jusqu\'à 56 km', ar: 'حتى 56 كلم' },
+      price: '4 990', priceNum: 4990,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '1200W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 15,6Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '55 km/h', ar: '55 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: 'jusqu\'à 56 km', ar: 'حتى 56 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur brushless 1200W', 'Batterie lithium 48V 15,6Ah · charge 6-8h', 'Suspension avant et arrière', 'Freins à disque avant et arrière', '3 modes : Éco · Normal · Sport', 'Écran LCD · éclairage LED · clignotants', 'Pneus tout-terrain 11 pouces · pliable'],
+        ar: ['محرّك brushless 1200 واط', 'بطارية ليثيوم 48 فولت 15,6 أمبير · شحن 6-8 ساعات', 'تعليق أمامي وخلفي', 'فرامل قرصية أمامية وخلفية', '3 أوضاع: اقتصادي · عادي · رياضي', 'شاشة LCD · إضاءة LED · إشارات انعطاف', 'عجلات 11 إنش لكل الطرقات · قابلة للطي']
+      },
+      imagePaths: ['uploads/HEZZO_01.JPG', 'uploads/HEZZO_02.JPG', 'uploads/HEZZO_03.JPG', 'uploads/HEZZO_04.JPG']
+    },
+    {
+      name: 'WATHIUM BLADE',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'Homologuée 2026', ar: 'مرخّصة 2026' },
+      shortDesc: { fr: 'Trottinette homologuée 2026. Moteur 2000W, idéale pour les trajets quotidiens en ville.', ar: 'دراجة مرخّصة 2026. محرّك 2000 واط، مثالية للتنقّلات اليومية في المدينة.' },
+      desc: { fr: 'La WATHIUM BLADE est une trottinette homologuée 2026, conçue pour les trajets urbains quotidiens. Son moteur 2000W MAX et sa batterie 48V 15Ah offrent 45 km/h et jusqu\'à 60 km d\'autonomie. Disponible en deux coloris.', ar: 'WATHIUM BLADE دراجة مرخّصة لعام 2026، مصمّمة للتنقّلات الحضرية اليومية. محرّكها 2000 واط MAX وبطاريتها 48 فولت 15 أمبير يوفّران سرعة 45 كلم/س ومدى يصل إلى 60 كلم. متوفّرة بلونين.' },
+      power: '2000W MAX', speed: { fr: '45 km/h', ar: '45 كلم/س' }, range: { fr: '50-60 km', ar: '50-60 كلم' },
+      price: '4 990', priceNum: 4990,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '2000W MAX' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 15Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '45 km/h', ar: '45 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '50-60 km', ar: '50-60 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur 2000W MAX', 'Batterie 48V 15Ah', 'Trottinette homologuée 2026', 'Autonomie 50-60 km', 'Disponible en 2 coloris', 'Garantie incluse'],
+        ar: ['محرّك 2000 واط MAX', 'بطارية 48 فولت 15 أمبير', 'دراجة مرخّصة 2026', 'مدى 50-60 كلم', 'متوفّرة بلونين', 'مع الضمان']
+      },
+      imagePaths: ['uploads/2.jpg', 'uploads/2 (2).jpg', 'uploads/2 (3).jpg', 'uploads/2 (4).jpg', 'uploads/2 (5).jpg', 'uploads/2 (6).jpg', 'uploads/2 (7).jpg', 'uploads/2 (8).jpg', 'uploads/2 (9).jpg']
+    },
+    {
+      name: 'KEPOW K2 MASTER',
+      category: { fr: 'Sport', ar: 'رياضي' },
+      badge: { fr: 'Double moteur 2000W', ar: 'محرّكان 2000 واط' },
+      shortDesc: { fr: 'Double moteur 2000W, double suspension et freins à disque. Pour la vitesse et le tout-terrain.', ar: 'محرّكان 2000 واط، تعليق مزدوج وفرامل قرصية. للسرعة وكل الطرقات.' },
+      desc: { fr: 'La KEPOW K2 MASTER embarque deux moteurs de 1000W (2000W au total), une double suspension et un système de freinage à disque double. Avec ses pneus tout-terrain 10 pouces et son autonomie de 55-65 km, elle ne recule devant aucun terrain.', ar: 'تأتي KEPOW K2 MASTER بمحرّكين بقوة 1000 واط (2000 واط إجمالاً)، تعليق مزدوج ونظام فرامل قرصية مزدوج. مع عجلاتها 10 إنش لكل الطرقات ومداها 55-65 كلم، لا تتراجع أمام أي تضاريس.' },
+      power: '2×1000W', speed: { fr: '50 km/h', ar: '50 كلم/س' }, range: { fr: '55-65 km', ar: '55-65 كلم' },
+      price: '6 000', priceNum: 6000,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '2×1000W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 20Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '50 km/h', ar: '50 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '55-65 km', ar: '55-65 كلم' } }
+      ],
+      features: {
+        fr: ['Double moteur 1000W ×2', 'Batterie 48V 20Ah', 'Double suspension', 'Double frein à disque', 'Pneus tout-terrain 10 pouces', 'Autonomie 55-65 km'],
+        ar: ['محرّكان 1000 واط ×2', 'بطارية 48 فولت 20 أمبير', 'تعليق مزدوج', 'فرامل قرصية مزدوجة', 'عجلات 10 إنش لكل الطرقات', 'مدى 55-65 كلم']
+      },
+      imagePaths: ['uploads/3.jpg', 'uploads/3 (2).jpg', 'uploads/3 (3).jpg', 'uploads/3 (4).jpg', 'uploads/3 (5).jpg']
+    },
+    {
+      name: 'NXRIDE',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'Clignotants inclus', ar: 'إشارات الانعطاف' },
+      shortDesc: { fr: 'Trottinette urbaine performante et sécurisée, riche en accessoires. Confort et praticité au quotidien.', ar: 'دراجة حضرية أنيقة وآمنة، غنية بالملحقات. راحة وعملية في كل يوم.' },
+      desc: { fr: 'La trottinette NXRIDE est la solution idéale pour ceux qui recherchent un moyen de transport urbain à la fois performant, sécurisé et riche en accessoires. Avec son design moderne et ses multiples coloris, elle allie confort de conduite et praticité pour vos trajets quotidiens.', ar: 'دراجة NXRIDE هي الحل المثالي لمن يبحث عن وسيلة نقل حضرية عالية الأداء وآمنة وغنية بالملحقات. بتصميمها العصري وألوانها المتعدّدة، تجمع بين راحة القيادة والعملية لتنقّلاتك اليومية.' },
+      power: '700W', speed: { fr: '30-35 km/h', ar: '30-35 كلم/س' }, range: { fr: '25-35 km', ar: '25-35 كلم' },
+      price: '2 990', priceNum: 2990,
+      specs: [
+        { label: { fr: 'Puissance', ar: 'القوة' }, value: '700W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V / 10,5Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '30-35 km/h', ar: '30-35 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '25-35 km', ar: '25-35 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur 700W', 'Batterie lithium 36V / 10,5Ah', 'Pneus 10 pouces', 'Suspension avant', 'Frein à disque arrière', 'Clignotants disponibles'],
+        ar: ['محرّك 700 واط', 'بطارية ليثيوم 36 فولت / 10,5 أمبير', 'عجلات 10 إنش', 'تعليق أمامي', 'فرامل قرصية خلفية', 'إشارات انعطاف متوفّرة']
+      },
+      imagePaths: ['uploads/4.jpg', 'uploads/4 (2).jpg', 'uploads/4 (3).jpg', 'uploads/4 (4).jpg', 'uploads/4 (5).jpg', 'uploads/4 (6).jpg', 'uploads/4 (7).jpg', 'uploads/4 (8).jpg']
+    },
+    {
+      name: 'Bison GT 1000W',
+      category: { fr: 'Ecoxtrem', ar: 'إيكوإكستريم' },
+      badge: { fr: '3 modes de vitesse', ar: '3 أوضاع للسرعة' },
+      shortDesc: { fr: 'Trottinette Ecoxtrem 1000W, batterie 48V 13Ah et 3 modes de vitesse. Polyvalente et endurante.', ar: 'دراجة Ecoxtrem بقوة 1000 واط، بطارية 48 فولت 13 أمبير و3 أوضاع للسرعة. متعددة الاستخدام وقوية التحمّل.' },
+      desc: { fr: 'La Bison GT signée Ecoxtrem embarque un moteur 1000W et une batterie lithium 48V 13Ah. Trois modes de vitesse — 20 km/h, 25 km/h (bridée) et jusqu\'à 50 km/h (débridée, non garantie) — pour s\'adapter à chaque trajet. Jusqu\'à 40 km d\'autonomie et une charge maximale de 120 kg.', ar: 'تأتي Bison GT من Ecoxtrem بمحرّك 1000 واط وبطارية ليثيوم 48 فولت 13 أمبير. ثلاثة أوضاع للسرعة — 20 كلم/س، 25 كلم/س (مقيّدة) وحتى 50 كلم/س (غير مقيّدة، غير مضمونة) — لتتكيّف مع كل رحلة. مدى يصل إلى 40 كلم وحمولة قصوى تبلغ 120 كلغ.' },
+      power: '1000W', speed: { fr: '20-50 km/h', ar: '20-50 كلم/س' }, range: { fr: '40 km', ar: '40 كلم' },
+      price: '5 490', priceNum: 5490,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '1000W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 13Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '20-50 km/h', ar: '20-50 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '40 km', ar: '40 كلم' } }
+      ],
+      features: {
+        fr: ['Marque Ecoxtrem', 'Moteur 1000W · batterie lithium 48V 13Ah', '3 modes : 20 / 25 / jusqu\'à 50 km/h', 'Autonomie jusqu\'à 40 km', 'Charge max. 120 kg · roues 10 pouces', 'Temps de charge 4-6h · 114×61×110 cm'],
+        ar: ['ماركة Ecoxtrem', 'محرّك 1000 واط · بطارية ليثيوم 48 فولت 13 أمبير', '3 أوضاع: 20 / 25 / حتى 50 كلم/س', 'مدى يصل إلى 40 كلم', 'حمولة قصوى 120 كلغ · عجلات 10 إنش', 'وقت الشحن 4-6 ساعات · 114×61×110 سم']
+      },
+      imagePaths: ['uploads/5.jpg', 'uploads/5 (2).jpg', 'uploads/5 (3).jpg', 'uploads/5 (4).jpg']
+    },
+    {
+      name: 'NANROBOT N6',
+      category: { fr: 'Tout-terrain', ar: 'كل الطرقات' },
+      badge: { fr: 'Édition Off-Road', ar: 'نسخة الطرق الوعرة' },
+      shortDesc: { fr: 'Double moteur 2000W, suspension hydraulique et pneus off-road 10 pouces. La bête tout-terrain.', ar: 'محرّكان 2000 واط، تعليق هيدروليكي وعجلات 10 إنش للطرق الوعرة. وحش كل التضاريس.' },
+      desc: { fr: 'La NANROBOT N6 est une trottinette tout-terrain haute performance. Ses deux moteurs brushless de 1000W (2000W au total) propulsent jusqu\'à 65 km/h, tandis que sa batterie 60V 20Ah offre 60 à 70 km d\'autonomie. Suspension hydraulique C-type avant et arrière, freins hydrauliques à disque, pneus off-road 10 pouces et éclairage LED 64 couleurs — elle avale tous les terrains.', ar: 'NANROBOT N6 دراجة عالية الأداء لكل الطرقات. محرّكاها brushless بقوة 1000 واط (2000 واط إجمالاً) يدفعان حتى 65 كلم/س، بينما توفّر بطارية 60 فولت 20 أمبير مدى 60 إلى 70 كلم. تعليق هيدروليكي C-type أمامي وخلفي، فرامل قرصية هيدروليكية، عجلات 10 إنش للطرق الوعرة وإضاءة LED بـ64 لوناً — تجتاز كل التضاريس.' },
+      power: '2×1000W', speed: { fr: '65 km/h', ar: '65 كلم/س' }, range: { fr: '60-70 km', ar: '60-70 كلم' },
+      price: '8 990', priceNum: 8990,
+      specs: [
+        { label: { fr: 'Puissance', ar: 'القوة' }, value: '2×1000W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '60V 20Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '65 km/h', ar: '65 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '60-70 km', ar: '60-70 كلم' } }
+      ],
+      features: {
+        fr: ['Double moteur brushless 2×1000W', 'Batterie lithium 60V 20Ah', 'Suspension hydraulique C-type av/ar', 'Freins hydrauliques à disque + EBS', 'Pneus off-road 10 pouces', 'Éclairage LED 64 couleurs · modes Éco/Turbo'],
+        ar: ['محرّكان brushless 2×1000 واط', 'بطارية ليثيوم 60 فولت 20 أمبير', 'تعليق هيدروليكي C-type أمامي/خلفي', 'فرامل قرصية هيدروليكية + EBS', 'عجلات 10 إنش للطرق الوعرة', 'إضاءة LED 64 لوناً · وضعا Éco/Turbo']
+      },
+      imagePaths: ['uploads/NANROBOT_01.JPG', 'uploads/NANROBOT_02.JPG', 'uploads/NANROBOT_03.JPG', 'uploads/NANROBOT_04.JPG']
+    },
+    {
+      name: 'MAX WHEEL GT4',
+      category: { fr: 'Tout-terrain', ar: 'كل الطرقات' },
+      badge: { fr: 'Double suspension', ar: 'تعليق مزدوج' },
+      shortDesc: { fr: 'Double moteur 2000W, double suspension hydraulique et gros pneus crantés 11 pouces. Performance brute.', ar: 'محرّكان 2000 واط، تعليق هيدروليكي مزدوج وعجلات مسننة 11 إنش. أداء خام.' },
+      desc: { fr: 'La MAX WHEEL GT4 est conçue pour ceux qui veulent tout : ses deux moteurs de 1000W délivrent 2000W de puissance combinée pour atteindre 55 km/h et grimper les pentes les plus raides. Sa batterie 48V 20Ah assure 50 à 60 km d\'autonomie. Double suspension hydraulique à bras oscillant, freins à disque avant/arrière, gros pneus tout-terrain de 11 pouces et bandeau LED — elle ne recule devant rien.', ar: 'MAX WHEEL GT4 مصمّمة لمن يريد كل شيء: محرّكاها بقوة 1000 واط يوفّران 2000 واط مجمّعة للوصول إلى 55 كلم/س وتسلّق أشدّ المنحدرات. بطاريتها 48 فولت 20 أمبير تضمن مدى 50 إلى 60 كلم. تعليق هيدروليكي مزدوج بذراع متأرجح، فرامل قرصية أمامية/خلفية، عجلات كبيرة 11 إنش لكل الطرقات وشريط LED — لا تتراجع أمام أي شيء.' },
+      power: '2×1000W', speed: { fr: '55 km/h', ar: '55 كلم/س' }, range: { fr: '50-60 km', ar: '50-60 كلم' },
+      price: '6 990', priceNum: 6990,
+      specs: [
+        { label: { fr: 'Puissance', ar: 'القوة' }, value: '2×1000W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 20Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '55 km/h', ar: '55 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '50-60 km', ar: '50-60 كلم' } }
+      ],
+      features: {
+        fr: ['Double moteur 2×1000W', 'Batterie 48V 20Ah', 'Double suspension hydraulique', 'Freins à disque av/ar', 'Pneus tout-terrain 11 pouces', 'Bandeau LED · clignotants · pliable'],
+        ar: ['محرّكان 2×1000 واط', 'بطارية 48 فولت 20 أمبير', 'تعليق هيدروليكي مزدوج', 'فرامل قرصية أمامية/خلفية', 'عجلات 11 إنش لكل الطرقات', 'شريط LED · إشارات انعطاف · قابلة للطي']
+      },
+      imagePaths: ['uploads/MAX_WHEEL_01.JPG', 'uploads/MAX_WHEEL_02.JPG', 'uploads/MAX_WHEEL_03.JPG', 'uploads/MAX_WHEEL_04.JPG', 'uploads/MAX_WHEEL_05.JPG', 'uploads/MAX_WHEEL_06.JPG', 'uploads/MAX_WHEEL_07.JPG', 'uploads/IMG_0548.JPG', 'uploads/IMG_0550.JPG', 'uploads/IMG_0552.JPG']
+    },
+    {
+      name: 'MAX WHEEL E9 PRO',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'Compacte', ar: 'مدمجة' },
+      shortDesc: { fr: 'Trottinette urbaine pliable, moteur 500W et pneus 8,5 pouces. Légère, pratique, parfaite pour la ville.', ar: 'دراجة حضرية قابلة للطي، محرّك 500 واط وعجلات 8,5 إنش. خفيفة وعملية ومثالية للمدينة.' },
+      desc: { fr: 'La MAX WHEEL E9 PRO est une trottinette urbaine compacte et pliable. Son moteur 500W et sa batterie 36V 12,5Ah offrent 30 km/h et jusqu\'à 35 km d\'autonomie. Pneus 8,5 pouces, frein à disque et électronique, écran LCD intégré au guidon — l\'essentiel pour les trajets quotidiens, dans un format léger et facile à transporter.', ar: 'MAX WHEEL E9 PRO دراجة حضرية مدمجة وقابلة للطي. محرّكها 500 واط وبطاريتها 36 فولت 12,5 أمبير يوفّران 30 كلم/س ومدى يصل إلى 35 كلم. عجلات 8,5 إنش، فرامل قرصية وإلكترونية، شاشة LCD مدمجة في المقود — الأساسيات للتنقّلات اليومية في تصميم خفيف وسهل النقل.' },
+      power: '500W', speed: { fr: '30 km/h', ar: '30 كلم/س' }, range: { fr: '30-35 km', ar: '30-35 كلم' },
+      price: '2 990', priceNum: 2990,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '500W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V 12,5Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '30 km/h', ar: '30 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '30-35 km', ar: '30-35 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur 500W', 'Batterie 36V 12,5Ah', 'Pneus 8,5 pouces', 'Frein à disque + électronique', 'Écran LCD au guidon', 'Pliable · légère'],
+        ar: ['محرّك 500 واط', 'بطارية 36 فولت 12,5 أمبير', 'عجلات 8,5 إنش', 'فرامل قرصية + إلكترونية', 'شاشة LCD في المقود', 'قابلة للطي · خفيفة']
+      },
+      imagePaths: ['uploads/IMG_0620.JPG', 'uploads/IMG_0622.JPG']
+    },
+    {
+      name: 'MAX WHEEL FORZA',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'Essentielle', ar: 'الأساسية' },
+      shortDesc: { fr: 'Trottinette urbaine noir & rouge, moteur 350W et pneus 8,5 pouces. Simple, fiable, abordable.', ar: 'دراجة حضرية بلونين أسود وأحمر، محرّك 350 واط وعجلات 8,5 إنش. بسيطة وموثوقة وبسعر مناسب.' },
+      desc: { fr: 'La MAX WHEEL FORZA est la trottinette d\'entrée idéale pour la ville. Son moteur 350W et sa batterie 36V 10,4Ah offrent 25 km/h et jusqu\'à 30 km d\'autonomie. Cadre pliable, pneus 8,5 pouces, frein à disque arrière et éclairage LED — tout ce qu\'il faut pour se déplacer simplement, à petit prix.', ar: 'MAX WHEEL FORZA هي دراجة البداية المثالية للمدينة. محرّكها 350 واط وبطاريتها 36 فولت 10,4 أمبير يوفّران 25 كلم/س ومدى يصل إلى 30 كلم. هيكل قابل للطي، عجلات 8,5 إنش، فرامل قرصية خلفية وإضاءة LED — كل ما تحتاجه للتنقّل ببساطة وبسعر مناسب.' },
+      power: '350W', speed: { fr: '25 km/h', ar: '25 كلم/س' }, range: { fr: '25-30 km', ar: '25-30 كلم' },
+      price: '2 490', priceNum: 2490,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '350W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V 10,4Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '25 km/h', ar: '25 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '25-30 km', ar: '25-30 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur 350W', 'Batterie 36V 10,4Ah', 'Pneus 8,5 pouces', 'Frein à disque arrière', 'Éclairage LED', 'Cadre pliable'],
+        ar: ['محرّك 350 واط', 'بطارية 36 فولت 10,4 أمبير', 'عجلات 8,5 إنش', 'فرامل قرصية خلفية', 'إضاءة LED', 'هيكل قابل للطي']
+      },
+      imagePaths: ['uploads/IMG_0614.JPG', 'uploads/IMG_0616.JPG']
+    },
+    {
+      name: 'PUCK by EcoXtrem',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'Blanc lifestyle', ar: 'أبيض عصري' },
+      shortDesc: { fr: 'Trottinette urbaine signée EcoXtrem, design blanc épuré et pneus 8,5 pouces. Élégante et maniable.', ar: 'دراجة حضرية من EcoXtrem، تصميم أبيض أنيق وعجلات 8,5 إنش. أنيقة وسهلة المناورة.' },
+      desc: { fr: 'La PUCK d\'EcoXtrem mise sur l\'élégance et la simplicité. Son design blanc épuré, son moteur 350W et sa batterie 36V 7,8Ah offrent 25 km/h et jusqu\'à 25 km d\'autonomie. Pliable en quelques secondes, légère et maniable, elle se faufile partout en ville avec style.', ar: 'تراهن PUCK من EcoXtrem على الأناقة والبساطة. تصميمها الأبيض الأنيق، محرّكها 350 واط وبطاريتها 36 فولت 7,8 أمبير يوفّران 25 كلم/س ومدى يصل إلى 25 كلم. تُطوى في ثوانٍ، خفيفة وسهلة المناورة، تتسلّل في كل مكان بالمدينة بأناقة.' },
+      power: '350W', speed: { fr: '25 km/h', ar: '25 كلم/س' }, range: { fr: '20-25 km', ar: '20-25 كلم' },
+      price: '2 690', priceNum: 2690,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '350W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V 7,8Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '25 km/h', ar: '25 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '20-25 km', ar: '20-25 كلم' } }
+      ],
+      features: {
+        fr: ['Marque EcoXtrem', 'Moteur 350W', 'Batterie 36V 7,8Ah', 'Pneus 8,5 pouces', 'Design blanc épuré', 'Pliable · légère'],
+        ar: ['ماركة EcoXtrem', 'محرّك 350 واط', 'بطارية 36 فولت 7,8 أمبير', 'عجلات 8,5 إنش', 'تصميم أبيض أنيق', 'قابلة للطي · خفيفة']
+      },
+      imagePaths: ['uploads/PUCK_01.JPG', 'uploads/PUCK_02.JPG', 'uploads/PUCK_03.JPG']
+    },
+    {
+      name: 'KEPOW MAX',
+      category: { fr: 'Commuter', ar: 'للتنقّل اليومي' },
+      badge: { fr: 'App Tuya', ar: 'تطبيق Tuya' },
+      shortDesc: { fr: 'Commuter premium, moteur 800W, app Tuya et pneus tubeless 10 pouces. Connectée et confortable.', ar: 'دراجة تنقّل فاخرة، محرّك 800 واط، تطبيق Tuya وعجلات tubeless 10 إنش. متّصلة ومريحة.' },
+      desc: { fr: 'La KEPOW MAX reprend les codes des grands commuters premium : moteur brushless 800W, batterie 48V 15Ah pour 45 à 55 km d\'autonomie et 45 km/h (débridable). Pneus tubeless 10 pouces, double frein à disque, suspension, écran LED et contrôle via l\'application Tuya — la trottinette quotidienne idéale, connectée et fiable.', ar: 'تستلهم KEPOW MAX رموز كبرى دراجات التنقّل الفاخرة: محرّك brushless 800 واط، بطارية 48 فولت 15 أمبير لمدى 45 إلى 55 كلم وسرعة 45 كلم/س (قابلة لرفع التقييد). عجلات tubeless 10 إنش، فرامل قرصية مزدوجة، تعليق، شاشة LED وتحكّم عبر تطبيق Tuya — دراجة التنقّل اليومية المثالية، متّصلة وموثوقة.' },
+      power: '800W', speed: { fr: '45 km/h', ar: '45 كلم/س' }, range: { fr: '45-55 km', ar: '45-55 كلم' },
+      price: '3 990', priceNum: 3990,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '800W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 15Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '45 km/h', ar: '45 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '45-55 km', ar: '45-55 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur brushless 800W', 'Batterie 48V 15Ah', 'Pneus tubeless 10 pouces', 'Double frein à disque', 'Contrôle via app Tuya', 'Écran LED · suspension · pliable'],
+        ar: ['محرّك brushless 800 واط', 'بطارية 48 فولت 15 أمبير', 'عجلات tubeless 10 إنش', 'فرامل قرصية مزدوجة', 'تحكّم عبر تطبيق Tuya', 'شاشة LED · تعليق · قابلة للطي']
+      },
+      imagePaths: ['uploads/KEPOW_01.JPG', 'uploads/KEPOW_02.JPG', 'uploads/KEPOW_03.JPG', 'uploads/KEPOW_04.JPG']
+    },
+    {
+      name: 'SEGWAY E2 PLUS',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'Signé Segway', ar: 'من Segway' },
+      shortDesc: { fr: 'La citadine Segway-Ninebot par excellence. Moteur 300W, pneus tubeless et app dédiée. Fiable et sûre.', ar: 'دراجة المدينة من Segway-Ninebot. محرّك 300 واط، عجلات tubeless وتطبيق خاص. موثوقة وآمنة.' },
+      desc: { fr: 'La SEGWAY Ninebot E2 PLUS est une trottinette urbaine signée Segway. Son moteur 300W (700W en pic) atteint 25 km/h, avec jusqu\'à 25 km d\'autonomie sur sa batterie 36V. Pneus tubeless increvables, frein électronique + tambour, tableau de bord LED et application Segway-Ninebot : la citadine fiable par excellence.', ar: 'SEGWAY Ninebot E2 PLUS دراجة حضرية من Segway. محرّكها 300 واط (700 واط في الذروة) يصل إلى 25 كلم/س، مع مدى يصل إلى 25 كلم ببطارية 36 فولت. عجلات tubeless مقاومة للثقب، فرامل إلكترونية + طبلية، شاشة LED وتطبيق Segway-Ninebot: دراجة المدينة الموثوقة بامتياز.' },
+      power: '300W', speed: { fr: '25 km/h', ar: '25 كلم/س' }, range: { fr: '25 km', ar: '25 كلم' },
+      price: '3 490', priceNum: 3490,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: { fr: '300W (700W pic)', ar: '300 واط (700 ذروة)' } },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '25 km/h', ar: '25 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '25 km', ar: '25 كلم' } }
+      ],
+      features: {
+        fr: ['Marque Segway-Ninebot', 'Moteur 300W (700W en pic)', 'Batterie 36V', 'Pneus tubeless 9 pouces', 'Frein électronique + tambour', 'App Segway-Ninebot · tableau LED'],
+        ar: ['ماركة Segway-Ninebot', 'محرّك 300 واط (700 ذروة)', 'بطارية 36 فولت', 'عجلات tubeless 9 إنش', 'فرامل إلكترونية + طبلية', 'تطبيق Segway-Ninebot · شاشة LED']
+      },
+      imagePaths: ['uploads/SEGWAY_01.JPG', 'uploads/SEGWAY_02.JPG', 'uploads/SEGWAY_03.JPG']
+    },
+    {
+      name: 'TEKNES KCITY',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'Confort', ar: 'الراحة' },
+      shortDesc: { fr: 'Deck surbaissé, gros pneus 10 pouces et conduite souple. Le confort urbain avant tout.', ar: 'منصة منخفضة، عجلات كبيرة 10 إنش وقيادة سلسة. الراحة الحضرية أولاً.' },
+      desc: { fr: 'La TEKNES KCITY mise sur le confort urbain : deck surbaissé, gros pneus de 10 pouces et conduite souple. Son moteur 500W et sa batterie 48V offrent 30 km/h et jusqu\'à 35 km d\'autonomie. Pliable, écran LED au guidon et freins à disque — la compagne idéale des trajets quotidiens en ville.', ar: 'تراهن TEKNES KCITY على الراحة الحضرية: منصة منخفضة، عجلات كبيرة 10 إنش وقيادة سلسة. محرّكها 500 واط وبطاريتها 48 فولت يوفّران 30 كلم/س ومدى يصل إلى 35 كلم. قابلة للطي، شاشة LED في المقود وفرامل قرصية — الرفيق المثالي للتنقّلات اليومية في المدينة.' },
+      power: '500W', speed: { fr: '30 km/h', ar: '30 كلم/س' }, range: { fr: '30-35 km', ar: '30-35 كلم' },
+      price: '3 290', priceNum: 3290,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '500W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 10Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '30 km/h', ar: '30 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '30-35 km', ar: '30-35 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur 500W', 'Batterie 48V 10Ah', 'Deck surbaissé confort', 'Gros pneus 10 pouces', 'Frein à disque', 'Écran LED · pliable'],
+        ar: ['محرّك 500 واط', 'بطارية 48 فولت 10 أمبير', 'منصة منخفضة مريحة', 'عجلات كبيرة 10 إنش', 'فرامل قرصية', 'شاشة LED · قابلة للطي']
+      },
+      imagePaths: ['uploads/TEKNES_01.JPG', 'uploads/TEKNES_02.JPG', 'uploads/TEKNES_03.JPG', 'uploads/TEKNES_05.JPG', 'uploads/TEKNES_06.JPG', 'uploads/TEKNES_10.JPG']
+    },
+    {
+      name: 'TEKNES K-PRO',
+      category: { fr: 'Performance', ar: 'أداء عالٍ' },
+      badge: { fr: 'Double suspension', ar: 'تعليق مزدوج' },
+      shortDesc: { fr: 'Double suspension à ressort, deck large et finition sport. Confort et nervosité réunis.', ar: 'تعليق نابضي مزدوج، منصة عريضة وتشطيب رياضي. راحة وحيوية معاً.' },
+      desc: { fr: 'La TEKNES K-PRO passe à la vitesse supérieure : double suspension à ressort (amortisseurs rouges avant et arrière), deck large et gros pneus 10 pouces pour un confort maximal. Son moteur 600W et sa batterie 48V 13Ah délivrent 40 km/h et jusqu\'à 40 km d\'autonomie. Freins à disque et finition sport.', ar: 'تنتقل TEKNES K-PRO إلى مستوى أعلى: تعليق نابضي مزدوج (ممتصّات حمراء أمامية وخلفية)، منصة عريضة وعجلات كبيرة 10 إنش لراحة قصوى. محرّكها 600 واط وبطاريتها 48 فولت 13 أمبير يوفّران 40 كلم/س ومدى يصل إلى 40 كلم. فرامل قرصية وتشطيب رياضي.' },
+      power: '600W', speed: { fr: '40 km/h', ar: '40 كلم/س' }, range: { fr: '40 km', ar: '40 كلم' },
+      price: '4 290', priceNum: 4290,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '600W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 13Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '40 km/h', ar: '40 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '40 km', ar: '40 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur 600W', 'Batterie 48V 13Ah', 'Double suspension à ressort', 'Deck large · pneus 10 pouces', 'Freins à disque av/ar', 'Écran LED · finition sport'],
+        ar: ['محرّك 600 واط', 'بطارية 48 فولت 13 أمبير', 'تعليق نابضي مزدوج', 'منصة عريضة · عجلات 10 إنش', 'فرامل قرصية أمامية/خلفية', 'شاشة LED · تشطيب رياضي']
+      },
+      imagePaths: ['uploads/TEKNES_04.JPG', 'uploads/TEKNES_07.JPG', 'uploads/TEKNES_08.JPG', 'uploads/TEKNES_09.JPG', 'uploads/TEKNES_11.JPG', 'uploads/TEKNES_12.JPG']
+    },
+    {
+      name: 'ATHRUM CITY',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'Touches turquoise', ar: 'لمسات فيروزية' },
+      shortDesc: { fr: 'Design épuré et touches turquoise. Moteur 350W, légère et pliable. Le style au quotidien.', ar: 'تصميم أنيق ولمسات فيروزية. محرّك 350 واط، خفيفة وقابلة للطي. الأناقة كل يوم.' },
+      desc: { fr: 'L\'ATHRUM CITY habille la trottinette urbaine de touches turquoise et d\'un design épuré. Moteur 350W, batterie 36V 10,4Ah, 25 km/h et jusqu\'à 30 km d\'autonomie. Pneus 8,5 pouces, frein à disque et électronique, écran LED — légère, pliable et stylée pour la ville.', ar: 'تكسو ATHRUM CITY الدراجة الحضرية بلمسات فيروزية وتصميم أنيق. محرّك 350 واط، بطارية 36 فولت 10,4 أمبير، 25 كلم/س ومدى يصل إلى 30 كلم. عجلات 8,5 إنش، فرامل قرصية وإلكترونية، شاشة LED — خفيفة وقابلة للطي وأنيقة للمدينة.' },
+      power: '350W', speed: { fr: '25 km/h', ar: '25 كلم/س' }, range: { fr: '25-30 km', ar: '25-30 كلم' },
+      price: '2 590', priceNum: 2590,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '350W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V 10,4Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '25 km/h', ar: '25 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '25-30 km', ar: '25-30 كلم' } }
+      ],
+      features: {
+        fr: ['Moteur 350W', 'Batterie 36V 10,4Ah', 'Pneus 8,5 pouces', 'Frein à disque + électronique', 'Touches turquoise · écran LED', 'Légère · pliable'],
+        ar: ['محرّك 350 واط', 'بطارية 36 فولت 10,4 أمبير', 'عجلات 8,5 إنش', 'فرامل قرصية + إلكترونية', 'لمسات فيروزية · شاشة LED', 'خفيفة · قابلة للطي']
+      },
+      imagePaths: ['uploads/WATHBUM_01.JPG', 'uploads/WATHBUM_02.JPG', 'uploads/WATHBUM_03.JPG']
+    }
+  ];
+
+  CATS = [
+    { key: 'all', fr: 'Tous', ar: 'الكل' },
+    { key: 'perf', fr: 'Performance', ar: 'أداء عالٍ' },
+    { key: 'city', fr: 'Urbain', ar: 'حضري' },
+    { key: 'compact', fr: 'Compacte', ar: 'مدمجة' }
+  ];
+  CAT_OF = {
+    'WATHIUM RS-2': 'perf', 'HEZZO GT06 PRO': 'perf', 'KEPOW K2 MASTER': 'perf',
+    'Bison GT 1000W': 'perf', 'NANROBOT N6': 'perf', 'MAX WHEEL GT4': 'perf', 'TEKNES K-PRO': 'perf',
+    'WATHIUM BLADE': 'city', 'NXRIDE': 'city', 'MAX WHEEL E9 PRO': 'city', 'KEPOW MAX': 'city',
+    'SEGWAY E2 PLUS': 'city', 'TEKNES KCITY': 'city', 'ATHRUM CITY': 'city',
+    'PUCK by EcoXtrem': 'compact', 'MAX WHEEL FORZA': 'compact'
+  };
+
+  BRAND_OF = {
+    'WATHIUM RS-2': 'WATHIUM', 'WATHIUM BLADE': 'WATHIUM',
+    'MAX WHEEL GT4': 'MAX WHEEL', 'MAX WHEEL E9 PRO': 'MAX WHEEL', 'MAX WHEEL FORZA': 'MAX WHEEL',
+    'KEPOW K2 MASTER': 'KEPOW', 'KEPOW MAX': 'KEPOW',
+    'TEKNES KCITY': 'TEKNES', 'TEKNES K-PRO': 'TEKNES',
+    'Bison GT 1000W': 'EcoXtrem', 'PUCK by EcoXtrem': 'EcoXtrem',
+    'NANROBOT N6': 'NANROBOT',
+    'HEZZO GT06 PRO': 'HEZZO',
+    'SEGWAY E2 PLUS': 'SEGWAY',
+    'NXRIDE': 'NXRIDE',
+    'ATHRUM CITY': 'ATHRUM'
+  };
+  BRANDS = ['WATHIUM', 'MAX WHEEL', 'KEPOW', 'TEKNES', 'EcoXtrem', 'NANROBOT', 'HEZZO', 'SEGWAY', 'NXRIDE', 'ATHRUM'];
+
+  renderVals() {
+    const { view, activeProduct, activeImage, selectedProduct, form, imgMap, lang } = this.state;
+    const t = this.T[lang];
+    const L = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[lang] ?? v.fr) : v;
+    const resolve = (src) => (imgMap && imgMap[src]) || src;
+    const mkRef = (url) => (node) => { if (node && url && node.src !== url) node.src = url; };
+    const dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+    const products = this.PRODUCTS.map((p) => {
+      const isSelected = p.name === selectedProduct;
+      return {
+        name: p.name,
+        category: L(p.category),
+        badge: L(p.badge),
+        shortDesc: L(p.shortDesc),
+        power: p.power,
+        speed: L(p.speed),
+        range: L(p.range),
+        price: p.price,
+        thumb: resolve(p.imagePaths[0]),
+        thumbRef: mkRef(resolve(p.imagePaths[0])),
+        imageCountLabel: t.photos(p.imagePaths.length),
+        isSelected,
+        borderColor: isSelected ? '#E0A645' : 'rgba(255,255,255,0.14)',
+        bgColor: isSelected ? '#E0A645' : '#17232F',
+        textColor: isSelected ? '#0E1621' : '#F3ECDD'
+      };
+    });
+
+    const cp = this.PRODUCTS[activeProduct] || this.PRODUCTS[0];
+    const currentProduct = {
+      name: cp.name,
+      category: L(cp.category),
+      desc: L(cp.desc),
+      price: cp.price,
+      specs: cp.specs.map(s => ({ label: L(s.label), value: L(s.value) })),
+      features: L(cp.features),
+      images: cp.imagePaths.map((src, i) => ({
+        src: resolve(src),
+        srcRef: mkRef(resolve(src)),
+        borderColor: i === activeImage ? '#E0A645' : 'rgba(255,255,255,0.14)'
+      }))
+    };
+    const currentImage = resolve(cp.imagePaths[activeImage] || cp.imagePaths[0]);
+    const currentImageRef = mkRef(currentImage);
+    const heroImage = resolve(this.PRODUCTS[0].imagePaths[0]);
+    const heroRef = mkRef(heroImage);
+
+    const qty = parseInt(form.qty) || 1;
+    const selP = this.PRODUCTS.find(p => p.name === selectedProduct) || this.PRODUCTS[0];
+    const total = (selP.priceNum * qty).toLocaleString('fr-FR').replace(/,/g, ' ');
+
+    const cities = t.cities;
+    const formView = { ...form, city: form.city || cities[0], address: form.address || '', note: form.note || '' };
+
+    const waGreeting = lang === 'ar'
+      ? 'مرحباً، أريد الاستفسار عن دراجاتكم الكهربائية.'
+      : 'Bonjour, je souhaite avoir des informations sur vos trottinettes.';
+    const waLink = 'https://wa.me/' + this.WA_NUMBER + '?text=' + encodeURIComponent(waGreeting);
+
+    const search = this.state.search || '';
+    const activeCat = this.state.cat || 'all';
+    const activeBrand = this.state.brand || 'all';
+    const matchCat = (name) => activeCat === 'all' || (this.CAT_OF[name] || 'city') === activeCat;
+    const matchBrand = (name) => activeBrand === 'all' || this.BRAND_OF[name] === activeBrand;
+    const matchSearch = (name) => { const q = search.trim().toLowerCase(); return !q || name.toLowerCase().includes(q); };
+    const filteredProducts = products.filter(p => matchCat(p.name) && matchBrand(p.name) && matchSearch(p.name));
+    const chipStyle = (on) => ({
+      weight: on ? 700 : 500,
+      bg: on ? 'rgba(224,166,69,0.12)' : 'transparent',
+      color: on ? '#E0A645' : '#C3CCD5',
+      bar: on ? '#E0A645' : 'transparent',
+      countBg: on ? 'rgba(224,166,69,0.18)' : 'rgba(255,255,255,0.05)',
+      countColor: on ? '#E0A645' : '#8A96A3'
+    });
+    const catChips = this.CATS.map(c => {
+      const on = c.key === activeCat;
+      const count = products.filter(p => matchSearch(p.name) && matchBrand(p.name) && (c.key === 'all' || (this.CAT_OF[p.name] || 'city') === c.key)).length;
+      return { key: c.key, label: c[lang] || c.fr, count, ...chipStyle(on) };
+    });
+    const brandItems = [{ key: 'all', label: t.allBrands }].concat(this.BRANDS.map(b => ({ key: b, label: b })));
+    const brandChips = brandItems.map(b => {
+      const on = b.key === activeBrand;
+      const count = products.filter(p => matchSearch(p.name) && matchCat(p.name) && (b.key === 'all' || this.BRAND_OF[p.name] === b.key)).length;
+      return { key: b.key, label: b.label, count, ...chipStyle(on) };
+    });
+    const n = filteredProducts.length;
+    const resultLabel = lang === 'ar' ? (n + ' نتيجة') : (n + (n > 1 ? ' résultats' : ' résultat'));
+
+    return {
+      t, dir, lang, waLink,
+      filteredProducts, catChips, brandChips, resultLabel,
+      hasResults: n > 0, noResults: n === 0,
+      search,
+      onSearch: (e) => this.setState({ search: e.currentTarget.value }),
+      selectCat: (e) => this.setState({ cat: e.currentTarget.dataset.cat }),
+      selectBrand: (e) => this.setState({ brand: e.currentTarget.dataset.brand }),
+      showHome: view === 'home',
+      showDetail: view === 'detail',
+      products, currentProduct, currentImage, heroImage, heroRef, currentImageRef,
+      cities, total,
+      form: formView,
+      toggleLang: () => this.setState({ lang: lang === 'fr' ? 'ar' : 'fr' }),
+      openProduct: (e) => {
+        const idx = parseInt(e.currentTarget.dataset.idx);
+        this.setState({ view: 'detail', activeProduct: idx, activeImage: 0 });
+        // Prioritize converting this product's full gallery
+        this.prioritize(this.PRODUCTS[idx].imagePaths);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      goHome: (e) => {
+        if (e) e.preventDefault();
+        this.setState({ view: 'home' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      selectImage: (e) => this.setState({ activeImage: parseInt(e.currentTarget.dataset.idx) }),
+      selectProduct: (e) => this.setState({ selectedProduct: e.currentTarget.dataset.product }),
+      selectFromDetail: () => this.setState({ selectedProduct: cp.name }),
+      updateField: (e) => {
+        const field = e.currentTarget.dataset.field;
+        this.setState({ form: { ...this.state.form, [field]: e.currentTarget.value } });
+      },
+      submitOrder: () => {
+        const p = this.PRODUCTS.find(p => p.name === this.state.selectedProduct) || this.PRODUCTS[0];
+        const f = this.state.form;
+        const city = f.city || this.T[this.state.lang].cities[0];
+        const lines = this.state.lang === 'ar'
+          ? `مرحباً،\n\nأرغب في طلب :\n\nالمنتج : ${p.name}\nالثمن : ${p.price} درهم\nالكمية : ${f.qty}\n\nالاسم : ${f.name}\nالهاتف : ${f.phone}\nالمدينة : ${city}\nالعنوان : ${f.address || '—'}${f.note ? `\nملاحظة : ${f.note}` : ''}\n\nشكراً.`
+          : `Bonjour,\n\nJe souhaite commander :\n\nProduit : ${p.name}\nPrix : ${p.price} MAD\nQuantité : ${f.qty}\n\nNom : ${f.name}\nTéléphone : ${f.phone}\nVille : ${city}\nAdresse : ${f.address || '—'}${f.note ? `\nNote : ${f.note}` : ''}\n\nMerci.`;
+        window.open('https://wa.me/' + this.WA_NUMBER + '?text=' + encodeURIComponent(lines), '_blank', 'noopener');
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
