@@ -109,7 +109,16 @@
   }
   ::selection { background: #338FFF; color: #fff; }
   button { font-family: inherit; cursor: pointer; }
-  a { -webkit-tap-highlight-color: transparent; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  img { max-width: 100%; }
+  /* Anchor targets must clear the sticky nav. */
+  #collection, #commander { scroll-margin-top: 88px; }
+  .nav-logo { height: 34px; width: auto; display: block; }
+  .footer-logo { height: 34px; width: auto; display: block; }
+  /* Horizontal strips (filters, gallery thumbs) scroll without a visible bar. */
+  .scroll-x { -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .scroll-x::-webkit-scrollbar { display: none; }
   @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
   @keyframes spin { to { transform:rotate(360deg); } }
   .pcard-imgspacer { pointer-events: none; }
@@ -137,9 +146,13 @@
     opacity: 1;
     transition: opacity 450ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .pcard:hover .pcard-imgwrap, .pcard:focus-visible .pcard-imgwrap { height: 100%; border-color: transparent; }
-  .pcard:hover .pcard-img, .pcard:focus-visible .pcard-img { object-fit: contain; }
-  .pcard:hover .pcard-content, .pcard:focus-visible .pcard-content { opacity: 0; pointer-events: none; }
+  /* Hover-to-expand only where there is a real pointer. On touch, :hover
+     latches after a tap and would leave cards stuck open. */
+  @media (hover: hover) and (pointer: fine) {
+    .pcard:hover .pcard-imgwrap, .pcard:focus-visible .pcard-imgwrap { height: 100%; border-color: transparent; }
+    .pcard:hover .pcard-img, .pcard:focus-visible .pcard-img { object-fit: contain; }
+    .pcard:hover .pcard-content, .pcard:focus-visible .pcard-content { opacity: 0; pointer-events: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .pcard-imgwrap, .pcard-content { transition: none !important; }
   }
@@ -150,31 +163,108 @@
       linear-gradient(90deg, rgba(14,22,33,0.8) 0%, rgba(14,22,33,0.4) 42%, rgba(14,22,33,0) 72%);
   }
   @media (max-width: 920px) {
-    .hero-panel { aspect-ratio: 4/5 !important; }
-    .resp-detail { grid-template-columns: 1fr !important; gap: 32px !important; }
-    .resp-order { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .hero-panel { min-height: 600px !important; }
+    /* minmax(0,…) everywhere: a bare 1fr floors at the track's min-content, so
+       one nowrap child would otherwise blow the column past the viewport. */
+    .resp-detail { grid-template-columns: minmax(0, 1fr) !important; gap: 32px !important; }
+    .resp-order { grid-template-columns: minmax(0, 1fr) !important; gap: 40px !important; }
     .resp-order-sticky { position: static !important; }
-    .resp-grid-3 { grid-template-columns: 1fr 1fr !important; }
+    .resp-grid-3 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; }
     .resp-h1 { font-size: 52px !important; }
     .resp-h2 { font-size: 40px !important; }
     .nav-links { display: none !important; }
-    .resp-store { grid-template-columns: 1fr !important; gap: 28px !important; }
-    .resp-store-side-sticky { position: static !important; }
-    .store-nav { flex-direction: row !important; flex-wrap: wrap !important; }
-    .store-nav-item { width: auto !important; }
+    .resp-store { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; }
+    .resp-store-side-sticky { position: static !important; min-width: 0 !important; }
+    /* Filters become a single swipeable strip instead of a tall wrapped block. */
+    .store-nav {
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      gap: 8px !important;
+      padding-bottom: 4px !important;
+    }
+    .store-nav-item {
+      width: auto !important;
+      flex: none !important;
+      white-space: nowrap !important;
+      justify-content: flex-start !important;
+      gap: 8px !important;
+      border: 1px solid rgba(255,255,255,0.10) !important;
+    }
+    /* Product photos are portrait promo renders — show them whole, not cropped. */
+    .pcard-imgspacer { aspect-ratio: 4/5 !important; }
+    .pcard-imgwrap { height: 125cqw !important; }
+    .pcard-img { object-fit: contain !important; }
   }
   @media (max-width: 600px) {
-    .resp-grid-3 { grid-template-columns: 1fr !important; }
-    .resp-stats { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
-    .resp-pad { padding-left: 20px !important; padding-right: 20px !important; }
+    .resp-grid-3 { grid-template-columns: minmax(0, 1fr) !important; gap: 16px !important; }
+    .resp-stats { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; gap: 24px !important; }
+    .resp-pad { padding-left: 18px !important; padding-right: 18px !important; }
     .resp-h1 { font-size: 40px !important; line-height: 1.08 !important; }
-    .resp-h2 { font-size: 32px !important; }
-    .resp-trust { gap: 14px !important; font-size: 11px !important; }
-    .resp-form-card { padding: 24px !important; }
+    .resp-h2 { font-size: 30px !important; }
+    .resp-form-card { padding: 20px !important; }
     .resp-detail-price { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; }
     .resp-table-wrap { overflow-x: auto !important; }
     .resp-table { min-width: 560px !important; }
-    .resp-nav-pad { padding: 14px 20px !important; }
+
+    /* --- Nav: bigger logo, compact actions, comfortable tap targets --- */
+    .resp-nav-pad { padding: 11px 18px !important; gap: 12px !important; }
+    .nav-logo { height: 30px !important; }
+    .nav-lang { padding: 9px 12px !important; font-size: 12px !important; }
+    .nav-cta { padding: 10px 14px !important; font-size: 12px !important; gap: 6px !important; }
+    .nav-cta-text { display: none !important; }
+    #collection, #commander { scroll-margin-top: 66px !important; }
+
+    /* --- Section rhythm: tighter, but still breathing --- */
+    .sec { padding-left: 18px !important; padding-right: 18px !important; }
+    .sec-hero { padding-top: 24px !important; padding-bottom: 40px !important; }
+    .sec-collection { padding-top: 56px !important; padding-bottom: 48px !important; }
+    .sec-compare { padding-top: 56px !important; padding-bottom: 56px !important; }
+    .sec-order { padding-top: 56px !important; padding-bottom: 56px !important; }
+    .sec-footer { padding-top: 44px !important; padding-bottom: 28px !important; }
+    .sec-detail { padding-top: 18px !important; padding-bottom: 56px !important; }
+
+    /* --- Hero --- */
+    .hero-panel { min-height: 540px !important; border-radius: 20px !important; }
+    .hero-content { padding: 24px !important; }
+    .hero-scrim {
+      background:
+        linear-gradient(180deg, rgba(14,22,33,0) 0%, rgba(14,22,33,0.48) 34%, rgba(14,22,33,0.96) 100%) !important;
+    }
+
+    /* --- Trust bar: an even 2x2 grid reads better than a cramped wrap --- */
+    .resp-trust {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 12px 14px !important;
+      font-size: 10px !important;
+      padding: 18px 18px !important;
+    }
+
+    /* --- Order form --- */
+    .form-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
+    .model-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; }
+    .form-total { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; }
+    .form-total-cta { justify-content: center !important; width: 100% !important; padding: 16px 20px !important; }
+
+    /* iOS zooms the page when a focused field is under 16px. */
+    input, select, textarea { font-size: 16px !important; }
+
+    /* --- Product detail gallery --- */
+    .detail-main { aspect-ratio: 4/5 !important; }
+    .detail-thumb { width: 60px !important; height: 60px !important; }
+
+    /* --- Footer --- */
+    .footer-top { flex-direction: column !important; gap: 28px !important; padding-bottom: 28px !important; }
+    .footer-logo { height: 30px !important; }
+
+    /* --- Floating buttons: smaller, and clear of the home indicator --- */
+    .fab { width: 52px !important; height: 52px !important; inset-inline-end: 16px !important; }
+    .fab svg { width: 26px !important; height: 26px !important; }
+    .fab-wa { bottom: calc(16px + env(safe-area-inset-bottom)) !important; }
+    .fab-ig { bottom: calc(78px + env(safe-area-inset-bottom)) !important; }
   }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.18.2/libheif-wasm/libheif-bundle.js"></script>
@@ -186,7 +276,7 @@
   <nav style="position:sticky; top:0; z-index:50; background:rgba(14,22,33,0.85); backdrop-filter:saturate(140%) blur(14px); -webkit-backdrop-filter:saturate(140%) blur(14px); border-bottom:1px solid rgba(255,255,255,0.07);">
     <div class="resp-nav-pad" style="max-width:1320px; margin:0 auto; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; gap:32px;">
       <a href="#" onClick="{{ goHome }}" style="display:flex; align-items:center;">
-        <img src="uploads/logo-white.png" alt="HIDRISSI" style="height:26px; width:auto; display:block;">
+        <img src="uploads/logo-white.png" alt="HIDRISSI" class="nav-logo" style="height:34px; width:auto; display:block;">
       </a>
       <div class="nav-links" style="display:flex; align-items:center; gap:28px; font-size:14px; color:#C3CCD5;">
         <a href="#" onClick="{{ goHome }}" style="color:inherit; text-decoration:none; font-weight:500;">{{ t.navHome }}</a>
@@ -194,13 +284,13 @@
         <a href="#commander" style="color:inherit; text-decoration:none;">{{ t.navOrder }}</a>
       </div>
       <div style="display:flex; align-items:center; gap:14px;">
-        <button onClick="{{ toggleLang }}" style="display:inline-flex; align-items:center; gap:7px; background:none; border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:7px 14px; font-size:13px; font-weight:600; color:#F3ECDD;">
+        <button onClick="{{ toggleLang }}" class="nav-lang" style="display:inline-flex; align-items:center; gap:7px; background:none; border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:9px 14px; font-size:13px; font-weight:600; color:#F3ECDD;">
           <span style="font-size:14px;">{{ t.langGlobe }}</span>
           {{ t.langSwitch }}
         </button>
-        <a href="#commander" style="background:#25D366; color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+        <a href="#commander" class="nav-cta" style="background:#25D366; color:#fff; padding:11px 18px; border-radius:999px; font-size:13px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          {{ t.navOrder }}
+          <span class="nav-cta-text">{{ t.navOrder }}</span>
         </a>
       </div>
     </div>
@@ -208,7 +298,7 @@
 
   <!-- PRODUCT DETAIL VIEW -->
   <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
-    <div style="max-width:1320px; margin:0 auto; padding:32px 32px 80px;">
+    <div class="sec sec-detail" style="max-width:1320px; margin:0 auto; padding:32px 32px 80px;">
       <button onClick="{{ goHome }}" style="background:none; border:none; font-size:14px; color:#8A96A3; display:inline-flex; align-items:center; gap:8px; padding:8px 0; margin-bottom:24px;">
         <span style="font-size:18px;">{{ t.backArrow }}</span> {{ t.backToCollection }}
       </button>
@@ -216,13 +306,13 @@
       <div class="resp-detail" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
         <!-- Gallery -->
         <div>
-          <div style="position:relative; aspect-ratio:1; border-radius:16px; overflow:hidden; background:#1E2C3A; border:1px solid rgba(255,255,255,0.07); margin-bottom:12px;">
+          <div class="detail-main" style="position:relative; aspect-ratio:1; border-radius:16px; overflow:hidden; background:#1E2C3A; border:1px solid rgba(255,255,255,0.07); margin-bottom:12px;">
             <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:30px; height:30px; border:3px solid rgba(255,255,255,0.14); border-top-color:#E0A645; border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
             <img ref="{{ currentImageRef }}" style="position:relative; width:100%; height:100%; object-fit:cover;" alt="{{ currentProduct.name }}">
           </div>
-          <div style="display:flex; gap:8px; overflow-x:auto; padding:4px 0;">
+          <div class="scroll-x" style="display:flex; gap:8px; overflow-x:auto; padding:4px 0;">
             <sc-for list="{{ currentProduct.images }}" as="img" hint-placeholder-count="4">
-              <button onClick="{{ selectImage }}" data-idx="{{ $index }}" style="position:relative; flex:none; width:72px; height:72px; border-radius:10px; overflow:hidden; border:2px solid {{ img.borderColor }}; padding:0; background:#1E2C3A; cursor:pointer;">
+              <button onClick="{{ selectImage }}" data-idx="{{ $index }}" class="detail-thumb" style="position:relative; flex:none; width:72px; height:72px; border-radius:10px; overflow:hidden; border:2px solid {{ img.borderColor }}; padding:0; background:#1E2C3A; cursor:pointer;">
                 <img ref="{{ img.srcRef }}" style="width:100%; height:100%; object-fit:cover;" alt="">
               </button>
             </sc-for>
@@ -273,12 +363,12 @@
   <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
 
     <!-- HERO -->
-    <section style="max-width:1320px; margin:0 auto; padding:56px 32px 72px;">
-      <div class="hero-panel" style="position:relative; aspect-ratio:16/7; border-radius:24px; overflow:hidden; background:#1E2C3A; display:flex; align-items:flex-end;">
+    <section class="sec sec-hero" style="max-width:1320px; margin:0 auto; padding:56px 32px 72px;">
+      <div class="hero-panel" style="position:relative; min-height:clamp(460px, 42vw, 620px); border-radius:24px; overflow:hidden; background:#1E2C3A; display:flex; align-items:flex-end;">
         <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:30px; height:30px; border:3px solid rgba(255,255,255,0.14); border-top-color:#E0A645; border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
         <img ref="{{ heroRef }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;" alt="HIDRISSI">
         <div class="hero-scrim" style="position:absolute; inset:0;"></div>
-        <div style="position:relative; z-index:1; padding:48px; max-width:640px;">
+        <div class="hero-content" style="position:relative; z-index:1; padding:48px; max-width:640px;">
           <div style="font-size:13px; letter-spacing:0.04em; color:#C3CCD5;">{{ t.heroBadge }}</div>
           <h1 class="resp-h1" style="margin:28px 0 24px; font-size:80px; line-height:1.02; letter-spacing:-0.04em; font-weight:800;">{{ t.heroTitle }}</h1>
           <p style="font-size:18px; line-height:1.6; color:#D7DEE5; margin:0 0 36px;">{{ t.heroSubtitle }}</p>
@@ -322,7 +412,7 @@
     </section>
 
     <!-- COLLECTION -->
-    <section id="collection" style="max-width:1320px; margin:0 auto; padding:100px 32px 80px;">
+    <section id="collection" class="sec sec-collection" style="max-width:1320px; margin:0 auto; padding:100px 32px 80px;">
       <div style="margin-bottom:32px;">
         <div style="font-size:11px; letter-spacing:0.16em; color:#8A96A3; text-transform:uppercase;">{{ t.collectionEyebrow }}</div>
         <h2 class="resp-h2" style="margin:16px 0 0; font-size:54px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ t.collectionTitle }}</h2>
@@ -335,7 +425,7 @@
         <aside>
           <div class="resp-store-side-sticky" style="position:sticky; top:96px;">
             <div style="font-size:10px; letter-spacing:0.14em; color:#74808E; text-transform:uppercase; padding:0 6px 14px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px;">{{ t.catTitle }}</div>
-            <nav class="store-nav" style="display:flex; flex-direction:column; gap:4px;">
+            <nav class="store-nav scroll-x" style="display:flex; flex-direction:column; gap:4px;">
               <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="4">
                 <button class="store-nav-item" onClick="{{ selectCat }}" data-cat="{{ c.key }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:none; border-radius:12px; background:{{ c.bg }}; color:{{ c.color }}; font-size:14px; font-weight:{{ c.weight }}; text-align:start; cursor:pointer;" style-hover="background:rgba(255,255,255,0.05);">
                   <span style="display:inline-flex; align-items:center; gap:10px;">
@@ -348,7 +438,7 @@
             </nav>
 
             <div style="font-size:10px; letter-spacing:0.14em; color:#74808E; text-transform:uppercase; padding:22px 6px 14px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px;">{{ t.brandTitle }}</div>
-            <nav class="store-nav" style="display:flex; flex-direction:column; gap:4px;">
+            <nav class="store-nav scroll-x" style="display:flex; flex-direction:column; gap:4px;">
               <sc-for list="{{ brandChips }}" as="c" hint-placeholder-count="6">
                 <button class="store-nav-item" onClick="{{ selectBrand }}" data-brand="{{ c.key }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:none; border-radius:12px; background:{{ c.bg }}; color:{{ c.color }}; font-size:14px; font-weight:{{ c.weight }}; text-align:start; cursor:pointer;" style-hover="background:rgba(255,255,255,0.05);">
                   <span style="display:inline-flex; align-items:center; gap:10px;">
@@ -422,7 +512,7 @@
 
     <!-- COMPARISON -->
     <section style="background:#0A131D; color:#F3ECDD;">
-      <div style="max-width:1320px; margin:0 auto; padding:100px 32px;">
+      <div class="sec sec-compare" style="max-width:1320px; margin:0 auto; padding:100px 32px;">
         <div style="margin-bottom:48px;">
           <div style="font-size:11px; letter-spacing:0.16em; color:#74808E; text-transform:uppercase;">{{ t.compareEyebrow }}</div>
           <h2 class="resp-h2" style="margin:16px 0 0; font-size:46px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ t.compareTitle }}</h2>
@@ -456,7 +546,7 @@
     </section>
 
     <!-- ORDER -->
-    <section id="commander" style="max-width:1320px; margin:0 auto; padding:100px 32px;">
+    <section id="commander" class="sec sec-order" style="max-width:1320px; margin:0 auto; padding:100px 32px;">
       <div class="resp-order" style="display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:start;">
         <div class="resp-order-sticky" style="position:sticky; top:100px;">
           <div style="font-size:11px; letter-spacing:0.16em; color:#8A96A3; text-transform:uppercase;">{{ t.orderEyebrow }}</div>
@@ -497,7 +587,7 @@
             </div>
           </div>
 
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div class="form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
             <label style="display:flex; flex-direction:column; gap:6px;">
               <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldName }}</span>
               <input type="text" value="{{ form.name }}" onChange="{{ updateField }}" data-field="name" placeholder="{{ t.phName }}" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
@@ -531,8 +621,8 @@
               <input type="text" value="{{ form.note }}" onChange="{{ updateField }}" data-field="note" placeholder="{{ t.phNote }}" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
             </label>
           </div>
-            <div style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase; margin-bottom:12px;">{{ t.fieldModel }}</div>
-            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+            <div style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase; margin-top:24px; margin-bottom:12px;">{{ t.fieldModel }}</div>
+            <div class="model-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
               <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
                 <button onClick="{{ selectProduct }}" data-product="{{ p.name }}" style="text-align:start; padding:12px; border:1px solid {{ p.borderColor }}; background:{{ p.bgColor }}; color:{{ p.textColor }}; border-radius:12px;">
                   <div style="font-size:9px; letter-spacing:0.08em; opacity:0.7; text-transform:uppercase;">{{ p.category }}</div>
@@ -543,12 +633,12 @@
             </div>
           </div>
 
-          <div style="margin-top:28px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.09); display:flex; justify-content:space-between; align-items:center; gap:20px;">
+          <div class="form-total" style="margin-top:28px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.09); display:flex; justify-content:space-between; align-items:center; gap:20px;">
             <div>
               <div style="font-size:10px; letter-spacing:0.08em; color:#74808E; text-transform:uppercase;">{{ t.total }}</div>
               <div style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin-top:4px; color:#E0A645;">{{ total }} <span style="font-size:14px; color:#8A96A3; font-weight:500;">{{ t.currency }}</span></div>
             </div>
-            <button onClick="{{ submitOrder }}" style="background:#25D366; color:#fff; border:none; padding:16px 26px; border-radius:999px; font-size:14px; font-weight:700; display:inline-flex; align-items:center; gap:10px; white-space:nowrap;">
+            <button onClick="{{ submitOrder }}" class="form-total-cta" style="background:#25D366; color:#fff; border:none; padding:16px 26px; border-radius:999px; font-size:14px; font-weight:700; display:inline-flex; align-items:center; gap:10px; white-space:nowrap;">
               <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
               {{ t.waCta }}
             </button>
@@ -559,11 +649,11 @@
 
     <!-- FOOTER -->
     <section style="background:#0A131D; color:#F3ECDD;">
-      <div style="max-width:1320px; margin:0 auto; padding:64px 32px 32px;">
-        <div style="display:flex; justify-content:space-between; align-items:start; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(248,250,252,0.1); flex-wrap:wrap;">
+      <div class="sec sec-footer" style="max-width:1320px; margin:0 auto; padding:64px 32px 32px;">
+        <div class="footer-top" style="display:flex; justify-content:space-between; align-items:start; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(248,250,252,0.1); flex-wrap:wrap;">
           <div>
             <div style="margin-bottom:16px;">
-              <img src="uploads/logo-white.png" alt="HIDRISSI" style="height:30px; width:auto; display:block;">
+              <img src="uploads/logo-white.png" alt="HIDRISSI" class="footer-logo" style="height:34px; width:auto; display:block;">
             </div>
             <p style="font-size:13px; color:#74808E; max-width:320px; line-height:1.6;">{{ t.footerTagline }}</p>
           </div>
@@ -581,12 +671,12 @@
   </sc-if>
 
   <!-- FLOATING INSTAGRAM BUTTON -->
-  <a href="https://www.instagram.com/h.idrissielectro" target="_blank" rel="noopener" aria-label="Instagram" style="position:fixed; bottom:96px; inset-inline-end:24px; z-index:60; width:60px; height:60px; border-radius:50%; background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(214,36,159,0.45); text-decoration:none;">
+  <a href="https://www.instagram.com/h.idrissielectro" target="_blank" rel="noopener" aria-label="Instagram" class="fab fab-ig" style="position:fixed; bottom:96px; inset-inline-end:24px; z-index:60; width:60px; height:60px; border-radius:50%; background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(214,36,159,0.45); text-decoration:none;">
     <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
   </a>
 
   <!-- FLOATING WHATSAPP BUTTON -->
-  <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="WhatsApp" style="position:fixed; bottom:24px; inset-inline-end:24px; z-index:60; width:60px; height:60px; border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(37,211,102,0.45); text-decoration:none; animation:waPulse 2.4s infinite;">
+  <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="WhatsApp" class="fab fab-wa" style="position:fixed; bottom:24px; inset-inline-end:24px; z-index:60; width:60px; height:60px; border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(37,211,102,0.45); text-decoration:none; animation:waPulse 2.4s infinite;">
     <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
   </a>
 </div>

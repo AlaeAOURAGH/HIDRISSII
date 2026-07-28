@@ -43,7 +43,10 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git branch *)",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(ssh-keygen -t ed25519 -C \"hidrissii-push\" -f ~/.ssh/id_ed25519_hidrissii -N \"\")",
+      "Read(//c/Users/Administrateur.PC/.ssh/**)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --no-sandbox --virtual-time-budget=8000 --window-size=390,1400 --dump-dom \"http://localhost:3000/_probe.html\")"
     ]
   }
 }
