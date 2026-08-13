@@ -165,7 +165,7 @@ async function main() {
   const data = {
     _generated: new Date().toISOString(),
     _note: 'Edit prices/specs/text here freely. Adding images requires re-running npm run build:images.',
-    waNumberDefault: WA_NUMBER || '212602070099',
+    waNumberDefault: WA_NUMBER || '212606555567',
     cats: CATS,
     brands: BRANDS,
     products: outProducts,

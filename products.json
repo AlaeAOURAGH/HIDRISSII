@@ -1,7 +1,7 @@
 {
   "_generated": "2026-07-01T18:39:09.419Z",
   "_note": "Edit prices/specs/text here freely. Adding images requires re-running npm run build:images.",
-  "waNumberDefault": "212641451387",
+  "waNumberDefault": "212606555567",
   "cats": [
     {
       "key": "all",
@@ -169,8 +169,8 @@
         "fr": "jusqu'à 56 km",
         "ar": "حتى 56 كلم"
       },
-      "price": "4 990",
-      "priceNum": 4990,
+      "price": "5 900",
+      "priceNum": 5900,
       "specs": [
         {
           "label": {
@@ -277,8 +277,8 @@
         "ar": "دراجة مرخّصة 2026. محرّك 2000 واط، مثالية للتنقّلات اليومية في المدينة."
       },
       "desc": {
-        "fr": "La WATHIUM BLADE est une trottinette homologuée 2026, conçue pour les trajets urbains quotidiens. Son moteur 2000W MAX et sa batterie 48V 15Ah offrent 45 km/h et jusqu'à 60 km d'autonomie. Disponible en deux coloris.",
-        "ar": "WATHIUM BLADE دراجة مرخّصة لعام 2026، مصمّمة للتنقّلات الحضرية اليومية. محرّكها 2000 واط MAX وبطاريتها 48 فولت 15 أمبير يوفّران سرعة 45 كلم/س ومدى يصل إلى 60 كلم. متوفّرة بلونين."
+        "fr": "La WATHIUM BLADE est une trottinette homologuée 2026, conçue pour les trajets urbains quotidiens. Son moteur 2000W MAX et sa batterie 48V 15Ah offrent 45 km/h et jusqu'à 50 km d'autonomie. Disponible en deux coloris.",
+        "ar": "WATHIUM BLADE دراجة مرخّصة لعام 2026، مصمّمة للتنقّلات الحضرية اليومية. محرّكها 2000 واط MAX وبطاريتها 48 فولت 15 أمبير يوفّران سرعة 45 كلم/س ومدى يصل إلى 50 كلم. متوفّرة بلونين."
       },
       "power": "2000W MAX",
       "speed": {
@@ -286,8 +286,8 @@
         "ar": "45 كلم/س"
       },
       "range": {
-        "fr": "50-60 km",
-        "ar": "50-60 كلم"
+        "fr": "40-50 km",
+        "ar": "40-50 كلم"
       },
       "price": "5 300",
       "priceNum": 5300,
@@ -322,8 +322,8 @@
             "ar": "المدى"
           },
           "value": {
-            "fr": "50-60 km",
-            "ar": "50-60 كلم"
+            "fr": "40-50 km",
+            "ar": "40-50 كلم"
           }
         }
       ],
@@ -332,7 +332,7 @@
           "Moteur 2000W MAX",
           "Batterie 48V 15Ah",
           "Trottinette homologuée 2026",
-          "Autonomie 50-60 km",
+          "Autonomie 40-50 km",
           "Disponible en 2 coloris",
           "Garantie incluse"
         ],
@@ -340,7 +340,7 @@
           "محرّك 2000 واط MAX",
           "بطارية 48 فولت 15 أمبير",
           "دراجة مرخّصة 2026",
-          "مدى 50-60 كلم",
+          "مدى 40-50 كلم",
           "متوفّرة بلونين",
           "مع الضمان"
         ]

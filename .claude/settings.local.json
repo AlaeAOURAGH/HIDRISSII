@@ -46,7 +46,8 @@
       "Bash(git remote *)",
       "Bash(ssh-keygen -t ed25519 -C \"hidrissii-push\" -f ~/.ssh/id_ed25519_hidrissii -N \"\")",
       "Read(//c/Users/Administrateur.PC/.ssh/**)",
-      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --no-sandbox --virtual-time-budget=8000 --window-size=390,1400 --dump-dom \"http://localhost:3000/_probe.html\")"
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --no-sandbox --virtual-time-budget=8000 --window-size=390,1400 --dump-dom \"http://localhost:3000/_probe.html\")",
+      "Bash(node -e \"const d=require\\('./products.json'\\); for\\(const p of d.products\\) if\\(/BLADE|GT06/.test\\(p.name\\)\\) console.log\\(p.name,'|',p.price,'|',p.priceNum,'|',p.range.fr,'/',p.range.ar\\);\")"
     ]
   }
 }

@@ -1,6 +1,6 @@
 class Component extends DCLogic {
   // Overridden at runtime from /api/config (env WA_NUMBER). Fallback below.
-  WA_NUMBER = '212641451387';
+  WA_NUMBER = '212606555567';
 
   state = {
     view: 'home',
@@ -39,7 +39,7 @@ class Component extends DCLogic {
       this.CAT_OF = {};
       this.BRAND_OF = {};
       for (const p of this.PRODUCTS) { this.CAT_OF[p.name] = p.cat; this.BRAND_OF[p.name] = p.brand; }
-      if (this.WA_NUMBER === '212641451387' && data.waNumberDefault) this.WA_NUMBER = data.waNumberDefault;
+      if (this.WA_NUMBER === '212606555567' && data.waNumberDefault) this.WA_NUMBER = data.waNumberDefault;
       const first = this.PRODUCTS[0] ? this.PRODUCTS[0].name : '';
       this.setState({ loaded: true, selectedProduct: this.state.selectedProduct || first });
     } catch (e) {
