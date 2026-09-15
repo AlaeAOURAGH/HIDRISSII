@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<script>(function(){try{var t=localStorage.getItem('hidrissi-theme')||'light';document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 <meta name="ext-resource-dependency" content="uploads/1 (2).jpg" data-resource-id="uploads/1 (2).jpg" />
@@ -80,11 +81,11 @@
 <meta name="ext-resource-dependency" content="uploads/WATHBUM_01.JPG" data-resource-id="uploads/WATHBUM_01.JPG" />
 <meta name="ext-resource-dependency" content="uploads/WATHBUM_02.JPG" data-resource-id="uploads/WATHBUM_02.JPG" />
 <meta name="ext-resource-dependency" content="uploads/WATHBUM_03.JPG" data-resource-id="uploads/WATHBUM_03.JPG" />
-<template id="__bundler_thumbnail" data-bg-color="#0E1621">
+<template id="__bundler_thumbnail" data-bg-color="var(--brand-navy)">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="800" fill="#0E1621"/>
-    <text x="600" y="410" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="130" font-weight="800" letter-spacing="-5" fill="#F3ECDD">HIDRISSI</text>
-    <rect x="516" y="470" width="168" height="9" rx="4" fill="#E0A645"/>
+    <rect width="1200" height="800" fill="var(--brand-navy)"/>
+    <text x="600" y="410" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="130" font-weight="800" letter-spacing="-5" fill="var(--brand-cream)">HIDRISSI</text>
+    <rect x="516" y="470" width="168" height="9" rx="4" fill="var(--brand-gold)"/>
   </svg>
 </template>
 </head>
@@ -96,24 +97,188 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* Light is the primary theme (:root + explicit data-theme="light"). Dark overrides below. */
+  :root,
+  [data-theme="light"] {
+    color-scheme: light;
+    --brand-ink: #0E1621;
+    --brand-navy: #0E1621;
+    --brand-navy-deep: #0A131D;
+    --brand-navy-rgb: 14, 22, 33;
+    --brand-cream: #F3ECDD;
+    --brand-gold: #E0A645;
+    --brand-gold-light: #F0C878;
+    --brand-gold-dark: #C8922E;
+    --brand-gold-rgb: 224, 166, 69;
+    --brand-wa: #25D366;
+    --brand-wa-dark: #1DA851;
+    --brand-wa-rgb: 37, 211, 102;
+    --brand-error: #EF4444;
+    --brand-error-soft: #FCA5A5;
+    --brand-error-rgb: 239, 68, 68;
+    --color-bg: #FAF7F2;
+    --color-bg-deep: #F0EBE0;
+    --color-text: #0E1621;
+    --brand-surface: #FFFFFF;
+    --brand-surface-alt: #F5F0E8;
+    --brand-elevated: #EFEBE3;
+    --text-secondary: #3D4A57;
+    --text-nav: #4A5564;
+    --text-body: #5C6773;
+    --text-muted: #6B7785;
+    --text-subtle: #7A8794;
+    --text-dim: #8A96A3;
+    --border-subtle: rgba(14,22,33,0.08);
+    --border-light: rgba(14,22,33,0.10);
+    --border-medium: rgba(14,22,33,0.14);
+    --border-strong: rgba(14,22,33,0.18);
+    --border-input: rgba(14,22,33,0.22);
+    --chip-count-bg: rgba(14,22,33,0.06);
+    --nav-glass: rgba(250,247,242,0.92);
+    --shadow-card: 0 8px 28px rgba(14,22,33,0.10);
+    --shadow-gold: 0 4px 20px rgba(var(--brand-gold-rgb), 0.18);
+    --photo-badge-bg: rgba(14,22,33,0.72);
+    --compare-border: rgba(14,22,33,0.10);
+    --compare-row-border: rgba(14,22,33,0.07);
+    --compare-head-bg: rgba(14,22,33,0.04);
+    --compare-head-border: rgba(14,22,33,0.08);
+    --radius-pill: 999px;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --transition: 0.22s var(--ease-out);
+  }
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --color-bg: #0E1621;
+    --color-bg-deep: #0A131D;
+    --color-text: #F3ECDD;
+    --brand-surface: #16222F;
+    --brand-surface-alt: #17232F;
+    --brand-elevated: #1E2C3A;
+    --text-secondary: #D7DEE5;
+    --text-nav: #C3CCD5;
+    --text-body: #AEB9C4;
+    --text-muted: #9AA6B2;
+    --text-subtle: #8A96A3;
+    --text-dim: #74808E;
+    --border-subtle: rgba(255,255,255,0.07);
+    --border-light: rgba(255,255,255,0.10);
+    --border-medium: rgba(255,255,255,0.14);
+    --border-strong: rgba(255,255,255,0.18);
+    --border-input: rgba(255,255,255,0.22);
+    --chip-count-bg: rgba(255,255,255,0.05);
+    --nav-glass: rgba(var(--brand-navy-rgb), 0.88);
+    --shadow-card: 0 8px 32px rgba(0,0,0,0.55);
+    --shadow-gold: 0 4px 28px rgba(var(--brand-gold-rgb), 0.22);
+    --photo-badge-bg: rgba(15,23,42,0.75);
+    --compare-border: rgba(248,250,252,0.1);
+    --compare-row-border: rgba(248,250,252,0.06);
+    --compare-head-bg: rgba(248,250,252,0.04);
+    --compare-head-border: rgba(248,250,252,0.08);
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { margin: 0; padding: 0; }
+  html { background: #FAF7F2; }
+  [data-theme="dark"] html { background: #0E1621; }
   body {
     font-family: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: #0E1621;
-    color: #F3ECDD;
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: background var(--transition), color var(--transition);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   [dir="rtl"], [dir="rtl"] input, [dir="rtl"] select, [dir="rtl"] button {
     font-family: "Tajawal", "Manrope", sans-serif;
   }
-  ::selection { background: #338FFF; color: #fff; }
+  ::selection { background: rgba(var(--brand-gold-rgb), 0.35); color: var(--color-text); }
   button { font-family: inherit; cursor: pointer; }
   a, button { -webkit-tap-highlight-color: transparent; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   img { max-width: 100%; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid rgba(var(--brand-gold-rgb), 0.55);
+    outline-offset: 2px;
+  }
   /* Anchor targets must clear the sticky nav. */
   #collection, #commander { scroll-margin-top: 88px; }
+  .site-root { background: var(--color-bg); color: var(--color-text); min-width: 100%; overflow-x: hidden; transition: background var(--transition), color var(--transition); }
+  .section-deep { background: var(--color-bg-deep); color: var(--color-text); transition: background var(--transition); }
+  .eyebrow { font-size: 11px; letter-spacing: 0.16em; color: var(--text-subtle); text-transform: uppercase; }
+  .site-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--nav-glass);
+    backdrop-filter: saturate(160%) blur(16px);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: 0 1px 0 rgba(var(--brand-gold-rgb), 0.12);
+  }
+  .nav-links a {
+    color: inherit; text-decoration: none; font-weight: 500;
+    transition: color var(--transition);
+  }
+  .nav-links a:hover { color: var(--brand-gold); }
+  .nav-lang, .nav-theme {
+    transition: border-color var(--transition), color var(--transition), background var(--transition);
+    display: inline-flex; align-items: center; gap: 7px;
+    background: none; border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill); padding: 9px 14px;
+    font-size: 13px; font-weight: 600; color: var(--color-text);
+  }
+  .nav-lang:hover, .nav-theme:hover {
+    border-color: rgba(var(--brand-gold-rgb), 0.45) !important;
+    color: var(--brand-gold-dark) !important;
+  }
+  [data-theme="dark"] .nav-theme:hover { color: var(--brand-gold-light) !important; }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--brand-gold-light) 0%, var(--brand-gold) 52%, var(--brand-gold-dark) 100%);
+    color: var(--brand-ink) !important;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+    transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+    box-shadow: 0 2px 12px rgba(var(--brand-gold-rgb), 0.28);
+  }
+  .btn-gold:hover { transform: translateY(-1px); box-shadow: var(--shadow-gold); filter: brightness(1.04); }
+  .btn-gold:active { transform: translateY(0); filter: brightness(0.98); }
+  .btn-wa {
+    background: var(--brand-wa) !important;
+    color: #fff !important;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    box-shadow: 0 2px 14px rgba(var(--brand-wa-rgb), 0.35);
+  }
+  .btn-wa:hover { transform: translateY(-1px); background: var(--brand-wa-dark) !important; box-shadow: 0 6px 22px rgba(var(--brand-wa-rgb), 0.42); }
+  .btn-wa:active { transform: translateY(0); }
+  .search-input {
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .search-input:focus {
+    border-color: rgba(var(--brand-gold-rgb), 0.45) !important;
+    box-shadow: 0 0 0 3px rgba(var(--brand-gold-rgb), 0.12);
+  }
+  .form-input {
+    transition: border-color var(--transition);
+  }
+  .form-input:focus {
+    border-bottom-color: var(--brand-gold) !important;
+  }
+  .store-nav-item {
+    transition: background var(--transition), color var(--transition), transform var(--transition);
+  }
+  .store-nav-item:hover { background: var(--chip-count-bg) !important; }
+  .trust-bar span { color: var(--text-muted); }
+  .trust-bar span::first-letter { color: var(--brand-gold); font-weight: 700; }
+  .step-num { color: var(--brand-gold) !important; font-weight: 700 !important; }
+  .footer-links a { transition: color var(--transition); }
+  .footer-links a:hover { color: var(--brand-gold) !important; }
+  .spinner-ring {
+    border: 3px solid var(--border-medium);
+    border-top-color: var(--brand-gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
   .nav-logo { height: 38px; width: auto; display: block; }
   .footer-logo { height: 34px; width: auto; display: block; }
   /* Horizontal strips (filters, gallery thumbs) scroll without a visible bar. */
@@ -122,14 +287,136 @@
   @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
   @keyframes spin { to { transform:rotate(360deg); } }
   .pcard-imgspacer { pointer-events: none; }
-  .pcard { container-type: inline-size; }
+  .pcard {
+    container-type: inline-size;
+    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pcard:hover {
+      border-color: rgba(var(--brand-gold-rgb), 0.28) !important;
+      box-shadow: var(--shadow-gold);
+    }
+  }
+  .hero-panel {
+    box-shadow: inset 0 1px 0 rgba(var(--brand-gold-rgb), 0.18), 0 24px 48px rgba(0,0,0,0.35);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: var(--radius-pill);
+    background: rgba(var(--brand-gold-rgb), 0.12);
+    border: 1px solid rgba(var(--brand-gold-rgb), 0.22);
+    color: var(--brand-gold-light);
+    font-size: 12px; letter-spacing: 0.06em; font-weight: 600;
+  }
+  /* Hero sits on a dark photo in both themes — keep copy light for contrast. */
+  .hero-content h1,
+  .hero-content .resp-h1 { color: #fff; }
+  .hero-content p { color: rgba(255, 255, 255, 0.88); }
+  .compare-table tbody tr { transition: background var(--transition); }
+  .compare-table tbody tr:hover { background: rgba(var(--brand-gold-rgb), 0.04); }
+  .compare-table td:last-child { color: var(--brand-gold); font-weight: 700; }
+  .form-card {
+    box-shadow: 0 16px 48px rgba(0,0,0,0.28), inset 0 1px 0 rgba(var(--brand-gold-rgb), 0.08);
+  }
+  /* --- Product detail page --- */
+  .detail-back {
+    background: none; border: none; font-size: 13px; font-weight: 500;
+    color: var(--text-subtle); display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 0; margin-bottom: 28px; transition: color var(--transition);
+  }
+  .detail-back:hover { color: var(--brand-gold); }
+  .detail-layout {
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 48px; align-items: start;
+  }
+  .detail-gallery { position: sticky; top: 96px; }
+  .detail-main {
+    position: relative; aspect-ratio: 4/5; border-radius: 20px; overflow: hidden;
+    background: var(--brand-elevated);
+    border: 1px solid var(--border-subtle);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .detail-main img {
+    width: 100%; height: 100%; object-fit: contain; object-position: center;
+  }
+  .detail-thumbs { display: flex; gap: 10px; overflow-x: auto; padding: 14px 2px 4px; }
+  .detail-thumb {
+    flex: none; width: 64px; height: 64px; border-radius: 12px; overflow: hidden;
+    padding: 0; background: var(--brand-elevated); cursor: pointer;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .detail-thumb:hover { transform: translateY(-2px); }
+  .detail-info { display: flex; flex-direction: column; gap: 24px; }
+  .detail-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .detail-pill {
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
+    padding: 6px 12px; border-radius: var(--radius-pill);
+    background: rgba(var(--brand-gold-rgb), 0.12);
+    border: 1px solid rgba(var(--brand-gold-rgb), 0.22);
+    color: var(--brand-gold-light);
+  }
+  .detail-pill-muted {
+    background: var(--chip-count-bg); border-color: var(--border-light); color: var(--text-muted);
+  }
+  .detail-title {
+    font-size: clamp(28px, 4vw, 38px); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.08; margin: 0;
+  }
+  .detail-buy {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 20px 22px; border-radius: 16px;
+    background: var(--brand-surface);
+    border: 1px solid rgba(var(--brand-gold-rgb), 0.18);
+    box-shadow: inset 0 1px 0 rgba(var(--brand-gold-rgb), 0.06);
+  }
+  .detail-price {
+    font-size: clamp(26px, 3.5vw, 32px); font-weight: 800;
+    letter-spacing: -0.02em; color: var(--brand-gold); line-height: 1;
+  }
+  .detail-price-note { font-size: 12px; color: var(--text-subtle); margin-top: 6px; }
+  .detail-specs {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .detail-spec {
+    flex: 1 1 120px; min-width: 0; padding: 14px 16px; border-radius: 14px;
+    background: var(--chip-count-bg); border: 1px solid var(--border-subtle);
+  }
+  .detail-spec-label {
+    font-size: 10px; letter-spacing: 0.1em; color: var(--text-dim);
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .detail-spec-value { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  .detail-desc {
+    font-size: 15px; line-height: 1.75; color: var(--text-body); margin: 0;
+  }
+  .detail-features-title {
+    font-size: 11px; letter-spacing: 0.12em; color: var(--text-subtle);
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .detail-features {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px;
+  }
+  .detail-feature {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; line-height: 1.5; color: var(--text-nav);
+  }
+  .detail-feature-dot {
+    flex: none; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--brand-gold); margin-top: 7px;
+  }
+  .detail-oos {
+    padding: 14px 22px; border-radius: var(--radius-pill);
+    background: rgba(var(--brand-error-rgb), 0.12);
+    border: 1px solid rgba(var(--brand-error-rgb), 0.3);
+    color: var(--brand-error-soft); font-size: 13px; font-weight: 700;
+  }
   .pcard-imgwrap {
     position: absolute;
     inset: 0 0 auto 0;
     height: 75cqw; /* = container width * 3/4, same box as the old aspect-ratio:4/3 spacer, but as a real animatable length */
     overflow: hidden;
     z-index: 2;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid var(--border-subtle);
     transition: height 450ms cubic-bezier(0.22, 1, 0.36, 1), border-color 450ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .pcard-img {
@@ -156,11 +443,11 @@
   @media (prefers-reduced-motion: reduce) {
     .pcard-imgwrap, .pcard-content { transition: none !important; }
   }
-  @keyframes waPulse { 0% { box-shadow:0 0 0 0 rgba(37,211,102,0.5); } 70% { box-shadow:0 0 0 16px rgba(37,211,102,0); } 100% { box-shadow:0 0 0 0 rgba(37,211,102,0); } }
+  @keyframes waPulse { 0% { box-shadow:0 0 0 0 rgba(var(--brand-wa-rgb),0.5); } 70% { box-shadow:0 0 0 16px rgba(var(--brand-wa-rgb),0); } 100% { box-shadow:0 0 0 0 rgba(var(--brand-wa-rgb),0); } }
   .hero-scrim {
     background:
-      linear-gradient(180deg, rgba(14,22,33,0) 0%, rgba(14,22,33,0.12) 45%, rgba(14,22,33,0.9) 100%),
-      linear-gradient(90deg, rgba(14,22,33,0.8) 0%, rgba(14,22,33,0.4) 42%, rgba(14,22,33,0) 72%);
+      linear-gradient(180deg, rgba(var(--brand-navy-rgb),0) 0%, rgba(var(--brand-navy-rgb),0.12) 45%, rgba(var(--brand-navy-rgb),0.9) 100%),
+      linear-gradient(90deg, rgba(var(--brand-navy-rgb),0.8) 0%, rgba(var(--brand-navy-rgb),0.4) 42%, rgba(var(--brand-navy-rgb),0) 72%);
   }
   @media (max-width: 920px) {
     .hero-panel { min-height: 600px !important; }
@@ -191,7 +478,7 @@
       white-space: nowrap !important;
       justify-content: flex-start !important;
       gap: 8px !important;
-      border: 1px solid rgba(255,255,255,0.10) !important;
+      border: 1px solid var(--border-light) !important;
     }
     /* Product photos are portrait promo renders — show them whole, not cropped. */
     .pcard-imgspacer { aspect-ratio: 4/5 !important; }
@@ -231,7 +518,7 @@
     .hero-content { padding: 24px !important; }
     .hero-scrim {
       background:
-        linear-gradient(180deg, rgba(14,22,33,0) 0%, rgba(14,22,33,0.48) 34%, rgba(14,22,33,0.96) 100%) !important;
+        linear-gradient(180deg, rgba(var(--brand-navy-rgb),0) 0%, rgba(var(--brand-navy-rgb),0.48) 34%, rgba(var(--brand-navy-rgb),0.96) 100%) !important;
     }
 
     /* --- Trust bar: an even 2x2 grid reads better than a cramped wrap --- */
@@ -253,8 +540,12 @@
     input, select, textarea { font-size: 16px !important; }
 
     /* --- Product detail gallery --- */
-    .detail-main { aspect-ratio: 4/5 !important; }
-    .detail-thumb { width: 60px !important; height: 60px !important; }
+    .detail-gallery { position: static !important; }
+    .detail-layout { gap: 28px !important; }
+    .detail-features { grid-template-columns: minmax(0, 1fr) !important; }
+    .detail-buy { flex-direction: column !important; align-items: stretch !important; }
+    .detail-buy .btn-gold { justify-content: center; width: 100%; padding: 16px 20px !important; }
+    .detail-thumb { width: 56px !important; height: 56px !important; }
 
     /* --- Footer --- */
     .footer-top { flex-direction: column !important; gap: 28px !important; padding-bottom: 28px !important; }
@@ -270,25 +561,28 @@
 <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.18.2/libheif-wasm/libheif-bundle.js"></script>
 </helmet>
 
-<div dir="{{ dir }}" style="background:#0E1621; color:#F3ECDD; min-width:100%; overflow-x:hidden;">
+<div dir="{{ dir }}" class="site-root">
 
   <!-- NAV -->
-  <nav style="position:sticky; top:0; z-index:50; background:rgba(14,22,33,0.85); backdrop-filter:saturate(140%) blur(14px); -webkit-backdrop-filter:saturate(140%) blur(14px); border-bottom:1px solid rgba(255,255,255,0.07);">
+  <nav class="site-nav">
     <div class="resp-nav-pad" style="max-width:1320px; margin:0 auto; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; gap:32px;">
       <a href="#" onClick="{{ goHome }}" style="display:flex; align-items:center;">
-        <img src="uploads/logo-white.png" alt="HIDRISSI" class="nav-logo" style="height:38px; width:auto; display:block;">
+        <img src="{{ logoSrc }}" alt="HIDRISSI" class="nav-logo" style="height:38px; width:auto; display:block;">
       </a>
-      <div class="nav-links" style="display:flex; align-items:center; gap:28px; font-size:14px; color:#C3CCD5;">
+      <div class="nav-links" style="display:flex; align-items:center; gap:28px; font-size:14px; color:var(--text-nav);">
         <a href="#" onClick="{{ goHome }}" style="color:inherit; text-decoration:none; font-weight:500;">{{ t.navHome }}</a>
         <a href="#collection" style="color:inherit; text-decoration:none;">{{ t.navCollection }}</a>
         <a href="#commander" style="color:inherit; text-decoration:none;">{{ t.navOrder }}</a>
       </div>
-      <div style="display:flex; align-items:center; gap:14px;">
-        <button onClick="{{ toggleLang }}" class="nav-lang" style="display:inline-flex; align-items:center; gap:7px; background:none; border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:9px 14px; font-size:13px; font-weight:600; color:#F3ECDD;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button onClick="{{ toggleTheme }}" class="nav-theme" aria-label="{{ t.themeToggle }}" title="{{ t.themeToggle }}">
+          <span style="font-size:15px;">{{ themeIcon }}</span>
+        </button>
+        <button onClick="{{ toggleLang }}" class="nav-lang">
           <span style="font-size:14px;">{{ t.langGlobe }}</span>
           {{ t.langSwitch }}
         </button>
-        <a href="#commander" class="nav-cta" style="background:#25D366; color:#fff; padding:11px 18px; border-radius:999px; font-size:13px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+        <a href="#commander" class="nav-cta btn-wa" style="padding:11px 18px; font-size:13px; display:inline-flex; align-items:center; gap:8px;">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
           <span class="nav-cta-text">{{ t.navOrder }}</span>
         </a>
@@ -298,21 +592,21 @@
 
   <!-- PRODUCT DETAIL VIEW -->
   <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
-    <div class="sec sec-detail" style="max-width:1320px; margin:0 auto; padding:32px 32px 80px;">
-      <button onClick="{{ goHome }}" style="background:none; border:none; font-size:14px; color:#8A96A3; display:inline-flex; align-items:center; gap:8px; padding:8px 0; margin-bottom:24px;">
-        <span style="font-size:18px;">{{ t.backArrow }}</span> {{ t.backToCollection }}
+    <div class="sec sec-detail" style="max-width:1120px; margin:0 auto; padding:28px 32px 72px;">
+      <button onClick="{{ goHome }}" class="detail-back">
+        <span style="font-size:16px;">{{ t.backArrow }}</span> {{ t.backToCollection }}
       </button>
 
-      <div class="resp-detail" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
+      <div class="resp-detail detail-layout">
         <!-- Gallery -->
-        <div>
-          <div class="detail-main" style="position:relative; aspect-ratio:1; border-radius:16px; overflow:hidden; background:#1E2C3A; border:1px solid rgba(255,255,255,0.07); margin-bottom:12px;">
-            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:30px; height:30px; border:3px solid rgba(255,255,255,0.14); border-top-color:#E0A645; border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
-            <img ref="{{ currentImageRef }}" style="position:relative; width:100%; height:100%; object-fit:cover;" alt="{{ currentProduct.name }}">
+        <div class="detail-gallery">
+          <div class="detail-main">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:1;"><div class="spinner-ring" style="width:28px; height:28px;"></div></div>
+            <img ref="{{ currentImageRef }}" alt="{{ currentProduct.name }}">
           </div>
-          <div class="scroll-x" style="display:flex; gap:8px; overflow-x:auto; padding:4px 0;">
+          <div class="detail-thumbs scroll-x">
             <sc-for list="{{ currentProduct.images }}" as="img" hint-placeholder-count="4">
-              <button onClick="{{ selectImage }}" data-idx="{{ $index }}" class="detail-thumb" style="position:relative; flex:none; width:72px; height:72px; border-radius:10px; overflow:hidden; border:2px solid {{ img.borderColor }}; padding:0; background:#1E2C3A; cursor:pointer;">
+              <button onClick="{{ selectImage }}" data-idx="{{ $index }}" class="detail-thumb" style="border:2px solid {{ img.borderColor }};">
                 <img ref="{{ img.srcRef }}" style="width:100%; height:100%; object-fit:cover;" alt="">
               </button>
             </sc-for>
@@ -320,39 +614,53 @@
         </div>
 
         <!-- Info -->
-        <div style="padding-top:8px;">
-          <div style="font-size:11px; letter-spacing:0.14em; color:#8A96A3; text-transform:uppercase; margin-bottom:12px;">{{ currentProduct.category }}</div>
-          <h1 style="font-size:42px; font-weight:800; letter-spacing:-0.03em; line-height:1.1; margin-bottom:16px;">{{ currentProduct.name }}</h1>
-          <p style="font-size:16px; line-height:1.7; color:#AEB9C4; margin-bottom:32px; max-width:480px;">{{ currentProduct.desc }}</p>
-
-          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; background:rgba(255,255,255,0.07); border-radius:14px; overflow:hidden; margin-bottom:32px;">
-            <sc-for list="{{ currentProduct.specs }}" as="s" hint-placeholder-count="3">
-              <div style="background:#16222F; padding:16px;">
-                <div style="font-size:10px; letter-spacing:0.1em; color:#74808E; text-transform:uppercase;">{{ s.label }}</div>
-                <div style="margin-top:6px; font-size:18px; font-weight:700; letter-spacing:-0.01em;">{{ s.value }}</div>
-              </div>
-            </sc-for>
-          </div>
-
-          <div style="margin-bottom:32px;">
-            <div style="font-size:12px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase; margin-bottom:14px;">{{ t.features }}</div>
-            <sc-for list="{{ currentProduct.features }}" as="feat" hint-placeholder-count="4">
-              <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.07); font-size:14px; color:#C3CCD5;">
-                <span style="color:#E0A645; font-size:14px;">✓</span>
-                {{ feat }}
-              </div>
-            </sc-for>
-          </div>
-
-          <div class="resp-detail-price" style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:24px; background:#16222F; border:1px solid rgba(255,255,255,0.09); border-radius:16px;">
-            <div>
-              <div style="font-size:10px; letter-spacing:0.1em; color:#74808E; text-transform:uppercase;">{{ t.price }}</div>
-              <div style="font-size:32px; font-weight:800; letter-spacing:-0.02em; margin-top:4px; color:#E0A645;">{{ currentProduct.price }} <span style="font-size:16px; color:#8A96A3; font-weight:500;">{{ t.currency }}</span></div>
-              <div style="font-size:11px; color:#E0A645; margin-top:4px;">{{ t.freeDelivery }}</div>
+        <div class="detail-info">
+          <div>
+            <div class="detail-meta">
+              <span class="detail-pill">{{ currentProduct.category }}</span>
+              <sc-if value="{{ currentProduct.hasBadge }}" hint-placeholder-val="{{ true }}">
+                <span class="detail-pill detail-pill-muted">{{ currentProduct.badge }}</span>
+              </sc-if>
             </div>
-            <a href="#commander" onClick="{{ selectFromDetail }}" style="background:#E0A645; color:#0E1621; border:none; padding:16px 28px; border-radius:999px; font-size:14px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px; white-space:nowrap;">
-              {{ t.order }} <span style="font-size:12px;">{{ t.fwdArrow }}</span>
-            </a>
+            <h1 class="detail-title" style="margin-top:14px;">{{ currentProduct.name }}</h1>
+          </div>
+
+          <div class="detail-buy resp-detail-price">
+            <sc-if value="{{ currentProduct.inStock }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div class="detail-price">{{ currentProduct.price }} <span style="font-size:15px; color:var(--text-subtle); font-weight:500;">{{ t.currency }}</span></div>
+                <div class="detail-price-note">{{ t.freeDelivery }}</div>
+              </div>
+              <a href="#commander" onClick="{{ selectFromDetail }}" class="btn-gold" style="padding:14px 24px; font-size:14px; display:inline-flex; align-items:center; gap:8px; white-space:nowrap;">
+                {{ t.order }} <span style="font-size:12px;">{{ t.fwdArrow }}</span>
+              </a>
+            </sc-if>
+            <sc-if value="{{ currentProduct.isOutOfStock }}" hint-placeholder-val="{{ false }}">
+              <div class="detail-oos">{{ t.outOfStock }}</div>
+            </sc-if>
+          </div>
+
+          <div class="detail-specs">
+            <sc-for list="{{ currentProduct.specs }}" as="s" hint-placeholder-count="4">
+              <div class="detail-spec">
+                <div class="detail-spec-label">{{ s.label }}</div>
+                <div class="detail-spec-value">{{ s.value }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <p class="detail-desc">{{ currentProduct.desc }}</p>
+
+          <div>
+            <div class="detail-features-title">{{ t.features }}</div>
+            <div class="detail-features">
+              <sc-for list="{{ currentProduct.features }}" as="feat" hint-placeholder-count="4">
+                <div class="detail-feature">
+                  <span class="detail-feature-dot"></span>
+                  <span>{{ feat }}</span>
+                </div>
+              </sc-for>
+            </div>
           </div>
         </div>
       </div>
@@ -364,16 +672,16 @@
 
     <!-- HERO -->
     <section class="sec sec-hero" style="max-width:1320px; margin:0 auto; padding:56px 32px 72px;">
-      <div class="hero-panel" style="position:relative; min-height:clamp(460px, 42vw, 620px); border-radius:24px; overflow:hidden; background:#1E2C3A; display:flex; align-items:flex-end;">
-        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:30px; height:30px; border:3px solid rgba(255,255,255,0.14); border-top-color:#E0A645; border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
+      <div class="hero-panel" style="position:relative; min-height:clamp(460px, 42vw, 620px); border-radius:24px; overflow:hidden; background:var(--brand-elevated); display:flex; align-items:flex-end;">
+        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:30px; height:30px; border:3px solid var(--border-medium); border-top-color:var(--brand-gold); border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
         <img ref="{{ heroRef }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;" alt="HIDRISSI">
         <div class="hero-scrim" style="position:absolute; inset:0;"></div>
         <div class="hero-content" style="position:relative; z-index:1; padding:48px; max-width:640px;">
-          <div style="font-size:13px; letter-spacing:0.04em; color:#C3CCD5;">{{ t.heroBadge }}</div>
+          <div class="hero-badge">{{ t.heroBadge }}</div>
           <h1 class="resp-h1" style="margin:28px 0 24px; font-size:80px; line-height:1.02; letter-spacing:-0.04em; font-weight:800;">{{ t.heroTitle }}</h1>
-          <p style="font-size:18px; line-height:1.6; color:#D7DEE5; margin:0 0 36px;">{{ t.heroSubtitle }}</p>
+          <p style="font-size:18px; line-height:1.6; margin:0 0 36px;">{{ t.heroSubtitle }}</p>
           <div style="display:flex; gap:14px; align-items:center;">
-            <a href="#collection" style="background:#E0A645; color:#0E1621; padding:16px 26px; border-radius:999px; font-size:14px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px;">
+            <a href="#collection" class="btn-gold" style="padding:16px 26px; font-size:14px; display:inline-flex; align-items:center; gap:10px;">
               {{ t.heroCta }} <span style="font-size:12px;">{{ t.upArrow }}</span>
             </a>
           </div>
@@ -381,29 +689,29 @@
       </div>
 
       <!-- Stats -->
-      <div class="resp-stats" style="margin-top:72px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.09); display:grid; grid-template-columns:repeat(4,1fr); gap:48px;">
+      <div class="resp-stats" style="margin-top:72px; padding-top:24px; border-top:1px solid var(--border-light); display:grid; grid-template-columns:repeat(4,1fr); gap:48px;">
         <div>
-          <div style="font-size:11px; letter-spacing:0.1em; color:#8A96A3; text-transform:uppercase;">{{ t.statModels }}</div>
-          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">16</div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.statModels }}</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">15</div>
         </div>
         <div>
-          <div style="font-size:11px; letter-spacing:0.1em; color:#8A96A3; text-transform:uppercase;">{{ t.statRange }}</div>
-          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">100<span style="font-size:18px; color:#8A96A3;"> {{ t.km }}</span></div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.statRange }}</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">100<span style="font-size:18px; color:var(--text-subtle);"> {{ t.km }}</span></div>
         </div>
         <div>
-          <div style="font-size:11px; letter-spacing:0.1em; color:#8A96A3; text-transform:uppercase;">{{ t.statSpeed }}</div>
-          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">+70<span style="font-size:18px; color:#8A96A3;"> {{ t.kmh }}</span></div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.statSpeed }}</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">+70<span style="font-size:18px; color:var(--text-subtle);"> {{ t.kmh }}</span></div>
         </div>
         <div>
-          <div style="font-size:11px; letter-spacing:0.1em; color:#8A96A3; text-transform:uppercase;">{{ t.statWarranty }}</div>
-          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">12<span style="font-size:18px; color:#8A96A3;"> {{ t.months }}</span></div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.statWarranty }}</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">12<span style="font-size:18px; color:var(--text-subtle);"> {{ t.months }}</span></div>
         </div>
       </div>
     </section>
 
     <!-- TRUST BAR -->
-    <section style="background:#0A131D; color:#F3ECDD;">
-      <div class="resp-trust" style="max-width:1320px; margin:0 auto; padding:24px 32px; display:flex; gap:32px; align-items:center; justify-content:space-between; flex-wrap:wrap; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:#9AA6B2;">
+    <section class="section-deep">
+      <div class="resp-trust trust-bar" style="max-width:1320px; margin:0 auto; padding:24px 32px; display:flex; gap:32px; align-items:center; justify-content:space-between; flex-wrap:wrap; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;">
         <span>✓&nbsp; {{ t.trust1 }}</span>
         <span>✓&nbsp; {{ t.trust2 }}</span>
         <span>✓&nbsp; {{ t.trust3 }}</span>
@@ -414,9 +722,9 @@
     <!-- COLLECTION -->
     <section id="collection" class="sec sec-collection" style="max-width:1320px; margin:0 auto; padding:100px 32px 80px;">
       <div style="margin-bottom:32px;">
-        <div style="font-size:11px; letter-spacing:0.16em; color:#8A96A3; text-transform:uppercase;">{{ t.collectionEyebrow }}</div>
+        <div style="font-size:11px; letter-spacing:0.16em; color:var(--text-subtle); text-transform:uppercase;">{{ t.collectionEyebrow }}</div>
         <h2 class="resp-h2" style="margin:16px 0 0; font-size:54px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ t.collectionTitle }}</h2>
-        <p style="margin:18px 0 0; max-width:580px; font-size:15px; line-height:1.65; color:#AEB9C4;">{{ t.collectionGoal }}</p>
+        <p style="margin:18px 0 0; max-width:580px; font-size:15px; line-height:1.65; color:var(--text-body);">{{ t.collectionGoal }}</p>
       </div>
 
       <div class="resp-store" style="display:grid; grid-template-columns:232px 1fr; gap:40px; align-items:start;">
@@ -424,10 +732,10 @@
         <!-- STORE SIDEBAR -->
         <aside>
           <div class="resp-store-side-sticky" style="position:sticky; top:96px;">
-            <div style="font-size:10px; letter-spacing:0.14em; color:#74808E; text-transform:uppercase; padding:0 6px 14px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px;">{{ t.catTitle }}</div>
+            <div style="font-size:10px; letter-spacing:0.14em; color:var(--text-dim); text-transform:uppercase; padding:0 6px 14px; border-bottom:1px solid var(--border-light); margin-bottom:12px;">{{ t.catTitle }}</div>
             <nav class="store-nav scroll-x" style="display:flex; flex-direction:column; gap:4px;">
               <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="4">
-                <button class="store-nav-item" onClick="{{ selectCat }}" data-cat="{{ c.key }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:none; border-radius:12px; background:{{ c.bg }}; color:{{ c.color }}; font-size:14px; font-weight:{{ c.weight }}; text-align:start; cursor:pointer;" style-hover="background:rgba(255,255,255,0.05);">
+                <button class="store-nav-item" onClick="{{ selectCat }}" data-cat="{{ c.key }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:none; border-radius:12px; background:{{ c.bg }}; color:{{ c.color }}; font-size:14px; font-weight:{{ c.weight }}; text-align:start; cursor:pointer;" style-hover="background:var(--chip-count-bg);">
                   <span style="display:inline-flex; align-items:center; gap:10px;">
                     <span style="width:3px; height:15px; border-radius:2px; background:{{ c.bar }};"></span>
                     {{ c.label }}
@@ -437,10 +745,10 @@
               </sc-for>
             </nav>
 
-            <div style="font-size:10px; letter-spacing:0.14em; color:#74808E; text-transform:uppercase; padding:22px 6px 14px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px;">{{ t.brandTitle }}</div>
+            <div style="font-size:10px; letter-spacing:0.14em; color:var(--text-dim); text-transform:uppercase; padding:22px 6px 14px; border-bottom:1px solid var(--border-light); margin-bottom:12px;">{{ t.brandTitle }}</div>
             <nav class="store-nav scroll-x" style="display:flex; flex-direction:column; gap:4px;">
               <sc-for list="{{ brandChips }}" as="c" hint-placeholder-count="6">
-                <button class="store-nav-item" onClick="{{ selectBrand }}" data-brand="{{ c.key }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:none; border-radius:12px; background:{{ c.bg }}; color:{{ c.color }}; font-size:14px; font-weight:{{ c.weight }}; text-align:start; cursor:pointer;" style-hover="background:rgba(255,255,255,0.05);">
+                <button class="store-nav-item" onClick="{{ selectBrand }}" data-brand="{{ c.key }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:none; border-radius:12px; background:{{ c.bg }}; color:{{ c.color }}; font-size:14px; font-weight:{{ c.weight }}; text-align:start; cursor:pointer;" style-hover="background:var(--chip-count-bg);">
                   <span style="display:inline-flex; align-items:center; gap:10px;">
                     <span style="width:3px; height:15px; border-radius:2px; background:{{ c.bar }};"></span>
                     {{ c.label }}
@@ -455,51 +763,65 @@
         <!-- PRODUCTS -->
         <div>
           <div style="position:relative; margin-bottom:20px;">
-            <span style="position:absolute; inset-inline-start:18px; top:50%; transform:translateY(-50%); color:#74808E; font-size:18px; pointer-events:none;">⌕</span>
-            <input type="text" value="{{ search }}" onInput="{{ onSearch }}" placeholder="{{ t.searchPlaceholder }}" style="width:100%; background:#16222F; border:1px solid rgba(255,255,255,0.1); border-radius:999px; padding:15px 18px 15px 46px; font-size:15px; color:#F3ECDD; outline:none;">
+            <span style="position:absolute; inset-inline-start:18px; top:50%; transform:translateY(-50%); color:var(--text-dim); font-size:18px; pointer-events:none;">⌕</span>
+            <input type="text" value="{{ search }}" onInput="{{ onSearch }}" placeholder="{{ t.searchPlaceholder }}" class="search-input" style="width:100%; background:var(--brand-surface); border:1px solid var(--border-light); border-radius:999px; padding:15px 18px 15px 46px; font-size:15px; color:var(--color-text); outline:none;">
           </div>
 
-          <div style="font-size:12px; letter-spacing:0.04em; color:#74808E; margin-bottom:22px;">{{ resultLabel }}</div>
+          <div style="font-size:12px; letter-spacing:0.04em; color:var(--text-dim); margin-bottom:22px;">{{ resultLabel }}</div>
 
           <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
-            <div style="padding:72px 24px; text-align:center; color:#74808E; border:1px dashed rgba(255,255,255,0.14); border-radius:18px; font-size:15px;">{{ t.noResults }}</div>
+            <div style="padding:72px 24px; text-align:center; color:var(--text-dim); border:1px dashed var(--border-medium); border-radius:18px; font-size:15px;">{{ t.noResults }}</div>
           </sc-if>
 
           <div class="resp-grid-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
         <sc-for list="{{ filteredProducts }}" as="p" hint-placeholder-count="6">
-          <article onClick="{{ openProduct }}" data-idx="{{ $index }}" class="pcard" style="position:relative; background:#16222F; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,0.07); cursor:pointer; display:flex; flex-direction:column;" style-hover="box-shadow:0 8px 32px rgba(0,0,0,0.55);">
+          <article onClick="{{ openProduct }}" data-idx="{{ $index }}" class="pcard" style="position:relative; background:var(--brand-surface); border-radius:18px; overflow:hidden; border:1px solid var(--border-subtle); cursor:pointer; display:flex; flex-direction:column; opacity:{{ p.cardOpacity }};" style-hover="box-shadow:0 8px 32px rgba(0,0,0,0.55);">
             <div class="pcard-imgspacer" style="aspect-ratio:4/3;" aria-hidden="true"></div>
 
             <div class="pcard-content" style="padding:20px 20px 24px; display:flex; flex-direction:column; flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
                 <h3 style="font-size:20px; letter-spacing:-0.02em; font-weight:800;">{{ p.name }}</h3>
-                <span style="font-size:10px; color:#8A96A3; letter-spacing:0.05em; text-transform:uppercase; flex-shrink:0;">{{ p.category }}</span>
+                <span style="font-size:10px; color:var(--text-subtle); letter-spacing:0.05em; text-transform:uppercase; flex-shrink:0;">{{ p.category }}</span>
               </div>
-              <p style="margin:8px 0 18px; font-size:13px; line-height:1.6; color:#8A96A3;">{{ p.shortDesc }}</p>
+              <p style="margin:8px 0 18px; font-size:13px; line-height:1.6; color:var(--text-subtle);">{{ p.shortDesc }}</p>
 
-              <div style="display:flex; gap:14px; margin-bottom:18px; font-size:12px; color:#AEB9C4; flex-wrap:wrap;">
+              <div style="display:flex; gap:14px; margin-bottom:18px; font-size:12px; color:var(--text-body); flex-wrap:wrap;">
                 <span>{{ p.power }}</span>
-                <span style="color:#9AA6B2;">·</span>
+                <span style="color:var(--text-muted);">·</span>
                 <span>{{ p.speed }}</span>
-                <span style="color:#9AA6B2;">·</span>
+                <span style="color:var(--text-muted);">·</span>
                 <span>{{ p.range }}</span>
               </div>
 
-              <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid rgba(255,255,255,0.07);">
-                <div style="font-size:20px; font-weight:800; letter-spacing:-0.01em; color:#E0A645;">{{ p.price }} <span style="font-size:12px; color:#8A96A3; font-weight:500;">{{ t.currency }}</span></div>
-                <span style="font-size:13px; color:#E0A645; font-weight:600; display:inline-flex; align-items:center; gap:6px;">
-                  {{ t.viewDetails }} <span style="font-size:11px;">{{ t.fwdArrow }}</span>
-                </span>
+              <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid var(--border-subtle);">
+                <sc-if value="{{ p.inStock }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:20px; font-weight:800; letter-spacing:-0.01em; color:{{ p.priceColor }};">{{ p.price }} <span style="font-size:12px; color:var(--text-subtle); font-weight:500;">{{ t.currency }}</span></div>
+                </sc-if>
+                <sc-if value="{{ p.isOutOfStock }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:12px; color:var(--brand-error); font-weight:700; letter-spacing:0.04em; text-transform:uppercase;">{{ t.outOfStock }}</span>
+                </sc-if>
+                <sc-if value="{{ p.inStock }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-size:13px; color:var(--brand-gold); font-weight:600; display:inline-flex; align-items:center; gap:6px;">
+                    {{ t.viewDetails }} <span style="font-size:11px;">{{ t.fwdArrow }}</span>
+                  </span>
+                </sc-if>
               </div>
             </div>
 
-            <div class="pcard-imgwrap" style="background:#1E2C3A;">
-              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:26px; height:26px; border:3px solid rgba(255,255,255,0.14); border-top-color:#E0A645; border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
+            <div class="pcard-imgwrap" style="background:var(--brand-elevated);">
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;"><div style="width:26px; height:26px; border:3px solid var(--border-medium); border-top-color:var(--brand-gold); border-radius:50%; animation:spin 0.8s linear infinite;"></div></div>
               <img ref="{{ p.thumbRef }}" class="pcard-img" alt="{{ p.name }}">
-              <div style="position:absolute; top:12px; inset-inline-start:12px; padding:5px 10px; background:rgba(224,166,69,0.95); backdrop-filter:blur(6px); border-radius:999px; font-size:10px; letter-spacing:0.06em; color:#0E1621; text-transform:uppercase; font-weight:700;">
-                {{ p.badge }}
-              </div>
-              <div style="position:absolute; bottom:12px; inset-inline-end:12px; padding:5px 10px; background:rgba(15,23,42,0.75); backdrop-filter:blur(6px); border-radius:999px; font-size:10px; color:#fff; letter-spacing:0.04em;">
+              <sc-if value="{{ p.isOutOfStock }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; top:12px; inset-inline-start:12px; padding:5px 10px; background:rgba(var(--brand-error-rgb),0.95); backdrop-filter:blur(6px); border-radius:999px; font-size:10px; letter-spacing:0.06em; color:#fff; text-transform:uppercase; font-weight:700;">
+                  {{ t.outOfStock }}
+                </div>
+              </sc-if>
+              <sc-if value="{{ p.inStock }}" hint-placeholder-val="{{ true }}">
+                <div style="position:absolute; top:12px; inset-inline-start:12px; padding:5px 10px; background:rgba(var(--brand-gold-rgb),0.95); backdrop-filter:blur(6px); border-radius:999px; font-size:10px; letter-spacing:0.06em; color:var(--brand-navy); text-transform:uppercase; font-weight:700;">
+                  {{ p.badge }}
+                </div>
+              </sc-if>
+              <div style="position:absolute; bottom:12px; inset-inline-end:12px; padding:5px 10px; background:var(--photo-badge-bg); backdrop-filter:blur(6px); border-radius:999px; font-size:10px; color:#fff; letter-spacing:0.04em;">
                 {{ p.imageCountLabel }}
               </div>
             </div>
@@ -511,32 +833,35 @@
     </section>
 
     <!-- COMPARISON -->
-    <section style="background:#0A131D; color:#F3ECDD;">
+    <section class="section-deep">
       <div class="sec sec-compare" style="max-width:1320px; margin:0 auto; padding:100px 32px;">
         <div style="margin-bottom:48px;">
-          <div style="font-size:11px; letter-spacing:0.16em; color:#74808E; text-transform:uppercase;">{{ t.compareEyebrow }}</div>
+          <div style="font-size:11px; letter-spacing:0.16em; color:var(--text-dim); text-transform:uppercase;">{{ t.compareEyebrow }}</div>
           <h2 class="resp-h2" style="margin:16px 0 0; font-size:46px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ t.compareTitle }}</h2>
         </div>
 
-        <div class="resp-table-wrap" style="border:1px solid rgba(248,250,252,0.1); border-radius:16px; overflow:hidden;">
-          <table class="resp-table" style="width:100%; border-collapse:collapse; font-size:13px;">
+        <div class="resp-table-wrap" style="border:1px solid var(--compare-border); border-radius:16px; overflow:hidden;">
+          <table class="resp-table compare-table" style="width:100%; border-collapse:collapse; font-size:13px;">
             <thead>
-              <tr style="background:rgba(248,250,252,0.04);">
-                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colModel }}</th>
-                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colPower }}</th>
-                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colSpeed }}</th>
-                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colRange }}</th>
-                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#74808E; font-weight:600; border-bottom:1px solid rgba(248,250,252,0.08);">{{ t.colPrice }}</th>
+              <tr style="background:var(--compare-head-bg);">
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); font-weight:600; border-bottom:1px solid var(--compare-head-border);">{{ t.colModel }}</th>
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); font-weight:600; border-bottom:1px solid var(--compare-head-border);">{{ t.colPower }}</th>
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); font-weight:600; border-bottom:1px solid var(--compare-head-border);">{{ t.colSpeed }}</th>
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); font-weight:600; border-bottom:1px solid var(--compare-head-border);">{{ t.colRange }}</th>
+                <th style="text-align:start; padding:16px 20px; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); font-weight:600; border-bottom:1px solid var(--compare-head-border);">{{ t.colPrice }}</th>
               </tr>
             </thead>
             <tbody>
               <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
-                <tr style="border-bottom:1px solid rgba(248,250,252,0.06);">
+                <tr style="border-bottom:1px solid var(--compare-row-border);">
                   <td style="padding:18px 20px; font-weight:700;">{{ p.name }}</td>
-                  <td style="padding:18px 20px; color:#F3ECDD;">{{ p.power }}</td>
-                  <td style="padding:18px 20px; color:#F3ECDD;">{{ p.speed }}</td>
-                  <td style="padding:18px 20px; color:#F3ECDD;">{{ p.range }}</td>
-                  <td style="padding:18px 20px; color:#F3ECDD;">{{ p.price }} {{ t.currency }}</td>
+                  <td style="padding:18px 20px; color:var(--color-text);">{{ p.power }}</td>
+                  <td style="padding:18px 20px; color:var(--color-text);">{{ p.speed }}</td>
+                  <td style="padding:18px 20px; color:var(--color-text);">{{ p.range }}</td>
+                  <td style="padding:18px 20px; color:var(--color-text);">
+                    <sc-if value="{{ p.inStock }}" hint-placeholder-val="{{ true }}">{{ p.price }} {{ t.currency }}</sc-if>
+                    <sc-if value="{{ p.isOutOfStock }}" hint-placeholder-val="{{ false }}"><span style="color:var(--brand-error); font-weight:600;">{{ t.outOfStock }}</span></sc-if>
+                  </td>
                 </tr>
               </sc-for>
             </tbody>
@@ -549,81 +874,81 @@
     <section id="commander" class="sec sec-order" style="max-width:1320px; margin:0 auto; padding:100px 32px;">
       <div class="resp-order" style="display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:start;">
         <div class="resp-order-sticky" style="position:sticky; top:100px;">
-          <div style="font-size:11px; letter-spacing:0.16em; color:#8A96A3; text-transform:uppercase;">{{ t.orderEyebrow }}</div>
+          <div style="font-size:11px; letter-spacing:0.16em; color:var(--text-subtle); text-transform:uppercase;">{{ t.orderEyebrow }}</div>
           <h2 class="resp-h2" style="margin:16px 0 24px; font-size:54px; line-height:1.02; letter-spacing:-0.04em; font-weight:800;">{{ t.orderTitle }}</h2>
-          <p style="font-size:15px; line-height:1.7; color:#AEB9C4; margin:0 0 28px; max-width:400px;">{{ t.orderSubtitle }}</p>
+          <p style="font-size:15px; line-height:1.7; color:var(--text-body); margin:0 0 28px; max-width:400px;">{{ t.orderSubtitle }}</p>
           <div style="display:flex; flex-direction:column; gap:16px;">
             <div style="display:flex; gap:14px; align-items:flex-start;">
-              <div style="font-size:11px; color:#74808E; min-width:28px; padding-top:3px;">01</div>
+              <div class="step-num" style="font-size:11px; min-width:28px; padding-top:3px;">01</div>
               <div>
                 <div style="font-size:14px; font-weight:700;">{{ t.step1Title }}</div>
-                <div style="font-size:13px; color:#8A96A3; margin-top:2px;">{{ t.step1Desc }}</div>
+                <div style="font-size:13px; color:var(--text-subtle); margin-top:2px;">{{ t.step1Desc }}</div>
               </div>
             </div>
             <div style="display:flex; gap:14px; align-items:flex-start;">
-              <div style="font-size:11px; color:#74808E; min-width:28px; padding-top:3px;">02</div>
+              <div class="step-num" style="font-size:11px; min-width:28px; padding-top:3px;">02</div>
               <div>
                 <div style="font-size:14px; font-weight:700;">{{ t.step2Title }}</div>
-                <div style="font-size:13px; color:#8A96A3; margin-top:2px;">{{ t.step2Desc }}</div>
+                <div style="font-size:13px; color:var(--text-subtle); margin-top:2px;">{{ t.step2Desc }}</div>
               </div>
             </div>
             <div style="display:flex; gap:14px; align-items:flex-start;">
-              <div style="font-size:11px; color:#74808E; min-width:28px; padding-top:3px;">03</div>
+              <div class="step-num" style="font-size:11px; min-width:28px; padding-top:3px;">03</div>
               <div>
                 <div style="font-size:14px; font-weight:700;">{{ t.step3Title }}</div>
-                <div style="font-size:13px; color:#8A96A3; margin-top:2px;">{{ t.step3Desc }}</div>
+                <div style="font-size:13px; color:var(--text-subtle); margin-top:2px;">{{ t.step3Desc }}</div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Form -->
-        <div class="resp-form-card" style="background:#16222F; border:1px solid rgba(255,255,255,0.09); border-radius:20px; padding:36px;">
+        <div class="resp-form-card form-card" style="background:var(--brand-surface); border:1px solid var(--border-light); border-radius:20px; padding:36px;">
           <div style="display:flex; align-items:center; gap:10px; margin-bottom:28px;">
-            <div style="width:36px; height:36px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; color:#fff;"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
+            <div style="width:36px; height:36px; border-radius:50%; background:var(--brand-wa); display:flex; align-items:center; justify-content:center; color:#fff;"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
             <div>
               <div style="font-size:14px; font-weight:700;">{{ t.waTitle }}</div>
-              <div style="font-size:11px; color:#8A96A3;">{{ t.waSubtitle }}</div>
+              <div style="font-size:11px; color:var(--text-subtle);">{{ t.waSubtitle }}</div>
             </div>
           </div>
 
           <div class="form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
             <label style="display:flex; flex-direction:column; gap:6px;">
-              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldName }}</span>
-              <input type="text" value="{{ form.name }}" onChange="{{ updateField }}" data-field="name" placeholder="{{ t.phName }}" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:var(--text-subtle); text-transform:uppercase;">{{ t.fieldName }}</span>
+              <input type="text" value="{{ form.name }}" onChange="{{ updateField }}" data-field="name" placeholder="{{ t.phName }}" class="form-input" style="border:none; border-bottom:1px solid var(--border-input); padding:10px 0; font-size:15px; outline:none; background:transparent; color:var(--color-text);">
             </label>
             <label style="display:flex; flex-direction:column; gap:6px;">
-              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldPhone }}</span>
-              <input type="tel" value="{{ form.phone }}" onChange="{{ updateField }}" data-field="phone" placeholder="+212 6 — — —" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:var(--text-subtle); text-transform:uppercase;">{{ t.fieldPhone }}</span>
+              <input type="tel" value="{{ form.phone }}" onChange="{{ updateField }}" data-field="phone" placeholder="+212 6 — — —" class="form-input" style="border:none; border-bottom:1px solid var(--border-input); padding:10px 0; font-size:15px; outline:none; background:transparent; color:var(--color-text);">
             </label>
             <label style="display:flex; flex-direction:column; gap:6px;">
-              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldCity }}</span>
-              <select value="{{ form.city }}" onChange="{{ updateField }}" data-field="city" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD; appearance:none;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:var(--text-subtle); text-transform:uppercase;">{{ t.fieldCity }}</span>
+              <select value="{{ form.city }}" onChange="{{ updateField }}" data-field="city" class="form-input" style="border:none; border-bottom:1px solid var(--border-input); padding:10px 0; font-size:15px; outline:none; background:transparent; color:var(--color-text); appearance:none;">
                 <sc-for list="{{ cities }}" as="c" hint-placeholder-count="7">
                   <option>{{ c }}</option>
                 </sc-for>
               </select>
             </label>
             <label style="display:flex; flex-direction:column; gap:6px;">
-              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldQty }}</span>
-              <select value="{{ form.qty }}" onChange="{{ updateField }}" data-field="qty" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD; appearance:none;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:var(--text-subtle); text-transform:uppercase;">{{ t.fieldQty }}</span>
+              <select value="{{ form.qty }}" onChange="{{ updateField }}" data-field="qty" class="form-input" style="border:none; border-bottom:1px solid var(--border-input); padding:10px 0; font-size:15px; outline:none; background:transparent; color:var(--color-text); appearance:none;">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
               </select>
             </label>
             <label style="display:flex; flex-direction:column; gap:6px; grid-column:1 / -1;">
-              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldAddress }}</span>
-              <input type="text" value="{{ form.address }}" onChange="{{ updateField }}" data-field="address" placeholder="{{ t.phAddress }}" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:var(--text-subtle); text-transform:uppercase;">{{ t.fieldAddress }}</span>
+              <input type="text" value="{{ form.address }}" onChange="{{ updateField }}" data-field="address" placeholder="{{ t.phAddress }}" class="form-input" style="border:none; border-bottom:1px solid var(--border-input); padding:10px 0; font-size:15px; outline:none; background:transparent; color:var(--color-text);">
             </label>
             <label style="display:flex; flex-direction:column; gap:6px; grid-column:1 / -1;">
-              <span style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase;">{{ t.fieldNote }}</span>
-              <input type="text" value="{{ form.note }}" onChange="{{ updateField }}" data-field="note" placeholder="{{ t.phNote }}" style="border:none; border-bottom:1px solid rgba(255,255,255,0.22); padding:10px 0; font-size:15px; outline:none; background:transparent; color:#F3ECDD;">
+              <span style="font-size:10px; letter-spacing:0.08em; color:var(--text-subtle); text-transform:uppercase;">{{ t.fieldNote }}</span>
+              <input type="text" value="{{ form.note }}" onChange="{{ updateField }}" data-field="note" placeholder="{{ t.phNote }}" class="form-input" style="border:none; border-bottom:1px solid var(--border-input); padding:10px 0; font-size:15px; outline:none; background:transparent; color:var(--color-text);">
             </label>
           </div>
-            <div style="font-size:10px; letter-spacing:0.08em; color:#8A96A3; text-transform:uppercase; margin-top:24px; margin-bottom:12px;">{{ t.fieldModel }}</div>
+            <div style="font-size:10px; letter-spacing:0.08em; color:var(--text-subtle); text-transform:uppercase; margin-top:24px; margin-bottom:12px;">{{ t.fieldModel }}</div>
             <div class="model-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
-              <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
+              <sc-for list="{{ orderableProducts }}" as="p" hint-placeholder-count="5">
                 <button onClick="{{ selectProduct }}" data-product="{{ p.name }}" style="text-align:start; padding:12px; border:1px solid {{ p.borderColor }}; background:{{ p.bgColor }}; color:{{ p.textColor }}; border-radius:12px;">
                   <div style="font-size:9px; letter-spacing:0.08em; opacity:0.7; text-transform:uppercase;">{{ p.category }}</div>
                   <div style="margin-top:4px; font-size:13px; font-weight:700;">{{ p.name }}</div>
@@ -633,38 +958,43 @@
             </div>
           </div>
 
-          <div class="form-total" style="margin-top:28px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.09); display:flex; justify-content:space-between; align-items:center; gap:20px;">
+          <div class="form-total" style="margin-top:28px; padding-top:20px; border-top:1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center; gap:20px;">
             <div>
-              <div style="font-size:10px; letter-spacing:0.08em; color:#74808E; text-transform:uppercase;">{{ t.total }}</div>
-              <div style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin-top:4px; color:#E0A645;">{{ total }} <span style="font-size:14px; color:#8A96A3; font-weight:500;">{{ t.currency }}</span></div>
+              <div style="font-size:10px; letter-spacing:0.08em; color:var(--text-dim); text-transform:uppercase;">{{ t.total }}</div>
+              <div style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin-top:4px; color:var(--brand-gold);">{{ total }} <span style="font-size:14px; color:var(--text-subtle); font-weight:500;">{{ t.currency }}</span></div>
             </div>
-            <button onClick="{{ submitOrder }}" class="form-total-cta" style="background:#25D366; color:#fff; border:none; padding:16px 26px; border-radius:999px; font-size:14px; font-weight:700; display:inline-flex; align-items:center; gap:10px; white-space:nowrap;">
-              <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-              {{ t.waCta }}
-            </button>
+            <sc-if value="{{ canOrder }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ submitOrder }}" class="form-total-cta btn-wa" style="border:none; padding:16px 26px; font-size:14px; display:inline-flex; align-items:center; gap:10px; white-space:nowrap;">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                {{ t.waCta }}
+              </button>
+            </sc-if>
+            <sc-if value="{{ orderBlocked }}" hint-placeholder-val="{{ false }}">
+              <div class="form-total-cta" style="background:rgba(var(--brand-error-rgb),0.15); border:1px solid rgba(var(--brand-error-rgb),0.35); color:var(--brand-error-soft); padding:16px 26px; border-radius:999px; font-size:14px; font-weight:700; text-align:center; white-space:nowrap;">{{ t.outOfStockDetail }}</div>
+            </sc-if>
           </div>
         </div>
       </div>
     </section>
 
     <!-- FOOTER -->
-    <section style="background:#0A131D; color:#F3ECDD;">
+    <section class="section-deep">
       <div class="sec sec-footer" style="max-width:1320px; margin:0 auto; padding:64px 32px 32px;">
-        <div class="footer-top" style="display:flex; justify-content:space-between; align-items:start; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(248,250,252,0.1); flex-wrap:wrap;">
+        <div class="footer-top" style="display:flex; justify-content:space-between; align-items:start; gap:48px; padding-bottom:48px; border-bottom:1px solid var(--compare-border); flex-wrap:wrap;">
           <div>
             <div style="margin-bottom:16px;">
-              <img src="uploads/logo-white.png" alt="HIDRISSI" class="footer-logo" style="height:34px; width:auto; display:block;">
+              <img src="{{ logoSrc }}" alt="HIDRISSI" class="footer-logo" style="height:34px; width:auto; display:block;">
             </div>
-            <p style="font-size:13px; color:#74808E; max-width:320px; line-height:1.6;">{{ t.footerTagline }}</p>
+            <p style="font-size:13px; color:var(--text-dim); max-width:320px; line-height:1.6;">{{ t.footerTagline }}</p>
           </div>
-          <div style="display:flex; flex-direction:column; gap:8px; font-size:13px; color:#9AA6B2;">
-            <span style="font-size:10px; letter-spacing:0.12em; color:#8A96A3; text-transform:uppercase; margin-bottom:4px;">{{ t.contact }}</span>
+          <div class="footer-links" style="display:flex; flex-direction:column; gap:8px; font-size:13px; color:var(--text-muted);">
+            <span style="font-size:10px; letter-spacing:0.12em; color:var(--text-subtle); text-transform:uppercase; margin-bottom:4px;">{{ t.contact }}</span>
             <a href="{{ waLink }}" target="_blank" rel="noopener" style="color:inherit; text-decoration:none; display:inline-flex; align-items:center; gap:8px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>WhatsApp</a>
             <a href="https://www.instagram.com/h.idrissielectro" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Instagram</a>
             <a href="mailto:contact@hidrissi.ma" style="color:inherit; text-decoration:none;">contact@hidrissi.ma</a>
           </div>
         </div>
-        <div style="padding-top:24px; font-size:11px; color:#8A96A3;">{{ t.copyright }}</div>
+        <div style="padding-top:24px; font-size:11px; color:var(--text-subtle);">{{ t.copyright }}</div>
       </div>
     </section>
 
@@ -676,7 +1006,7 @@
   </a>
 
   <!-- FLOATING WHATSAPP BUTTON -->
-  <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="WhatsApp" class="fab fab-wa" style="position:fixed; bottom:24px; inset-inline-end:24px; z-index:60; width:60px; height:60px; border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(37,211,102,0.45); text-decoration:none; animation:waPulse 2.4s infinite;">
+  <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="WhatsApp" class="fab fab-wa" style="position:fixed; bottom:24px; inset-inline-end:24px; z-index:60; width:60px; height:60px; border-radius:50%; background:var(--brand-wa); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(var(--brand-wa-rgb),0.45); text-decoration:none; animation:waPulse 2.4s infinite;">
     <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
   </a>
 </div>
@@ -697,11 +1027,18 @@ class Component extends DCLogic {
     imgMap: {},
     search: '',
     cat: 'all',
-    brand: 'all'
+    brand: 'all',
+    theme: 'light'
   };
 
+  applyTheme(theme) {
+    const t = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('hidrissi-theme', t); } catch (e) { /* private mode */ }
+  }
+
   placeholderUrl() {
-    const phSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#1E2C3A"/><g fill="none" stroke="#3D4D5E" stroke-width="8"><rect x="140" y="150" width="120" height="100" rx="8"/><circle cx="172" cy="182" r="12"/><path d="M150 240l34-34 30 28 26-22 30 28"/></g></svg>';
+    const phSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="var(--brand-elevated)"/><g fill="none" stroke="#3D4D5E" stroke-width="8"><rect x="140" y="150" width="120" height="100" rx="8"/><circle cx="172" cy="182" r="12"/><path d="M150 240l34-34 30 28 26-22 30 28"/></g></svg>';
     return 'data:image/svg+xml;utf8,' + encodeURIComponent(phSvg);
   }
 
@@ -714,6 +1051,12 @@ class Component extends DCLogic {
   _running = false;
 
   componentDidMount() {
+    let theme = 'light';
+    try { theme = localStorage.getItem('hidrissi-theme') || 'light'; } catch (e) { /* ignore */ }
+    if (theme !== 'dark') theme = 'light';
+    this.applyTheme(theme);
+    this.setState({ theme });
+
     // Seed every image with a placeholder so the browser never tries to load a raw HEIC
     const ph = this.placeholderUrl();
     const init = {};
@@ -803,14 +1146,14 @@ class Component extends DCLogic {
   T = {
     fr: {
       navHome: 'Accueil', navCollection: 'Boutique', navOrder: 'Commander',
-      langGlobe: '🌐', langSwitch: 'العربية',
+      langGlobe: '🌐', langSwitch: 'العربية', themeToggle: 'Mode sombre',
       backArrow: '←', fwdArrow: '→', upArrow: '↗',
       backToCollection: 'Retour à la collection',
       features: 'Caractéristiques', price: 'Prix', currency: 'MAD',
       freeDelivery: 'Livraison offerte · Paiement à la livraison', order: 'Commander',
       heroBadge: 'Showroom basé à Aïn Aouda, Rabat',
       heroTitle: 'Scooters et trottinettes électriques, livrés partout au Maroc.',
-      heroSubtitle: 'Des scooters électriques homologués pour la ville et le tout-terrain, de 2 490 à 8 990 dh. Paiement à la livraison, partout au Maroc.',
+      heroSubtitle: 'Des scooters électriques homologués pour la ville et le tout-terrain, de 2 490 à 6 300 dh. Paiement à la livraison, partout au Maroc.',
       heroCta: 'Découvrir la collection',
       statModels: 'Modèles', statRange: 'Autonomie max.', statSpeed: 'Vitesse max.', statWarranty: 'Garantie',
       km: 'km', kmh: 'km/h', months: 'mois',
@@ -822,6 +1165,8 @@ class Component extends DCLogic {
       searchPlaceholder: 'Rechercher par nom (ex. WATHIUM, KEPOW, SEGWAY…)',
       noResults: 'Aucune trottinette ne correspond à votre recherche.',
       viewDetails: 'Voir détails',
+      outOfStock: 'Rupture de stock',
+      outOfStockDetail: 'Modèle indisponible',
       compareEyebrow: '— Comparer', compareTitle: 'Côte à côte, décidez vite.',
       colModel: 'Modèle', colPower: 'Puissance', colSpeed: 'Vitesse', colRange: 'Autonomie', colPrice: 'Prix',
       orderEyebrow: '— Commander', orderTitle: 'Trois minutes, une commande.',
@@ -842,14 +1187,14 @@ class Component extends DCLogic {
     },
     ar: {
       navHome: 'الرئيسية', navCollection: 'المتجر', navOrder: 'اطلب الآن',
-      langGlobe: '🌐', langSwitch: 'Français',
+      langGlobe: '🌐', langSwitch: 'Français', themeToggle: 'الوضع الفاتح',
       backArrow: '→', fwdArrow: '←', upArrow: '↖',
       backToCollection: 'العودة إلى المنتجات',
       features: 'المميزات', price: 'الثمن', currency: 'درهم',
       freeDelivery: 'توصيل مجاني · الدفع عند الاستلام', order: 'اطلب الآن',
       heroBadge: 'متجر في عين عودة، الرباط',
       heroTitle: 'سكوترات ودراجات كهربائية، التوصيل لكل أنحاء المغرب.',
-      heroSubtitle: 'سكوترات كهربائية مرخّصة للمدينة والطرق الوعرة، من 2 490 إلى 8 990 درهم. الدفع عند الاستلام، في كل أنحاء المغرب.',
+      heroSubtitle: 'سكوترات كهربائية مرخّصة للمدينة والطرق الوعرة، من 2 490 إلى 6 300 درهم. الدفع عند الاستلام، في كل أنحاء المغرب.',
       heroCta: 'اكتشف المنتجات',
       statModels: 'موديلات', statRange: 'أقصى مدى', statSpeed: 'أقصى سرعة', statWarranty: 'الضمان',
       km: 'كلم', kmh: 'كلم/س', months: 'شهر',
@@ -861,6 +1206,8 @@ class Component extends DCLogic {
       searchPlaceholder: 'ابحث بالاسم (مثلاً WATHIUM، KEPOW، SEGWAY…)',
       noResults: 'لا توجد دراجة تطابق بحثك.',
       viewDetails: 'عرض التفاصيل',
+      outOfStock: 'نفدت الكمية',
+      outOfStockDetail: 'الموديل غير متوفر',
       compareEyebrow: '— قارِن', compareTitle: 'جنباً إلى جنب، قرّر بسرعة.',
       colModel: 'الموديل', colPower: 'القوة', colSpeed: 'السرعة', colRange: 'المدى', colPrice: 'الثمن',
       orderEyebrow: '— اطلب', orderTitle: 'ثلاث دقائق، طلب واحد.',
@@ -900,26 +1247,6 @@ class Component extends DCLogic {
         ar: ['محرّكان 2000 واط', 'بطارية 48 فولت 20 أمبير', 'دراجة مرخّصة 2026', 'تعليق أمامي وخلفي', 'فرامل هيدروليكية']
       },
       imagePaths: ['uploads/1 (2).jpg', 'uploads/1 (3).jpg', 'uploads/1-32058e25.jpg']
-    },
-    {
-      name: 'HEZZO GT06 PRO',
-      category: { fr: 'Tout-terrain', ar: 'كل الطرقات' },
-      badge: { fr: 'Nouveauté', ar: 'جديد' },
-      shortDesc: { fr: 'Moteur 1200W, batterie 48V 15,6Ah et double suspension. Puissance et confort, en ville comme en tout-terrain.', ar: 'محرّك 1200 واط، بطارية 48 فولت 15,6 أمبير وتعليق مزدوج. قوة وراحة في المدينة وخارجها.' },
-      desc: { fr: 'La HEZZO GT06 PRO allie performance, autonomie et confort. Son moteur brushless 1200W offre une accélération fluide jusqu\'à 55 km/h, avec assez de couple pour grimper des pentes jusqu\'à ~20°. La batterie lithium 48V 15,6Ah atteint jusqu\'à 56 km en mode éco et se recharge en 6 à 8h. Suspensions avant et arrière, freins à disque, éclairage LED avec clignotants, écran LCD et 3 modes de conduite (Éco, Normal, Sport).', ar: 'تجمع HEZZO GT06 PRO بين الأداء والمدى والراحة. محرّكها brushless بقوة 1200 واط يوفّر تسارعًا سلسًا حتى 55 كلم/س، مع قوة كافية لتسلّق المنحدرات حتى 20 درجة تقريبًا. بطارية ليثيوم 48 فولت 15,6 أمبير تصل إلى 56 كلم في الوضع الاقتصادي وتُشحن في 6 إلى 8 ساعات. تعليق أمامي وخلفي، فرامل قرصية، إضاءة LED مع إشارات انعطاف، شاشة LCD و3 أوضاع للقيادة (اقتصادي، عادي، رياضي).' },
-      power: '1200W', speed: { fr: '55 km/h', ar: '55 كلم/س' }, range: { fr: 'jusqu\'à 56 km', ar: 'حتى 56 كلم' },
-      price: '5 900', priceNum: 5900,
-      specs: [
-        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '1200W' },
-        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 15,6Ah' },
-        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '55 km/h', ar: '55 كلم/س' } },
-        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: 'jusqu\'à 56 km', ar: 'حتى 56 كلم' } }
-      ],
-      features: {
-        fr: ['Moteur brushless 1200W', 'Batterie lithium 48V 15,6Ah · charge 6-8h', 'Suspension avant et arrière', 'Freins à disque avant et arrière', '3 modes : Éco · Normal · Sport', 'Écran LCD · éclairage LED · clignotants', 'Pneus tout-terrain 11 pouces · pliable'],
-        ar: ['محرّك brushless 1200 واط', 'بطارية ليثيوم 48 فولت 15,6 أمبير · شحن 6-8 ساعات', 'تعليق أمامي وخلفي', 'فرامل قرصية أمامية وخلفية', '3 أوضاع: اقتصادي · عادي · رياضي', 'شاشة LCD · إضاءة LED · إشارات انعطاف', 'عجلات 11 إنش لكل الطرقات · قابلة للطي']
-      },
-      imagePaths: ['uploads/HEZZO_01.JPG', 'uploads/HEZZO_02.JPG', 'uploads/HEZZO_03.JPG', 'uploads/HEZZO_04.JPG']
     },
     {
       name: 'WATHIUM BLADE',
@@ -1002,24 +1329,44 @@ class Component extends DCLogic {
       imagePaths: ['uploads/5.jpg', 'uploads/5 (2).jpg', 'uploads/5 (3).jpg', 'uploads/5 (4).jpg']
     },
     {
-      name: 'NANROBOT N6',
-      category: { fr: 'Tout-terrain', ar: 'كل الطرقات' },
-      badge: { fr: 'Édition Off-Road', ar: 'نسخة الطرق الوعرة' },
-      shortDesc: { fr: 'Double moteur 2000W, suspension hydraulique et pneus off-road 10 pouces. La bête tout-terrain.', ar: 'محرّكان 2000 واط، تعليق هيدروليكي وعجلات 10 إنش للطرق الوعرة. وحش كل التضاريس.' },
-      desc: { fr: 'La NANROBOT N6 est une trottinette tout-terrain haute performance. Ses deux moteurs brushless de 1000W (2000W au total) propulsent jusqu\'à 65 km/h, tandis que sa batterie 60V 20Ah offre 60 à 70 km d\'autonomie. Suspension hydraulique C-type avant et arrière, freins hydrauliques à disque, pneus off-road 10 pouces et éclairage LED 64 couleurs — elle avale tous les terrains.', ar: 'NANROBOT N6 دراجة عالية الأداء لكل الطرقات. محرّكاها brushless بقوة 1000 واط (2000 واط إجمالاً) يدفعان حتى 65 كلم/س، بينما توفّر بطارية 60 فولت 20 أمبير مدى 60 إلى 70 كلم. تعليق هيدروليكي C-type أمامي وخلفي، فرامل قرصية هيدروليكية، عجلات 10 إنش للطرق الوعرة وإضاءة LED بـ64 لوناً — تجتاز كل التضاريس.' },
-      power: '2×1000W', speed: { fr: '65 km/h', ar: '65 كلم/س' }, range: { fr: '60-70 km', ar: '60-70 كلم' },
-      price: '8 990', priceNum: 8990,
+      name: 'ARMORED ONE M41',
+      category: { fr: 'Urban Mobility', ar: 'التنقل الحضري' },
+      badge: { fr: 'EcoXtrem', ar: 'EcoXtrem' },
+      shortDesc: { fr: 'ARMORED ONE M41 — EcoXtrem Urban Mobility. Moteur 1000W, batterie 52V 22Ah et pneus 11 pouces.', ar: 'ARMORED ONE M41 — EcoXtrem Urban Mobility. محرّك 1000 واط، بطارية 52 فولت 22 أمبير وعجلات 11 إنش.' },
+      desc: { fr: 'L\'ARMORED ONE M41 d\'EcoXtrem Urban Mobility est une trottinette haute performance. Son moteur 1000W et sa batterie lithium 52V 22Ah offrent jusqu\'à 55 km/h et 40 à 65 km d\'autonomie. Pneus 11 pouces, freins à disque avant et arrière, suspension renforcée et bandeaux LED — conçue pour la ville comme les chemins difficiles.', ar: 'ARMORED ONE M41 من EcoXtrem Urban Mobility دراجة عالية الأداء. محرّكها 1000 واط وبطاريتها ليثيوم 52 فولت 22 أمبير يوفّران حتى 55 كلم/س ومدى 40 إلى 65 كلم. عجلات 11 إنش، فرامل قرصية أمامية وخلفية، تعليق معزّز وشرائط LED — للمدينة والمسارات الصعبة.' },
+      power: '1000W', speed: { fr: '55 km/h', ar: '55 كلم/س' }, range: { fr: '40-65 km', ar: '40-65 كلم' },
+      price: '6 790', priceNum: 6790,
       specs: [
-        { label: { fr: 'Puissance', ar: 'القوة' }, value: '2×1000W' },
-        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '60V 20Ah' },
-        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '65 km/h', ar: '65 كلم/س' } },
-        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '60-70 km', ar: '60-70 كلم' } }
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '1000W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '52V 22Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '55 km/h', ar: '55 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '40-65 km', ar: '40-65 كلم' } }
       ],
       features: {
-        fr: ['Double moteur brushless 2×1000W', 'Batterie lithium 60V 20Ah', 'Suspension hydraulique C-type av/ar', 'Freins hydrauliques à disque + EBS', 'Pneus off-road 10 pouces', 'Éclairage LED 64 couleurs · modes Éco/Turbo'],
-        ar: ['محرّكان brushless 2×1000 واط', 'بطارية ليثيوم 60 فولت 20 أمبير', 'تعليق هيدروليكي C-type أمامي/خلفي', 'فرامل قرصية هيدروليكية + EBS', 'عجلات 10 إنش للطرق الوعرة', 'إضاءة LED 64 لوناً · وضعا Éco/Turbo']
+        fr: ['Marque EcoXtrem', 'Moteur 1000W · batterie 52V 22Ah', 'Pneus tout-terrain 11 pouces', 'Freins à disque av/ar', 'Suspension renforcée', 'Bandeaux LED · écran LCD'],
+        ar: ['ماركة EcoXtrem', 'محرّك 1000 واط · بطارية 52 فولت 22 أمبير', 'عجلات 11 إنش للطرق الوعرة', 'فرامل قرصية أمامية/خلفية', 'تعليق معزّز', 'شرائط LED · شاشة LCD']
       },
-      imagePaths: ['uploads/NANROBOT_01.JPG', 'uploads/NANROBOT_02.JPG', 'uploads/NANROBOT_03.JPG', 'uploads/NANROBOT_04.JPG']
+      imagePaths: ['uploads/AIRRIDER_PROMO.jpg', 'uploads/AIRRIDER_01.JPG', 'uploads/AIRRIDER_02.JPG', 'uploads/AIRRIDER_03.JPG', 'uploads/AIRRIDER_04.JPG', 'uploads/AIRRIDER_05.JPG']
+    },
+    {
+      name: 'DEIMOS',
+      category: { fr: 'Tout-terrain', ar: 'كل الطرقات' },
+      badge: { fr: '2WD EcoXtrem', ar: '2WD EcoXtrem' },
+      shortDesc: { fr: 'Double moteur 2WD, 48V 20Ah et 60 km/h. La puissance EcoXtrem tout-terrain.', ar: 'محرّكان 2WD، 48 فولت 20 أمبير و60 كلم/س. قوة EcoXtrem لكل الطرقات.' },
+      desc: { fr: 'Le DEIMOS d\'EcoXtrem est une trottinette tout-terrain 2WD haute performance. Ses deux moteurs de 1000W délivrent une puissance combinée jusqu\'à 2000W pour atteindre 60 km/h, avec 50 à 60 km d\'autonomie sur sa batterie 48V 20Ah. Pneus tout-terrain 10 pouces, double suspension, freins à disque, éclairage LED et application mobile — la puissance sans limites.', ar: 'DEIMOS من EcoXtrem دراجة 2WD عالية الأداء لكل الطرقات. محرّكاها بقوة 1000 واط يوفّران حتى 2000 واط مجمّعة للوصول إلى 60 كلم/س، مع مدى 50 إلى 60 كلم ببطارية 48 فولت 20 أمبير. عجلات 10 إنش لكل الطرقات، تعليق مزدوج، فرامل قرصية، إضاءة LED وتطبيق جوال — قوة بلا حدود.' },
+      power: '2×1000W', speed: { fr: '60 km/h', ar: '60 كلم/س' }, range: { fr: '50-60 km', ar: '50-60 كلم' },
+      price: '6 490', priceNum: 6490,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '2×1000W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 20Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '60 km/h', ar: '60 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '50-60 km', ar: '50-60 كلم' } }
+      ],
+      features: {
+        fr: ['Marque EcoXtrem · 2WD', 'Double moteur 2×1000W', 'Batterie 48V 20Ah', 'Pneus tout-terrain 10 pouces', 'Double suspension · freins à disque', 'App mobile · éclairage LED · pliable'],
+        ar: ['ماركة EcoXtrem · 2WD', 'محرّكان 2×1000 واط', 'بطارية 48 فولت 20 أمبير', 'عجلات 10 إنش لكل الطرقات', 'تعليق مزدوج · فرامل قرصية', 'تطبيق جوال · إضاءة LED · قابلة للطي']
+      },
+      imagePaths: ['uploads/DEIMOS_PROMO.jpg', 'uploads/DEIMOS_01.JPG', 'uploads/DEIMOS_02.JPG']
     },
     {
       name: 'MAX WHEEL GT4',
@@ -1028,7 +1375,7 @@ class Component extends DCLogic {
       shortDesc: { fr: 'Double moteur 2000W, double suspension hydraulique et gros pneus crantés 11 pouces. Performance brute.', ar: 'محرّكان 2000 واط، تعليق هيدروليكي مزدوج وعجلات مسننة 11 إنش. أداء خام.' },
       desc: { fr: 'La MAX WHEEL GT4 est conçue pour ceux qui veulent tout : ses deux moteurs de 1000W délivrent 2000W de puissance combinée pour atteindre 55 km/h et grimper les pentes les plus raides. Sa batterie 48V 20Ah assure 50 à 60 km d\'autonomie. Double suspension hydraulique à bras oscillant, freins à disque avant/arrière, gros pneus tout-terrain de 11 pouces et bandeau LED — elle ne recule devant rien.', ar: 'MAX WHEEL GT4 مصمّمة لمن يريد كل شيء: محرّكاها بقوة 1000 واط يوفّران 2000 واط مجمّعة للوصول إلى 55 كلم/س وتسلّق أشدّ المنحدرات. بطاريتها 48 فولت 20 أمبير تضمن مدى 50 إلى 60 كلم. تعليق هيدروليكي مزدوج بذراع متأرجح، فرامل قرصية أمامية/خلفية، عجلات كبيرة 11 إنش لكل الطرقات وشريط LED — لا تتراجع أمام أي شيء.' },
       power: '2×1000W', speed: { fr: '55 km/h', ar: '55 كلم/س' }, range: { fr: '50-60 km', ar: '50-60 كلم' },
-      price: '6 990', priceNum: 6990,
+      price: '4 700', priceNum: 4700,
       specs: [
         { label: { fr: 'Puissance', ar: 'القوة' }, value: '2×1000W' },
         { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 20Ah' },
@@ -1042,64 +1389,24 @@ class Component extends DCLogic {
       imagePaths: ['uploads/MAX_WHEEL_01.JPG', 'uploads/MAX_WHEEL_02.JPG', 'uploads/MAX_WHEEL_03.JPG', 'uploads/MAX_WHEEL_04.JPG', 'uploads/MAX_WHEEL_05.JPG', 'uploads/MAX_WHEEL_06.JPG', 'uploads/MAX_WHEEL_07.JPG', 'uploads/IMG_0548.JPG', 'uploads/IMG_0550.JPG', 'uploads/IMG_0552.JPG']
     },
     {
-      name: 'MAX WHEEL E9 PRO',
-      category: { fr: 'Urbain', ar: 'حضري' },
-      badge: { fr: 'Compacte', ar: 'مدمجة' },
-      shortDesc: { fr: 'Trottinette urbaine pliable, moteur 500W et pneus 8,5 pouces. Légère, pratique, parfaite pour la ville.', ar: 'دراجة حضرية قابلة للطي، محرّك 500 واط وعجلات 8,5 إنش. خفيفة وعملية ومثالية للمدينة.' },
-      desc: { fr: 'La MAX WHEEL E9 PRO est une trottinette urbaine compacte et pliable. Son moteur 500W et sa batterie 36V 12,5Ah offrent 30 km/h et jusqu\'à 35 km d\'autonomie. Pneus 8,5 pouces, frein à disque et électronique, écran LCD intégré au guidon — l\'essentiel pour les trajets quotidiens, dans un format léger et facile à transporter.', ar: 'MAX WHEEL E9 PRO دراجة حضرية مدمجة وقابلة للطي. محرّكها 500 واط وبطاريتها 36 فولت 12,5 أمبير يوفّران 30 كلم/س ومدى يصل إلى 35 كلم. عجلات 8,5 إنش، فرامل قرصية وإلكترونية، شاشة LCD مدمجة في المقود — الأساسيات للتنقّلات اليومية في تصميم خفيف وسهل النقل.' },
-      power: '500W', speed: { fr: '30 km/h', ar: '30 كلم/س' }, range: { fr: '30-35 km', ar: '30-35 كلم' },
-      price: '2 990', priceNum: 2990,
+      name: 'AVIATOR',
+      category: { fr: 'Tout-terrain', ar: 'كل الطرقات' },
+      badge: { fr: 'FAUVE', ar: 'FAUVE' },
+      shortDesc: { fr: 'Double moteur 2000W, batterie 52V 21Ah et vitesse jusqu\'à 70 km/h. La bête FAUVE tout-terrain.', ar: 'محرّكان 2000 واط، بطارية 52 فولت 21 أمبير وسرعة حتى 70 كلم/س. وحش FAUVE لكل الطرقات.' },
+      desc: { fr: 'L\'AVIATOR de FAUVE est une trottinette tout-terrain haute performance. Ses deux moteurs de 1000W délivrent 2000W de puissance combinée pour atteindre 70 km/h, tandis que sa batterie lithium 52V 21Ah assure 50 à 70 km d\'autonomie. Double suspension, freins à disque avant/arrière, gros pneus tout-terrain de 10 pouces, bandeau LED vert et sac de rangement — conçue pour dominer la route comme les chemins difficiles.', ar: 'AVIATOR من FAUVE دراجة عالية الأداء لكل الطرقات. محرّكاها بقوة 1000 واط يوفّران 2000 واط مجمّعة للوصول إلى 70 كلم/س، بينما بطاريتها ليثيوم 52 فولت 21 أمبير تضمن مدى 50 إلى 70 كلم. تعليق مزدوج، فرامل قرصية أمامية/خلفية، عجلات كبيرة 10 إنش لكل الطرقات، شريط LED أخضر وحقيبة تخزين — للطرق والمسارات الصعبة.' },
+      power: '2×1000W', speed: { fr: '70 km/h', ar: '70 كلم/س' }, range: { fr: '50-70 km', ar: '50-70 كلم' },
+      price: '5 990', priceNum: 5990,
       specs: [
-        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '500W' },
-        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V 12,5Ah' },
-        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '30 km/h', ar: '30 كلم/س' } },
-        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '30-35 km', ar: '30-35 كلم' } }
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '2×1000W' },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '52V 21Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '70 km/h', ar: '70 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '50-70 km', ar: '50-70 كلم' } }
       ],
       features: {
-        fr: ['Moteur 500W', 'Batterie 36V 12,5Ah', 'Pneus 8,5 pouces', 'Frein à disque + électronique', 'Écran LCD au guidon', 'Pliable · légère'],
-        ar: ['محرّك 500 واط', 'بطارية 36 فولت 12,5 أمبير', 'عجلات 8,5 إنش', 'فرامل قرصية + إلكترونية', 'شاشة LCD في المقود', 'قابلة للطي · خفيفة']
+        fr: ['Marque FAUVE', 'Double moteur 2×1000W', 'Batterie 52V 21Ah', 'Pneus tout-terrain 10 pouces', 'Double suspension · freins à disque av/ar', 'Bandeau LED · sac de rangement · pliable · charge 4-5h'],
+        ar: ['ماركة FAUVE', 'محرّكان 2×1000 واط', 'بطارية 52 فولت 21 أمبير', 'عجلات 10 إنش لكل الطرقات', 'تعليق مزدوج · فرامل قرصية أمامية/خلفية', 'شريط LED · حقيبة تخزين · قابلة للطي · شحن 4-5 ساعات']
       },
-      imagePaths: ['uploads/IMG_0620.JPG', 'uploads/IMG_0622.JPG']
-    },
-    {
-      name: 'MAX WHEEL FORZA',
-      category: { fr: 'Urbain', ar: 'حضري' },
-      badge: { fr: 'Essentielle', ar: 'الأساسية' },
-      shortDesc: { fr: 'Trottinette urbaine noir & rouge, moteur 350W et pneus 8,5 pouces. Simple, fiable, abordable.', ar: 'دراجة حضرية بلونين أسود وأحمر، محرّك 350 واط وعجلات 8,5 إنش. بسيطة وموثوقة وبسعر مناسب.' },
-      desc: { fr: 'La MAX WHEEL FORZA est la trottinette d\'entrée idéale pour la ville. Son moteur 350W et sa batterie 36V 10,4Ah offrent 25 km/h et jusqu\'à 30 km d\'autonomie. Cadre pliable, pneus 8,5 pouces, frein à disque arrière et éclairage LED — tout ce qu\'il faut pour se déplacer simplement, à petit prix.', ar: 'MAX WHEEL FORZA هي دراجة البداية المثالية للمدينة. محرّكها 350 واط وبطاريتها 36 فولت 10,4 أمبير يوفّران 25 كلم/س ومدى يصل إلى 30 كلم. هيكل قابل للطي، عجلات 8,5 إنش، فرامل قرصية خلفية وإضاءة LED — كل ما تحتاجه للتنقّل ببساطة وبسعر مناسب.' },
-      power: '350W', speed: { fr: '25 km/h', ar: '25 كلم/س' }, range: { fr: '25-30 km', ar: '25-30 كلم' },
-      price: '2 490', priceNum: 2490,
-      specs: [
-        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '350W' },
-        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V 10,4Ah' },
-        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '25 km/h', ar: '25 كلم/س' } },
-        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '25-30 km', ar: '25-30 كلم' } }
-      ],
-      features: {
-        fr: ['Moteur 350W', 'Batterie 36V 10,4Ah', 'Pneus 8,5 pouces', 'Frein à disque arrière', 'Éclairage LED', 'Cadre pliable'],
-        ar: ['محرّك 350 واط', 'بطارية 36 فولت 10,4 أمبير', 'عجلات 8,5 إنش', 'فرامل قرصية خلفية', 'إضاءة LED', 'هيكل قابل للطي']
-      },
-      imagePaths: ['uploads/IMG_0614.JPG', 'uploads/IMG_0616.JPG']
-    },
-    {
-      name: 'PUCK by EcoXtrem',
-      category: { fr: 'Urbain', ar: 'حضري' },
-      badge: { fr: 'Blanc lifestyle', ar: 'أبيض عصري' },
-      shortDesc: { fr: 'Trottinette urbaine signée EcoXtrem, design blanc épuré et pneus 8,5 pouces. Élégante et maniable.', ar: 'دراجة حضرية من EcoXtrem، تصميم أبيض أنيق وعجلات 8,5 إنش. أنيقة وسهلة المناورة.' },
-      desc: { fr: 'La PUCK d\'EcoXtrem mise sur l\'élégance et la simplicité. Son design blanc épuré, son moteur 350W et sa batterie 36V 7,8Ah offrent 25 km/h et jusqu\'à 25 km d\'autonomie. Pliable en quelques secondes, légère et maniable, elle se faufile partout en ville avec style.', ar: 'تراهن PUCK من EcoXtrem على الأناقة والبساطة. تصميمها الأبيض الأنيق، محرّكها 350 واط وبطاريتها 36 فولت 7,8 أمبير يوفّران 25 كلم/س ومدى يصل إلى 25 كلم. تُطوى في ثوانٍ، خفيفة وسهلة المناورة، تتسلّل في كل مكان بالمدينة بأناقة.' },
-      power: '350W', speed: { fr: '25 km/h', ar: '25 كلم/س' }, range: { fr: '20-25 km', ar: '20-25 كلم' },
-      price: '2 490', priceNum: 2490,
-      specs: [
-        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '350W' },
-        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V 7,8Ah' },
-        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '25 km/h', ar: '25 كلم/س' } },
-        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '20-25 km', ar: '20-25 كلم' } }
-      ],
-      features: {
-        fr: ['Marque EcoXtrem', 'Moteur 350W', 'Batterie 36V 7,8Ah', 'Pneus 8,5 pouces', 'Design blanc épuré', 'Pliable · légère'],
-        ar: ['ماركة EcoXtrem', 'محرّك 350 واط', 'بطارية 36 فولت 7,8 أمبير', 'عجلات 8,5 إنش', 'تصميم أبيض أنيق', 'قابلة للطي · خفيفة']
-      },
-      imagePaths: ['uploads/PUCK_01.JPG', 'uploads/PUCK_02.JPG', 'uploads/PUCK_03.JPG']
+      imagePaths: ['uploads/AVIATOR_PROMO.jpg', 'uploads/AVIATOR_01.JPG', 'uploads/AVIATOR_02.JPG', 'uploads/AVIATOR_03.JPG']
     },
     {
       name: 'KEPOW MAX',
@@ -1148,7 +1455,7 @@ class Component extends DCLogic {
       shortDesc: { fr: 'Deck surbaissé, gros pneus 10 pouces et conduite souple. Le confort urbain avant tout.', ar: 'منصة منخفضة، عجلات كبيرة 10 إنش وقيادة سلسة. الراحة الحضرية أولاً.' },
       desc: { fr: 'La TEKNES KCITY mise sur le confort urbain : deck surbaissé, gros pneus de 10 pouces et conduite souple. Son moteur 500W et sa batterie 48V offrent 30 km/h et jusqu\'à 35 km d\'autonomie. Pliable, écran LED au guidon et freins à disque — la compagne idéale des trajets quotidiens en ville.', ar: 'تراهن TEKNES KCITY على الراحة الحضرية: منصة منخفضة، عجلات كبيرة 10 إنش وقيادة سلسة. محرّكها 500 واط وبطاريتها 48 فولت يوفّران 30 كلم/س ومدى يصل إلى 35 كلم. قابلة للطي، شاشة LED في المقود وفرامل قرصية — الرفيق المثالي للتنقّلات اليومية في المدينة.' },
       power: '500W', speed: { fr: '30 km/h', ar: '30 كلم/س' }, range: { fr: '30-35 km', ar: '30-35 كلم' },
-      price: '3 000', priceNum: 3000,
+      price: '3 200', priceNum: 3200,
       specs: [
         { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '500W' },
         { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 10Ah' },
@@ -1168,7 +1475,7 @@ class Component extends DCLogic {
       shortDesc: { fr: 'Double suspension à ressort, deck large et finition sport. Confort et nervosité réunis.', ar: 'تعليق نابضي مزدوج، منصة عريضة وتشطيب رياضي. راحة وحيوية معاً.' },
       desc: { fr: 'La TEKNES K-PRO passe à la vitesse supérieure : double suspension à ressort (amortisseurs rouges avant et arrière), deck large et gros pneus 10 pouces pour un confort maximal. Son moteur 600W et sa batterie 48V 13Ah délivrent 40 km/h et jusqu\'à 40 km d\'autonomie. Freins à disque et finition sport.', ar: 'تنتقل TEKNES K-PRO إلى مستوى أعلى: تعليق نابضي مزدوج (ممتصّات حمراء أمامية وخلفية)، منصة عريضة وعجلات كبيرة 10 إنش لراحة قصوى. محرّكها 600 واط وبطاريتها 48 فولت 13 أمبير يوفّران 40 كلم/س ومدى يصل إلى 40 كلم. فرامل قرصية وتشطيب رياضي.' },
       power: '600W', speed: { fr: '40 km/h', ar: '40 كلم/س' }, range: { fr: '40 km', ar: '40 كلم' },
-      price: '3 000', priceNum: 3000,
+      price: '3 500', priceNum: 3500,
       specs: [
         { label: { fr: 'Moteur', ar: 'المحرّك' }, value: '600W' },
         { label: { fr: 'Batterie', ar: 'البطارية' }, value: '48V 13Ah' },
@@ -1180,6 +1487,26 @@ class Component extends DCLogic {
         ar: ['محرّك 600 واط', 'بطارية 48 فولت 13 أمبير', 'تعليق نابضي مزدوج', 'منصة عريضة · عجلات 10 إنش', 'فرامل قرصية أمامية/خلفية', 'شاشة LED · تشطيب رياضي']
       },
       imagePaths: ['uploads/TEKNES_04.JPG', 'uploads/TEKNES_07.JPG', 'uploads/TEKNES_08.JPG', 'uploads/TEKNES_09.JPG', 'uploads/TEKNES_11.JPG', 'uploads/TEKNES_12.JPG']
+    },
+    {
+      name: 'ODYS',
+      category: { fr: 'Urbain', ar: 'حضري' },
+      badge: { fr: 'ODYS', ar: 'ODYS' },
+      shortDesc: { fr: 'Design épuré noir mat et accents cyan. Moteur 350W, pneus 10 pouces et autonomie 20-30 km. Citadine légère.', ar: 'تصميم أسود مطفي أنيق ولمسات سماوية. محرّك 350 واط، عجلات 10 إنش ومدى 20-30 كلم. دراجة حضرية خفيفة.' },
+      desc: { fr: 'L\'ODYS est une trottinette urbaine au design minimaliste noir mat, rehaussée d\'accents cyan sur les roues et le câblage. Son moteur 350W (700W en pic) atteint 20 km/h, avec 20 à 30 km d\'autonomie grâce à sa batterie 36V 10,2Ah. Pneus 10 pouces, charge max 100 kg, écran LED et mécanisme pliable — légère et stylée pour la ville.', ar: 'ODYS دراجة حضرية بتصميم minimal أسود مطفي مع لمسات سماوية على العجلات والكابلات. محرّكها 350 واط (700 واط في الذروة) يصل إلى 20 كلم/س، مع مدى 20 إلى 30 كلم ببطارية 36 فولت 10,2 أمبير. عجلات 10 إنش، حمولة قصوى 100 كلغ، شاشة LED وآلية طي — خفيفة وأنيقة للمدينة.' },
+      power: '350W', speed: { fr: '20 km/h', ar: '20 كلم/س' }, range: { fr: '20-30 km', ar: '20-30 كلم' },
+      price: '2 490', priceNum: 2490,
+      specs: [
+        { label: { fr: 'Moteur', ar: 'المحرّك' }, value: { fr: '350W (700W pic)', ar: '350 واط (700 ذروة)' } },
+        { label: { fr: 'Batterie', ar: 'البطارية' }, value: '36V 10,2Ah' },
+        { label: { fr: 'Vitesse max.', ar: 'السرعة' }, value: { fr: '20 km/h', ar: '20 كلم/س' } },
+        { label: { fr: 'Autonomie', ar: 'المدى' }, value: { fr: '20-30 km', ar: '20-30 كلم' } }
+      ],
+      features: {
+        fr: ['Marque ODYS', 'Moteur 350W (700W en pic)', 'Batterie 36V 10,2Ah', 'Pneus 10 pouces', 'Charge max 100 kg', 'Design noir mat · accents cyan · pliable'],
+        ar: ['ماركة ODYS', 'محرّك 350 واط (700 ذروة)', 'بطارية 36 فولت 10,2 أمبير', 'عجلات 10 إنش', 'حمولة قصوى 100 كلغ', 'أسود مطفي · لمسات سماوية · قابلة للطي']
+      },
+      imagePaths: ['uploads/ODYS_PROMO.jpg', 'uploads/ODYS_01.JPG', 'uploads/ODYS_02.JPG', 'uploads/ODYS_03.JPG']
     },
     {
       name: 'ATHRUM CITY',
@@ -1210,34 +1537,35 @@ class Component extends DCLogic {
     { key: 'compact', fr: 'Compacte', ar: 'مدمجة' }
   ];
   CAT_OF = {
-    'WATHIUM RS-2': 'perf', 'HEZZO GT06 PRO': 'perf', 'KEPOW K2 MASTER': 'perf',
-    'Bison GT 1000W': 'perf', 'NANROBOT N6': 'perf', 'MAX WHEEL GT4': 'perf', 'TEKNES K-PRO': 'perf',
-    'WATHIUM BLADE': 'city', 'NXRIDE': 'city', 'MAX WHEEL E9 PRO': 'city', 'KEPOW MAX': 'city',
-    'SEGWAY E2 PLUS': 'city', 'TEKNES KCITY': 'city', 'ATHRUM CITY': 'city',
-    'PUCK by EcoXtrem': 'compact', 'MAX WHEEL FORZA': 'compact'
+    'WATHIUM RS-2': 'perf', 'KEPOW K2 MASTER': 'perf',
+    'Bison GT 1000W': 'perf', 'ARMORED ONE M41': 'perf', 'DEIMOS': 'perf', 'MAX WHEEL GT4': 'perf', 'AVIATOR': 'perf', 'TEKNES K-PRO': 'perf',
+    'WATHIUM BLADE': 'city', 'NXRIDE': 'city', 'KEPOW MAX': 'city',
+    'SEGWAY E2 PLUS': 'city', 'TEKNES KCITY': 'city', 'ODYS': 'city', 'ATHRUM CITY': 'city'
   };
 
   BRAND_OF = {
     'WATHIUM RS-2': 'WATHIUM', 'WATHIUM BLADE': 'WATHIUM',
-    'MAX WHEEL GT4': 'MAX WHEEL', 'MAX WHEEL E9 PRO': 'MAX WHEEL', 'MAX WHEEL FORZA': 'MAX WHEEL',
+    'MAX WHEEL GT4': 'MAX WHEEL', 'AVIATOR': 'FAUVE',
     'KEPOW K2 MASTER': 'KEPOW', 'KEPOW MAX': 'KEPOW',
     'TEKNES KCITY': 'TEKNES', 'TEKNES K-PRO': 'TEKNES',
-    'Bison GT 1000W': 'EcoXtrem', 'PUCK by EcoXtrem': 'EcoXtrem',
-    'NANROBOT N6': 'NANROBOT',
-    'HEZZO GT06 PRO': 'HEZZO',
+    'Bison GT 1000W': 'EcoXtrem', 'ARMORED ONE M41': 'EcoXtrem', 'DEIMOS': 'EcoXtrem',
     'SEGWAY E2 PLUS': 'SEGWAY',
     'NXRIDE': 'NXRIDE',
+    'ODYS': 'ODYS',
     'ATHRUM CITY': 'ATHRUM'
   };
-  BRANDS = ['WATHIUM', 'MAX WHEEL', 'KEPOW', 'TEKNES', 'EcoXtrem', 'NANROBOT', 'HEZZO', 'SEGWAY', 'NXRIDE', 'ATHRUM'];
+  BRANDS = ['WATHIUM', 'MAX WHEEL', 'FAUVE', 'KEPOW', 'TEKNES', 'EcoXtrem', 'SEGWAY', 'NXRIDE', 'ODYS', 'ATHRUM'];
 
   renderVals() {
-    const { view, activeProduct, activeImage, selectedProduct, form, imgMap, lang } = this.state;
+    const { view, activeProduct, activeImage, selectedProduct, form, imgMap, lang, theme } = this.state;
     const t = this.T[lang];
     const L = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[lang] ?? v.fr) : v;
     const resolve = (src) => (imgMap && imgMap[src]) || src;
     const mkRef = (url) => (node) => { if (node && url && node.src !== url) node.src = url; };
     const dir = lang === 'ar' ? 'rtl' : 'ltr';
+    const isLight = theme !== 'dark';
+    const logoSrc = isLight ? 'assets/logo-dark.png' : 'assets/logo-white.png';
+    const themeIcon = isLight ? '🌙' : '☀️';
 
     const products = this.PRODUCTS.map((p) => {
       const isSelected = p.name === selectedProduct;
@@ -1254,9 +1582,9 @@ class Component extends DCLogic {
         thumbRef: mkRef(resolve(p.imagePaths[0])),
         imageCountLabel: t.photos(p.imagePaths.length),
         isSelected,
-        borderColor: isSelected ? '#E0A645' : 'rgba(255,255,255,0.14)',
-        bgColor: isSelected ? '#E0A645' : '#17232F',
-        textColor: isSelected ? '#0E1621' : '#F3ECDD'
+        borderColor: isSelected ? 'var(--brand-gold)' : 'var(--border-medium)',
+        bgColor: isSelected ? 'var(--brand-gold)' : 'var(--brand-surface-alt)',
+        textColor: isSelected ? 'var(--brand-navy)' : 'var(--color-text)'
       };
     });
 
@@ -1271,7 +1599,7 @@ class Component extends DCLogic {
       images: cp.imagePaths.map((src, i) => ({
         src: resolve(src),
         srcRef: mkRef(resolve(src)),
-        borderColor: i === activeImage ? '#E0A645' : 'rgba(255,255,255,0.14)'
+        borderColor: i === activeImage ? 'var(--brand-gold)' : 'var(--border-medium)'
       }))
     };
     const currentImage = resolve(cp.imagePaths[activeImage] || cp.imagePaths[0]);
@@ -1300,11 +1628,11 @@ class Component extends DCLogic {
     const filteredProducts = products.filter(p => matchCat(p.name) && matchBrand(p.name) && matchSearch(p.name));
     const chipStyle = (on) => ({
       weight: on ? 700 : 500,
-      bg: on ? 'rgba(224,166,69,0.12)' : 'transparent',
-      color: on ? '#E0A645' : '#C3CCD5',
-      bar: on ? '#E0A645' : 'transparent',
-      countBg: on ? 'rgba(224,166,69,0.18)' : 'rgba(255,255,255,0.05)',
-      countColor: on ? '#E0A645' : '#8A96A3'
+      bg: on ? 'rgba(var(--brand-gold-rgb),0.12)' : 'transparent',
+      color: on ? 'var(--brand-gold)' : 'var(--text-nav)',
+      bar: on ? 'var(--brand-gold)' : 'transparent',
+      countBg: on ? 'rgba(var(--brand-gold-rgb),0.18)' : 'var(--chip-count-bg)',
+      countColor: on ? 'var(--brand-gold)' : 'var(--text-subtle)'
     });
     const catChips = this.CATS.map(c => {
       const on = c.key === activeCat;
@@ -1321,7 +1649,7 @@ class Component extends DCLogic {
     const resultLabel = lang === 'ar' ? (n + ' نتيجة') : (n + (n > 1 ? ' résultats' : ' résultat'));
 
     return {
-      t, dir, lang, waLink,
+      t, dir, lang, waLink, theme, logoSrc, themeIcon,
       filteredProducts, catChips, brandChips, resultLabel,
       hasResults: n > 0, noResults: n === 0,
       search,
@@ -1334,6 +1662,11 @@ class Component extends DCLogic {
       cities, total,
       form: formView,
       toggleLang: () => this.setState({ lang: lang === 'fr' ? 'ar' : 'fr' }),
+      toggleTheme: () => {
+        const next = theme === 'light' ? 'dark' : 'light';
+        this.applyTheme(next);
+        this.setState({ theme: next });
+      },
       openProduct: (e) => {
         const idx = parseInt(e.currentTarget.dataset.idx);
         this.setState({ view: 'detail', activeProduct: idx, activeImage: 0 });

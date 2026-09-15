@@ -4,9 +4,7 @@
   "private": true,
   "description": "HIDRISSI — bilingual (FR/AR) electric-scooter catalog with WhatsApp/COD ordering.",
   "scripts": {
-    "build:images": "node scripts/convert-images.mjs",
-    "dev": "vercel dev",
-    "start": "vercel dev"
+    "build:images": "node scripts/convert-images.mjs"
   },
   "dependencies": {
     "googleapis": "^144.0.0"

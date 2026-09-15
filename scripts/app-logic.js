@@ -1,4 +1,30 @@
 class Component extends DCLogic {
+  // JS-driven colors — keep in sync with :root / [data-theme="light"] in catalog CSS.
+  THEME_DARK = {
+    navy: '#0E1621',
+    gold: '#E0A645',
+    goldRgb: '224, 166, 69',
+    cream: '#F3ECDD',
+    surfaceAlt: '#17232F',
+    textSubtle: '#8A96A3',
+    textNav: '#C3CCD5',
+    textDim: '#8A96A3',
+    borderMedium: 'rgba(255,255,255,0.14)',
+    chipCountBg: 'rgba(255,255,255,0.05)',
+  };
+  THEME_LIGHT = {
+    navy: '#0E1621',
+    gold: '#E0A645',
+    goldRgb: '224, 166, 69',
+    cream: '#0E1621',
+    surfaceAlt: '#F5F0E8',
+    textSubtle: '#7A8794',
+    textNav: '#4A5564',
+    textDim: '#8A96A3',
+    borderMedium: 'rgba(14,22,33,0.14)',
+    chipCountBg: 'rgba(14,22,33,0.06)',
+  };
+
   // Overridden at runtime from /api/config (env WA_NUMBER). Fallback below.
   WA_NUMBER = '212606555567';
 
@@ -12,8 +38,15 @@ class Component extends DCLogic {
     search: '',
     cat: 'all',
     brand: 'all',
+    theme: 'light',
     loaded: false
   };
+
+  applyTheme(theme) {
+    const t = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('hidrissi-theme', t); } catch (e) { /* private mode */ }
+  }
 
   // Populated at runtime from products.json (see componentDidMount).
   PRODUCTS = [];
@@ -23,6 +56,12 @@ class Component extends DCLogic {
   BRAND_OF = {};
 
   async componentDidMount() {
+    let theme = 'light';
+    try { theme = localStorage.getItem('hidrissi-theme') || 'light'; } catch (e) { /* ignore */ }
+    if (theme !== 'dark') theme = 'light';
+    this.applyTheme(theme);
+    this.setState({ theme });
+
     // WhatsApp number from the serverless env, so it lives in WA_NUMBER (not code).
     try {
       const rc = await fetch('/api/config', { cache: 'no-store' });
@@ -40,8 +79,12 @@ class Component extends DCLogic {
       this.BRAND_OF = {};
       for (const p of this.PRODUCTS) { this.CAT_OF[p.name] = p.cat; this.BRAND_OF[p.name] = p.brand; }
       if (this.WA_NUMBER === '212606555567' && data.waNumberDefault) this.WA_NUMBER = data.waNumberDefault;
-      const first = this.PRODUCTS[0] ? this.PRODUCTS[0].name : '';
-      this.setState({ loaded: true, selectedProduct: this.state.selectedProduct || first });
+      const firstInStock = this.PRODUCTS.find(p => p.inStock !== false);
+      const first = firstInStock ? firstInStock.name : (this.PRODUCTS[0] ? this.PRODUCTS[0].name : '');
+      let selected = this.state.selectedProduct || first;
+      const sel = this.PRODUCTS.find(p => p.name === selected);
+      if (!sel || sel.inStock === false) selected = first;
+      this.setState({ loaded: true, selectedProduct: selected });
     } catch (e) {
       this.setState({ loaded: true });
     }
@@ -57,14 +100,19 @@ class Component extends DCLogic {
   ];
 
   renderVals() {
-    const { view, activeProduct, activeImage, selectedProduct, form, lang } = this.state;
+    const { view, activeProduct, activeImage, selectedProduct, form, lang, theme } = this.state;
     const t = this.T[lang];
     const L = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[lang] ?? v.fr) : v;
     const dir = lang === 'ar' ? 'rtl' : 'ltr';
     const cats = (this.CATS && this.CATS.length) ? this.CATS : this.CATS_FALLBACK;
+    const palette = theme === 'dark' ? this.THEME_DARK : this.THEME_LIGHT;
+    const isLight = theme !== 'dark';
+    const logoSrc = isLight ? 'assets/logo-dark.png' : 'assets/logo-white.png';
+    const themeIcon = isLight ? '🌙' : '☀️';
 
     const products = this.PRODUCTS.map((p) => {
       const isSelected = p.name === selectedProduct;
+      const inStock = p.inStock !== false;
       const first = p.images[0] || { thumb: '', w: '', h: '' };
       return {
         name: p.name,
@@ -79,28 +127,38 @@ class Component extends DCLogic {
         thumbW: first.w,
         thumbH: first.h,
         imageCountLabel: t.photos(p.images.length),
+        inStock,
+        isOutOfStock: !inStock,
+        cardOpacity: inStock ? '1' : '0.72',
+        priceColor: inStock ? palette.gold : palette.textSubtle,
         isSelected,
-        borderColor: isSelected ? '#E0A645' : 'rgba(255,255,255,0.14)',
-        bgColor: isSelected ? '#E0A645' : '#17232F',
-        textColor: isSelected ? '#0E1621' : '#F3ECDD'
+        borderColor: isSelected ? palette.gold : palette.borderMedium,
+        bgColor: isSelected ? palette.gold : palette.surfaceAlt,
+        textColor: isSelected ? palette.navy : palette.cream
       };
     });
+    const orderableProducts = products.filter(p => p.inStock);
 
     const EMPTY = { name: '', category: '', desc: '', price: '', specs: [], features: { fr: [], ar: [] }, images: [] };
     const cp = this.PRODUCTS[activeProduct] || this.PRODUCTS[0] || EMPTY;
     const cpImages = cp.images || [];
+    const cpInStock = cp.inStock !== false;
     const currentProduct = {
       name: cp.name,
       category: L(cp.category),
+      badge: L(cp.badge),
+      hasBadge: !!L(cp.badge),
       desc: L(cp.desc),
       price: cp.price,
+      inStock: cpInStock,
+      isOutOfStock: !cpInStock,
       specs: (cp.specs || []).map(s => ({ label: L(s.label), value: L(s.value) })),
       features: L(cp.features || { fr: [], ar: [] }),
       images: cpImages.map((im, i) => ({
         thumb: im.thumb,
         w: im.w,
         h: im.h,
-        borderColor: i === activeImage ? '#E0A645' : 'rgba(255,255,255,0.14)'
+        borderColor: i === activeImage ? palette.gold : palette.borderMedium
       }))
     };
     const curMain = cpImages[activeImage] || cpImages[0] || { display: '', w: '', h: '' };
@@ -109,7 +167,8 @@ class Component extends DCLogic {
     const heroImage = 'assets/hero-1600.webp', heroW = 1536, heroH = 1024;
 
     const qty = parseInt(form.qty) || 1;
-    const selP = this.PRODUCTS.find(p => p.name === selectedProduct) || this.PRODUCTS[0] || { priceNum: 0 };
+    const selP = this.PRODUCTS.find(p => p.name === selectedProduct) || this.PRODUCTS.find(p => p.inStock !== false) || this.PRODUCTS[0] || { priceNum: 0, inStock: true };
+    const canOrder = selP.inStock !== false;
     const total = (selP.priceNum * qty).toLocaleString('fr-FR').replace(/,/g, ' ');
 
     const cities = t.cities;
@@ -129,11 +188,11 @@ class Component extends DCLogic {
     const filteredProducts = products.filter(p => matchCat(p.name) && matchBrand(p.name) && matchSearch(p.name));
     const chipStyle = (on) => ({
       weight: on ? 700 : 500,
-      bg: on ? 'rgba(224,166,69,0.12)' : 'transparent',
-      color: on ? '#E0A645' : '#C3CCD5',
-      bar: on ? '#E0A645' : 'transparent',
-      countBg: on ? 'rgba(224,166,69,0.18)' : 'rgba(255,255,255,0.05)',
-      countColor: on ? '#E0A645' : '#8A96A3'
+      bg: on ? `rgba(${palette.goldRgb},0.12)` : 'transparent',
+      color: on ? palette.gold : palette.textNav,
+      bar: on ? palette.gold : 'transparent',
+      countBg: on ? `rgba(${palette.goldRgb},0.18)` : palette.chipCountBg,
+      countColor: on ? palette.gold : palette.textDim
     });
     const catChips = cats.map(c => {
       const on = c.key === activeCat;
@@ -150,9 +209,10 @@ class Component extends DCLogic {
     const resultLabel = lang === 'ar' ? (n + ' نتيجة') : (n + (n > 1 ? ' résultats' : ' résultat'));
 
     return {
-      t, dir, lang, waLink,
-      filteredProducts, catChips, brandChips, resultLabel,
+      t, dir, lang, waLink, theme, logoSrc, themeIcon,
+      filteredProducts, orderableProducts, catChips, brandChips, resultLabel,
       hasResults: n > 0, noResults: this.state.loaded && n === 0,
+      canOrder, orderBlocked: !canOrder,
       search,
       onSearch: (e) => this.setState({ search: e.currentTarget.value }),
       selectCat: (e) => this.setState({ cat: e.currentTarget.dataset.cat }),
@@ -165,6 +225,11 @@ class Component extends DCLogic {
       cities, total,
       form: formView,
       toggleLang: () => this.setState({ lang: lang === 'fr' ? 'ar' : 'fr' }),
+      toggleTheme: () => {
+        const next = theme === 'light' ? 'dark' : 'light';
+        this.applyTheme(next);
+        this.setState({ theme: next });
+      },
       openProduct: (e) => {
         const name = e.currentTarget.dataset.name;
         const idx = Math.max(0, this.PRODUCTS.findIndex(p => p.name === name));
@@ -177,9 +242,15 @@ class Component extends DCLogic {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       selectImage: (e) => this.setState({ activeImage: parseInt(e.currentTarget.dataset.idx) }),
-      selectProduct: (e) => this.setState({ selectedProduct: e.currentTarget.dataset.product }),
+      selectProduct: (e) => {
+        const name = e.currentTarget.dataset.product;
+        const p = this.PRODUCTS.find(x => x.name === name);
+        if (p && p.inStock === false) return;
+        this.setState({ selectedProduct: name });
+      },
       selectFromDetail: (e) => {
         if (e) e.preventDefault();
+        if (cp.inStock === false) return;
         // The order form lives in the home view, so switch back to it, pre-select
         // the scooter being viewed, then scroll down to the form once it renders.
         this.setState({ view: 'home', selectedProduct: cp.name });
@@ -193,8 +264,8 @@ class Component extends DCLogic {
         this.setState({ form: { ...this.state.form, [field]: e.currentTarget.value } });
       },
       submitOrder: () => {
-        const p = this.PRODUCTS.find(p => p.name === this.state.selectedProduct) || this.PRODUCTS[0];
-        if (!p) return;
+        const p = this.PRODUCTS.find(p => p.name === this.state.selectedProduct) || this.PRODUCTS.find(p => p.inStock !== false) || this.PRODUCTS[0];
+        if (!p || p.inStock === false) return;
         const f = this.state.form;
         const city = f.city || this.T[this.state.lang].cities[0];
 

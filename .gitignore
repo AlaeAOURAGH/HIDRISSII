@@ -8,3 +8,5 @@ npm-debug.log*
 # re-running the image pipeline; never deployed. The optimized WebP in
 # /img is what ships.
 uploads/
+.vercel
+.env*
