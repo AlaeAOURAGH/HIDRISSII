@@ -27,6 +27,7 @@ class Component extends DCLogic {
 
   // Overridden at runtime from /api/config (env WA_NUMBER). Fallback below.
   WA_NUMBER = '212606555567';
+  MAPS_URL = 'https://share.google/KK0zyXkLZF3piDKKC';
 
   state = {
     view: 'home',
@@ -209,7 +210,7 @@ class Component extends DCLogic {
     const resultLabel = lang === 'ar' ? (n + ' نتيجة') : (n + (n > 1 ? ' résultats' : ' résultat'));
 
     return {
-      t, dir, lang, waLink, theme, logoSrc, themeIcon,
+      t, dir, lang, waLink, mapsUrl: this.MAPS_URL, theme, logoSrc, themeIcon,
       filteredProducts, orderableProducts, catChips, brandChips, resultLabel,
       hasResults: n > 0, noResults: this.state.loaded && n === 0,
       canOrder, orderBlocked: !canOrder,
