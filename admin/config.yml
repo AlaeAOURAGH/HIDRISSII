@@ -8,61 +8,92 @@ backend:
 media_folder: uploads
 public_folder: /uploads
 locale: fr
+app_title: HIDRISSI · Ma boutique
+site_url: https://www.hidrissi.com
+display_url: https://www.hidrissi.com
+logo:
+  src: /assets/icon-512.png
+  show_in_header: true
 collections:
-  - name: catalogue
-    label: Catalogue
-    files:
-      - name: produits
-        label: Produits
-        file: data/products.json
+  - name: produits
+    label: Mes produits
+    label_singular: Produit
+    description: 'Cliquez sur un produit pour changer son prix, ses photos ou son stock. Pour ajouter un modèle, cliquez sur Nouveau produit. Enregistrez pour mettre à jour le site.'
+    icon: electric_scooter
+    file: data/catalogue.json
+    identifier_field: name
+    create: true
+    delete: true
+    duplicate: true
+    editor:
+      preview: false
+    summary: "{{name}} — {{price}} dh · {{in_stock | ternary('En stock', 'Rupture de stock')}}"
+    thumbnail: images.*
+    sortable_fields: [name, price, brand, in_stock]
+    table_columns:
+      - {field: name, label: Produit}
+      - {field: price, label: Prix (dh)}
+      - {field: in_stock, label: En stock}
+      - {field: brand, label: Marque}
+    view_filters:
+      - {label: Disponibles à la vente, field: in_stock, pattern: true}
+      - {label: En rupture de stock, field: in_stock, pattern: false}
+    fields:
+      - {name: name, label: Nom du produit, widget: string, hint: 'Exemple : WATHIUM RS-2. Ce nom est visible par les clients.'}
+      - {name: price, label: Prix de vente (dh), widget: number, value_type: float, min: 0, hint: 'Écrivez uniquement le montant. Exemple : 6300. Ne saisissez pas « dh ».'}
+      - {name: in_stock, label: Disponible à la vente, widget: boolean, default: true, hint: 'Activé : les clients peuvent commander. Désactivé : le produit reste visible avec la mention Rupture de stock.'}
+      - name: images
+        label: Photos du produit
+        widget: list
+        min: 1
+        hint: 'Ajoutez vos photos ici. La première est la photo principale. Glissez-les pour changer leur ordre. JPEG, PNG ou WebP ; maximum conseillé : 500 Ko par photo.'
+        field: {name: image, label: Photo, widget: image, choose_url: false}
+      - {name: brand, label: Marque, widget: string, hint: 'Exemple : WATHIUM, KEPOW ou SEGWAY.'}
+      - name: category
+        label: Type de trottinette
+        widget: select
+        default: city
+        options:
+          - {label: Performance — puissante et sportive, value: perf}
+          - {label: Urbaine — trajets quotidiens, value: city}
+          - {label: Compacte — facile à transporter, value: compact}
+      - {name: power, label: Puissance du moteur, widget: string, required: false, hint: 'Exemple : 1000W ou 2×2000W.'}
+      - {name: speed, label: Vitesse maximale, widget: string, required: false, hint: 'Exemple : 45 km/h.'}
+      - {name: range, label: Autonomie, widget: string, required: false, hint: 'Exemple : 40–50 km.'}
+      - name: short_desc
+        label: Petit texte sous la photo
+        widget: object
+        hint: 'Une ou deux phrases pour présenter le modèle.'
         fields:
-          - {name: cats, widget: hidden, required: false}
-          - {name: brands, widget: hidden, required: false}
-          - {name: waNumberDefault, widget: hidden, required: false}
-          - name: products
-            label: Produits
-            widget: list
-            summary: '{{fields.name}} — {{fields.price}} dh'
-            fields:
-              - {name: category_label, widget: hidden, required: false}
-              - {name: speed_i18n, widget: hidden, required: false}
-              - {name: range_i18n, widget: hidden, required: false}
-              - {name: specs, widget: hidden, required: false}
-              - {name: image_meta, widget: hidden, required: false}
-              - {name: id, label: Identifiant unique (minuscules et tirets), widget: string, pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'Minuscules, chiffres et tirets uniquement']}
-              - {name: name, label: Nom, widget: string}
-              - {name: category, label: Catégorie, widget: select, options: [{label: Performance, value: perf}, {label: Urbain, value: city}, {label: Compacte, value: compact}]}
-              - {name: brand, label: Marque, widget: string}
-              - {name: price, label: Prix (dh), widget: number, value_type: float, min: 0}
-              - {name: in_stock, label: En stock, widget: boolean, default: true}
-              - {name: power, label: Puissance, widget: string, required: false}
-              - {name: speed, label: Vitesse, widget: string, required: false}
-              - {name: range, label: Autonomie, widget: string, required: false}
-              - name: badge
-                label: Badge
-                widget: object
-                fields:
-                  - {name: fr, label: Français, widget: string, required: false}
-                  - {name: ar, label: Arabe, widget: string, required: false}
-              - name: short_desc
-                label: Description courte
-                widget: object
-                fields:
-                  - {name: fr, label: Français, widget: text}
-                  - {name: ar, label: Arabe, widget: text, required: false}
-              - name: desc
-                label: Description complète
-                widget: object
-                fields:
-                  - {name: fr, label: Français, widget: text}
-                  - {name: ar, label: Arabe, widget: text, required: false}
-              - name: features
-                label: Caractéristiques
-                widget: object
-                fields:
-                  - {name: fr, label: Français, widget: list, required: false}
-                  - {name: ar, label: Arabe, widget: list, required: false}
-              - name: images
-                label: Photos (première = principale)
-                widget: list
-                field: {name: image, label: Photo, widget: image, choose_url: false}
+          - {name: fr, label: Texte en français, widget: text}
+          - {name: ar, label: Texte en arabe (facultatif), widget: text, required: false, hint: 'Si vous laissez ce champ vide, le texte français sera affiché.'}
+      - name: desc
+        label: Description détaillée
+        widget: object
+        collapsed: true
+        fields:
+          - {name: fr, label: Description en français, widget: text, required: false}
+          - {name: ar, label: Description en arabe (facultatif), widget: text, required: false}
+      - name: features
+        label: Points forts (facultatif)
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - {name: fr, label: Points forts en français, widget: list, required: false}
+          - {name: ar, label: Points forts en arabe, widget: list, required: false}
+      - name: badge
+        label: Étiquette promotionnelle (facultatif)
+        widget: object
+        collapsed: true
+        required: false
+        hint: 'Exemple : Nouveau, Promotion ou Meilleure vente. Laissez vide si inutile.'
+        fields:
+          - {name: fr, label: Étiquette en français, widget: string, required: false}
+          - {name: ar, label: Étiquette en arabe, widget: string, required: false}
+      - {name: id, label: Référence automatique, widget: uuid, readonly: true, hint: 'Créée automatiquement. Vous n’avez rien à saisir.'}
+      - {name: category_label, widget: hidden}
+      - {name: speed_i18n, widget: hidden}
+      - {name: range_i18n, widget: hidden}
+      - {name: specs, widget: hidden}
+      - {name: image_meta, widget: hidden}

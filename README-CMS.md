@@ -1,12 +1,18 @@
 # Developer setup
 
+## Simplified owner interface
+
+`data/catalogue.json` is now the editable product source: a JSON array shown by Sveltia as individual product entries in **Mes produits**. Product fields and translations are unchanged. `scripts/build.js` combines this array with the original catalog metadata and writes the existing public response shape to `dist/data/products.json`. The original `data/products.json` remains a migration snapshot; product edits there are no longer published. Local unpublished edits were left untouched. The one-time migration script reads the published Git snapshot rather than overwriting local owner edits.
+
+The editor has explicit price/availability columns, photo thumbnails, stock filters, a short daily-use form and collapsed optional details. IDs are generated automatically, metadata stays hidden, and Arabic text remains optional. No new login credentials or authorization scopes are introduced.
+
 ## Production login on Vercel
 
 The production CMS now targets `/api/auth` and `/api/callback` on `https://www.hidrissi.com`. Register a GitHub OAuth application named HIDRISSI Catalogue with homepage `https://www.hidrissi.com` and the exact callback `https://www.hidrissi.com/api/callback` (no wildcard). Store its client ID and secret in Vercel production environment variables `CMS_GITHUB_CLIENT_ID` and `CMS_GITHUB_CLIENT_SECRET`. Redeploy after setting them. No secrets belong in Git or this documentation.
 
 This OAuth application requests `public_repo` access; GitHub OAuth scopes cover the user's accessible public repositories, not just this repository. The callback checks write permission on `AlaeAOURAGH/HIDRISSII` before releasing a token to the CMS. It uses a short-lived Secure/HttpOnly state cookie and sends the result only to the exact production origin. The CMS itself is configured to edit this repository. A repository-scoped GitHub App authenticator is an alternative if narrower token access is required. Leave Device Flow and wildcard callbacks disabled. Token-expiration/refresh support has not been configured; users can revoke access through GitHub settings.
 
-Canonical content: `data/products.json`. Root `products.json` and `index.html` are generated compatibility/build output. Run `npm run build` after edits; publish `dist/`. Do not run the old image ingest script against the canonical catalog: it regenerates the legacy catalog from the design source. Existing design files remain visual source for `scripts/build-html.mjs`.
+Canonical product content: `data/catalogue.json`. Root `products.json`, `index.html` and `dist/data/products.json` are generated compatibility/build output. Run `npm run build` after edits; publish `dist/`. Do not run the old image ingest script against the canonical catalog: it regenerates the legacy catalog from the design source. Existing design files remain visual source for `scripts/build-html.mjs`.
 
 ## GitHub and CMS
 
