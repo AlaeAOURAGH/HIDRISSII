@@ -2,6 +2,9 @@ backend:
   name: github
   repo: AlaeAOURAGH/HIDRISSII
   branch: main
+  base_url: https://www.hidrissi.com
+  auth_endpoint: api/auth
+  auth_scope: public_repo
 media_folder: uploads
 public_folder: /uploads
 locale: fr

@@ -1,5 +1,11 @@
 # Developer setup
 
+## Production login on Vercel
+
+The production CMS now targets `/api/auth` and `/api/callback` on `https://www.hidrissi.com`. Register a GitHub OAuth application named HIDRISSI Catalogue with homepage `https://www.hidrissi.com` and the exact callback `https://www.hidrissi.com/api/callback` (no wildcard). Store its client ID and secret in Vercel production environment variables `CMS_GITHUB_CLIENT_ID` and `CMS_GITHUB_CLIENT_SECRET`. Redeploy after setting them. No secrets belong in Git or this documentation.
+
+This OAuth application requests `public_repo` access; GitHub OAuth scopes cover the user's accessible public repositories, not just this repository. The callback checks write permission on `AlaeAOURAGH/HIDRISSII` before releasing a token to the CMS. It uses a short-lived Secure/HttpOnly state cookie and sends the result only to the exact production origin. The CMS itself is configured to edit this repository. A repository-scoped GitHub App authenticator is an alternative if narrower token access is required. Leave Device Flow and wildcard callbacks disabled. Token-expiration/refresh support has not been configured; users can revoke access through GitHub settings.
+
 Canonical content: `data/products.json`. Root `products.json` and `index.html` are generated compatibility/build output. Run `npm run build` after edits; publish `dist/`. Do not run the old image ingest script against the canonical catalog: it regenerates the legacy catalog from the design source. Existing design files remain visual source for `scripts/build-html.mjs`.
 
 ## GitHub and CMS
