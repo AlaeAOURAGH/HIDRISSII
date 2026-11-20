@@ -1,6 +1,4 @@
 {
-  "_generated": "2026-09-15T14:54:01.360Z",
-  "_note": "Edit prices/specs/text here freely. Adding images requires re-running npm run build:images.",
   "waNumberDefault": "212606555567",
   "cats": [
     {
@@ -38,18 +36,40 @@
   ],
   "products": [
     {
+      "id": "wathium-rs-2",
       "name": "WATHIUM RS-2",
-      "cat": "perf",
-      "brand": "WATHIUM",
       "category": {
         "fr": "Performance",
         "ar": "أداء عالٍ"
       },
+      "category_label": {
+        "fr": "Performance",
+        "ar": "أداء عالٍ"
+      },
+      "brand": "WATHIUM",
       "badge": {
         "fr": "Bestseller",
         "ar": "الأكثر مبيعاً"
       },
-      "shortDesc": {
+      "price": "6 300",
+      "in_stock": true,
+      "power": "2×2000W",
+      "speed": {
+        "fr": "55 km/h",
+        "ar": "55 كلم/س"
+      },
+      "range": {
+        "fr": "60-70 km"
+      },
+      "speed_i18n": {
+        "fr": "55 km/h",
+        "ar": "55 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "60-70 km",
+        "ar": "60-70 كلم"
+      },
+      "short_desc": {
         "fr": "Double moteur 2000W, homologuée 2026. Puissance et autonomie pour la ville et au-delà.",
         "ar": "محرّكان 2000 واط، مرخّصة 2026. قوة ومدى للمدينة وأبعد."
       },
@@ -57,17 +77,22 @@
         "fr": "La WATHIUM RS-2 combine deux moteurs de 2000W pour une puissance maximale de 4000W. Homologuée 2026, elle offre 55 km/h et jusqu'à 70 km d'autonomie. Idéale pour les trajets urbains exigeants et les sorties péri-urbaines.",
         "ar": "تجمع WATHIUM RS-2 بين محرّكين بقوة 2000 واط لقوة قصوى تبلغ 4000 واط. مرخّصة لعام 2026، توفّر سرعة 55 كلم/س ومدى يصل إلى 70 كلم. مثالية للتنقّلات الحضرية الصعبة والخرجات خارج المدينة."
       },
-      "power": "2×2000W",
-      "speed": {
-        "fr": "55 km/h",
-        "ar": "55 كلم/س"
+      "features": {
+        "fr": [
+          "Double moteur 2000W",
+          "Batterie 48V 20Ah",
+          "Trottinette homologuée 2026",
+          "Suspension avant et arrière",
+          "Freins hydrauliques"
+        ],
+        "ar": [
+          "محرّكان 2000 واط",
+          "بطارية 48 فولت 20 أمبير",
+          "دراجة مرخّصة 2026",
+          "تعليق أمامي وخلفي",
+          "فرامل هيدروليكية"
+        ]
       },
-      "range": {
-        "fr": "60-70 km",
-        "ar": "60-70 كلم"
-      },
-      "price": "6 300",
-      "priceNum": 6300,
       "specs": [
         {
           "label": {
@@ -97,22 +122,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Double moteur 2000W",
-          "Batterie 48V 20Ah",
-          "Trottinette homologuée 2026",
-          "Suspension avant et arrière",
-          "Freins hydrauliques"
-        ],
-        "ar": [
-          "محرّكان 2000 واط",
-          "بطارية 48 فولت 20 أمبير",
-          "دراجة مرخّصة 2026",
-          "تعليق أمامي وخلفي",
-          "فرامل هيدروليكية"
-        ]
-      },
       "images": [
         {
           "display": "img/wathium-rs-2-front-1200.webp",
@@ -138,21 +147,76 @@
           "w": 1200,
           "h": 1600
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/wathium-rs-2-front-1200.webp": {
+          "display": "img/wathium-rs-2-front-1200.webp",
+          "thumb": "img/wathium-rs-2-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/wathium-rs-2-1-1200.webp": {
+          "display": "img/wathium-rs-2-1-1200.webp",
+          "thumb": "img/wathium-rs-2-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-rs-2-2-1200.webp": {
+          "display": "img/wathium-rs-2-2-1200.webp",
+          "thumb": "img/wathium-rs-2-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-rs-2-3-1200.webp": {
+          "display": "img/wathium-rs-2-3-1200.webp",
+          "thumb": "img/wathium-rs-2-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "perf",
+      "priceNum": 6300,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Double moteur 2000W, homologuée 2026. Puissance et autonomie pour la ville et au-delà.",
+        "ar": "محرّكان 2000 واط، مرخّصة 2026. قوة ومدى للمدينة وأبعد."
+      }
     },
     {
+      "id": "wathium-blade",
       "name": "WATHIUM BLADE",
-      "cat": "city",
-      "brand": "WATHIUM",
       "category": {
         "fr": "Urbain",
         "ar": "حضري"
       },
+      "category_label": {
+        "fr": "Urbain",
+        "ar": "حضري"
+      },
+      "brand": "WATHIUM",
       "badge": {
         "fr": "Homologuée 2026",
         "ar": "مرخّصة 2026"
       },
-      "shortDesc": {
+      "price": "5 300",
+      "in_stock": true,
+      "power": "2000W MAX",
+      "speed": {
+        "fr": "45 km/h",
+        "ar": "45 كلم/س"
+      },
+      "range": {
+        "fr": "40-50 km"
+      },
+      "speed_i18n": {
+        "fr": "45 km/h",
+        "ar": "45 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "40-50 km",
+        "ar": "40-50 كلم"
+      },
+      "short_desc": {
         "fr": "Trottinette homologuée 2026. Moteur 2000W, idéale pour les trajets quotidiens en ville.",
         "ar": "دراجة مرخّصة 2026. محرّك 2000 واط، مثالية للتنقّلات اليومية في المدينة."
       },
@@ -160,17 +224,24 @@
         "fr": "La WATHIUM BLADE est une trottinette homologuée 2026, conçue pour les trajets urbains quotidiens. Son moteur 2000W MAX et sa batterie 48V 15Ah offrent 45 km/h et jusqu'à 50 km d'autonomie. Disponible en deux coloris.",
         "ar": "WATHIUM BLADE دراجة مرخّصة لعام 2026، مصمّمة للتنقّلات الحضرية اليومية. محرّكها 2000 واط MAX وبطاريتها 48 فولت 15 أمبير يوفّران سرعة 45 كلم/س ومدى يصل إلى 50 كلم. متوفّرة بلونين."
       },
-      "power": "2000W MAX",
-      "speed": {
-        "fr": "45 km/h",
-        "ar": "45 كلم/س"
+      "features": {
+        "fr": [
+          "Moteur 2000W MAX",
+          "Batterie 48V 15Ah",
+          "Trottinette homologuée 2026",
+          "Autonomie 40-50 km",
+          "Disponible en 2 coloris",
+          "Garantie incluse"
+        ],
+        "ar": [
+          "محرّك 2000 واط MAX",
+          "بطارية 48 فولت 15 أمبير",
+          "دراجة مرخّصة 2026",
+          "مدى 40-50 كلم",
+          "متوفّرة بلونين",
+          "مع الضمان"
+        ]
       },
-      "range": {
-        "fr": "40-50 km",
-        "ar": "40-50 كلم"
-      },
-      "price": "5 300",
-      "priceNum": 5300,
       "specs": [
         {
           "label": {
@@ -207,24 +278,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Moteur 2000W MAX",
-          "Batterie 48V 15Ah",
-          "Trottinette homologuée 2026",
-          "Autonomie 40-50 km",
-          "Disponible en 2 coloris",
-          "Garantie incluse"
-        ],
-        "ar": [
-          "محرّك 2000 واط MAX",
-          "بطارية 48 فولت 15 أمبير",
-          "دراجة مرخّصة 2026",
-          "مدى 40-50 كلم",
-          "متوفّرة بلونين",
-          "مع الضمان"
-        ]
-      },
       "images": [
         {
           "display": "img/wathium-blade-front-1200.webp",
@@ -286,21 +339,112 @@
           "w": 1200,
           "h": 1600
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/wathium-blade-front-1200.webp": {
+          "display": "img/wathium-blade-front-1200.webp",
+          "thumb": "img/wathium-blade-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/wathium-blade-1-1200.webp": {
+          "display": "img/wathium-blade-1-1200.webp",
+          "thumb": "img/wathium-blade-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-blade-2-1200.webp": {
+          "display": "img/wathium-blade-2-1200.webp",
+          "thumb": "img/wathium-blade-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-blade-3-1200.webp": {
+          "display": "img/wathium-blade-3-1200.webp",
+          "thumb": "img/wathium-blade-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-blade-4-1200.webp": {
+          "display": "img/wathium-blade-4-1200.webp",
+          "thumb": "img/wathium-blade-4-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-blade-5-1200.webp": {
+          "display": "img/wathium-blade-5-1200.webp",
+          "thumb": "img/wathium-blade-5-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-blade-6-1200.webp": {
+          "display": "img/wathium-blade-6-1200.webp",
+          "thumb": "img/wathium-blade-6-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-blade-7-1200.webp": {
+          "display": "img/wathium-blade-7-1200.webp",
+          "thumb": "img/wathium-blade-7-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-blade-8-1200.webp": {
+          "display": "img/wathium-blade-8-1200.webp",
+          "thumb": "img/wathium-blade-8-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/wathium-blade-9-1200.webp": {
+          "display": "img/wathium-blade-9-1200.webp",
+          "thumb": "img/wathium-blade-9-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "city",
+      "priceNum": 5300,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Trottinette homologuée 2026. Moteur 2000W, idéale pour les trajets quotidiens en ville.",
+        "ar": "دراجة مرخّصة 2026. محرّك 2000 واط، مثالية للتنقّلات اليومية في المدينة."
+      }
     },
     {
+      "id": "kepow-k2-master",
       "name": "KEPOW K2 MASTER",
-      "cat": "perf",
-      "brand": "KEPOW",
       "category": {
         "fr": "Sport",
         "ar": "رياضي"
       },
+      "category_label": {
+        "fr": "Sport",
+        "ar": "رياضي"
+      },
+      "brand": "KEPOW",
       "badge": {
         "fr": "Double moteur 2000W",
         "ar": "محرّكان 2000 واط"
       },
-      "shortDesc": {
+      "price": "4 850",
+      "in_stock": false,
+      "power": "2×1000W",
+      "speed": {
+        "fr": "50 km/h",
+        "ar": "50 كلم/س"
+      },
+      "range": {
+        "fr": "55-65 km"
+      },
+      "speed_i18n": {
+        "fr": "50 km/h",
+        "ar": "50 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "55-65 km",
+        "ar": "55-65 كلم"
+      },
+      "short_desc": {
         "fr": "Double moteur 2000W, double suspension et freins à disque. Pour la vitesse et le tout-terrain.",
         "ar": "محرّكان 2000 واط، تعليق مزدوج وفرامل قرصية. للسرعة وكل الطرقات."
       },
@@ -308,17 +452,24 @@
         "fr": "La KEPOW K2 MASTER embarque deux moteurs de 1000W (2000W au total), une double suspension et un système de freinage à disque double. Avec ses pneus tout-terrain 10 pouces et son autonomie de 55-65 km, elle ne recule devant aucun terrain.",
         "ar": "تأتي KEPOW K2 MASTER بمحرّكين بقوة 1000 واط (2000 واط إجمالاً)، تعليق مزدوج ونظام فرامل قرصية مزدوج. مع عجلاتها 10 إنش لكل الطرقات ومداها 55-65 كلم، لا تتراجع أمام أي تضاريس."
       },
-      "power": "2×1000W",
-      "speed": {
-        "fr": "50 km/h",
-        "ar": "50 كلم/س"
+      "features": {
+        "fr": [
+          "Double moteur 1000W ×2",
+          "Batterie 48V 20Ah",
+          "Double suspension",
+          "Double frein à disque",
+          "Pneus tout-terrain 10 pouces",
+          "Autonomie 55-65 km"
+        ],
+        "ar": [
+          "محرّكان 1000 واط ×2",
+          "بطارية 48 فولت 20 أمبير",
+          "تعليق مزدوج",
+          "فرامل قرصية مزدوجة",
+          "عجلات 10 إنش لكل الطرقات",
+          "مدى 55-65 كلم"
+        ]
       },
-      "range": {
-        "fr": "55-65 km",
-        "ar": "55-65 كلم"
-      },
-      "price": "4 850",
-      "priceNum": 4850,
       "specs": [
         {
           "label": {
@@ -355,24 +506,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Double moteur 1000W ×2",
-          "Batterie 48V 20Ah",
-          "Double suspension",
-          "Double frein à disque",
-          "Pneus tout-terrain 10 pouces",
-          "Autonomie 55-65 km"
-        ],
-        "ar": [
-          "محرّكان 1000 واط ×2",
-          "بطارية 48 فولت 20 أمبير",
-          "تعليق مزدوج",
-          "فرامل قرصية مزدوجة",
-          "عجلات 10 إنش لكل الطرقات",
-          "مدى 55-65 كلم"
-        ]
-      },
       "images": [
         {
           "display": "img/kepow-k2-master-front-1200.webp",
@@ -411,21 +544,87 @@
           "h": 1600
         }
       ],
-      "inStock": false
+      "image_meta": {
+        "/img/kepow-k2-master-front-1200.webp": {
+          "display": "img/kepow-k2-master-front-1200.webp",
+          "thumb": "img/kepow-k2-master-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/kepow-k2-master-1-1200.webp": {
+          "display": "img/kepow-k2-master-1-1200.webp",
+          "thumb": "img/kepow-k2-master-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/kepow-k2-master-2-1200.webp": {
+          "display": "img/kepow-k2-master-2-1200.webp",
+          "thumb": "img/kepow-k2-master-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/kepow-k2-master-3-1200.webp": {
+          "display": "img/kepow-k2-master-3-1200.webp",
+          "thumb": "img/kepow-k2-master-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/kepow-k2-master-4-1200.webp": {
+          "display": "img/kepow-k2-master-4-1200.webp",
+          "thumb": "img/kepow-k2-master-4-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/kepow-k2-master-5-1200.webp": {
+          "display": "img/kepow-k2-master-5-1200.webp",
+          "thumb": "img/kepow-k2-master-5-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "perf",
+      "priceNum": 4850,
+      "inStock": false,
+      "shortDesc": {
+        "fr": "Double moteur 2000W, double suspension et freins à disque. Pour la vitesse et le tout-terrain.",
+        "ar": "محرّكان 2000 واط، تعليق مزدوج وفرامل قرصية. للسرعة وكل الطرقات."
+      }
     },
     {
+      "id": "nxride",
       "name": "NXRIDE",
-      "cat": "city",
-      "brand": "NXRIDE",
       "category": {
         "fr": "Urbain",
         "ar": "حضري"
       },
+      "category_label": {
+        "fr": "Urbain",
+        "ar": "حضري"
+      },
+      "brand": "NXRIDE",
       "badge": {
         "fr": "Clignotants inclus",
         "ar": "إشارات الانعطاف"
       },
-      "shortDesc": {
+      "price": "3 100",
+      "in_stock": true,
+      "power": "700W",
+      "speed": {
+        "fr": "30-35 km/h",
+        "ar": "30-35 كلم/س"
+      },
+      "range": {
+        "fr": "25-35 km"
+      },
+      "speed_i18n": {
+        "fr": "30-35 km/h",
+        "ar": "30-35 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "25-35 km",
+        "ar": "25-35 كلم"
+      },
+      "short_desc": {
         "fr": "Trottinette urbaine performante et sécurisée, riche en accessoires. Confort et praticité au quotidien.",
         "ar": "دراجة حضرية أنيقة وآمنة، غنية بالملحقات. راحة وعملية في كل يوم."
       },
@@ -433,17 +632,24 @@
         "fr": "La trottinette NXRIDE est la solution idéale pour ceux qui recherchent un moyen de transport urbain à la fois performant, sécurisé et riche en accessoires. Avec son design moderne et ses multiples coloris, elle allie confort de conduite et praticité pour vos trajets quotidiens.",
         "ar": "دراجة NXRIDE هي الحل المثالي لمن يبحث عن وسيلة نقل حضرية عالية الأداء وآمنة وغنية بالملحقات. بتصميمها العصري وألوانها المتعدّدة، تجمع بين راحة القيادة والعملية لتنقّلاتك اليومية."
       },
-      "power": "700W",
-      "speed": {
-        "fr": "30-35 km/h",
-        "ar": "30-35 كلم/س"
+      "features": {
+        "fr": [
+          "Moteur 700W",
+          "Batterie lithium 36V / 10,5Ah",
+          "Pneus 10 pouces",
+          "Suspension avant",
+          "Frein à disque arrière",
+          "Clignotants disponibles"
+        ],
+        "ar": [
+          "محرّك 700 واط",
+          "بطارية ليثيوم 36 فولت / 10,5 أمبير",
+          "عجلات 10 إنش",
+          "تعليق أمامي",
+          "فرامل قرصية خلفية",
+          "إشارات انعطاف متوفّرة"
+        ]
       },
-      "range": {
-        "fr": "25-35 km",
-        "ar": "25-35 كلم"
-      },
-      "price": "3 100",
-      "priceNum": 3100,
       "specs": [
         {
           "label": {
@@ -480,24 +686,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Moteur 700W",
-          "Batterie lithium 36V / 10,5Ah",
-          "Pneus 10 pouces",
-          "Suspension avant",
-          "Frein à disque arrière",
-          "Clignotants disponibles"
-        ],
-        "ar": [
-          "محرّك 700 واط",
-          "بطارية ليثيوم 36 فولت / 10,5 أمبير",
-          "عجلات 10 إنش",
-          "تعليق أمامي",
-          "فرامل قرصية خلفية",
-          "إشارات انعطاف متوفّرة"
-        ]
-      },
       "images": [
         {
           "display": "img/nxride-front-1200.webp",
@@ -553,21 +741,106 @@
           "w": 1200,
           "h": 1600
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/nxride-front-1200.webp": {
+          "display": "img/nxride-front-1200.webp",
+          "thumb": "img/nxride-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/nxride-1-1200.webp": {
+          "display": "img/nxride-1-1200.webp",
+          "thumb": "img/nxride-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/nxride-2-1200.webp": {
+          "display": "img/nxride-2-1200.webp",
+          "thumb": "img/nxride-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/nxride-3-1200.webp": {
+          "display": "img/nxride-3-1200.webp",
+          "thumb": "img/nxride-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/nxride-4-1200.webp": {
+          "display": "img/nxride-4-1200.webp",
+          "thumb": "img/nxride-4-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/nxride-5-1200.webp": {
+          "display": "img/nxride-5-1200.webp",
+          "thumb": "img/nxride-5-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/nxride-6-1200.webp": {
+          "display": "img/nxride-6-1200.webp",
+          "thumb": "img/nxride-6-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/nxride-7-1200.webp": {
+          "display": "img/nxride-7-1200.webp",
+          "thumb": "img/nxride-7-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/nxride-8-1200.webp": {
+          "display": "img/nxride-8-1200.webp",
+          "thumb": "img/nxride-8-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "city",
+      "priceNum": 3100,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Trottinette urbaine performante et sécurisée, riche en accessoires. Confort et praticité au quotidien.",
+        "ar": "دراجة حضرية أنيقة وآمنة، غنية بالملحقات. راحة وعملية في كل يوم."
+      }
     },
     {
+      "id": "bison-gt-1000w",
       "name": "Bison GT 1000W",
-      "cat": "perf",
-      "brand": "EcoXtrem",
       "category": {
         "fr": "Ecoxtrem",
         "ar": "إيكوإكستريم"
       },
+      "category_label": {
+        "fr": "Ecoxtrem",
+        "ar": "إيكوإكستريم"
+      },
+      "brand": "EcoXtrem",
       "badge": {
         "fr": "3 modes de vitesse",
         "ar": "3 أوضاع للسرعة"
       },
-      "shortDesc": {
+      "price": "5 490",
+      "in_stock": false,
+      "power": "1000W",
+      "speed": {
+        "fr": "20-50 km/h",
+        "ar": "20-50 كلم/س"
+      },
+      "range": {
+        "fr": "40 km"
+      },
+      "speed_i18n": {
+        "fr": "20-50 km/h",
+        "ar": "20-50 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "40 km",
+        "ar": "40 كلم"
+      },
+      "short_desc": {
         "fr": "Trottinette Ecoxtrem 1000W, batterie 48V 13Ah et 3 modes de vitesse. Polyvalente et endurante.",
         "ar": "دراجة Ecoxtrem بقوة 1000 واط، بطارية 48 فولت 13 أمبير و3 أوضاع للسرعة. متعددة الاستخدام وقوية التحمّل."
       },
@@ -575,17 +848,24 @@
         "fr": "La Bison GT signée Ecoxtrem embarque un moteur 1000W et une batterie lithium 48V 13Ah. Trois modes de vitesse — 20 km/h, 25 km/h (bridée) et jusqu'à 50 km/h (débridée, non garantie) — pour s'adapter à chaque trajet. Jusqu'à 40 km d'autonomie et une charge maximale de 120 kg.",
         "ar": "تأتي Bison GT من Ecoxtrem بمحرّك 1000 واط وبطارية ليثيوم 48 فولت 13 أمبير. ثلاثة أوضاع للسرعة — 20 كلم/س، 25 كلم/س (مقيّدة) وحتى 50 كلم/س (غير مقيّدة، غير مضمونة) — لتتكيّف مع كل رحلة. مدى يصل إلى 40 كلم وحمولة قصوى تبلغ 120 كلغ."
       },
-      "power": "1000W",
-      "speed": {
-        "fr": "20-50 km/h",
-        "ar": "20-50 كلم/س"
+      "features": {
+        "fr": [
+          "Marque Ecoxtrem",
+          "Moteur 1000W · batterie lithium 48V 13Ah",
+          "3 modes : 20 / 25 / jusqu'à 50 km/h",
+          "Autonomie jusqu'à 40 km",
+          "Charge max. 120 kg · roues 10 pouces",
+          "Temps de charge 4-6h · 114×61×110 cm"
+        ],
+        "ar": [
+          "ماركة Ecoxtrem",
+          "محرّك 1000 واط · بطارية ليثيوم 48 فولت 13 أمبير",
+          "3 أوضاع: 20 / 25 / حتى 50 كلم/س",
+          "مدى يصل إلى 40 كلم",
+          "حمولة قصوى 120 كلغ · عجلات 10 إنش",
+          "وقت الشحن 4-6 ساعات · 114×61×110 سم"
+        ]
       },
-      "range": {
-        "fr": "40 km",
-        "ar": "40 كلم"
-      },
-      "price": "5 490",
-      "priceNum": 5490,
       "specs": [
         {
           "label": {
@@ -622,24 +902,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Marque Ecoxtrem",
-          "Moteur 1000W · batterie lithium 48V 13Ah",
-          "3 modes : 20 / 25 / jusqu'à 50 km/h",
-          "Autonomie jusqu'à 40 km",
-          "Charge max. 120 kg · roues 10 pouces",
-          "Temps de charge 4-6h · 114×61×110 cm"
-        ],
-        "ar": [
-          "ماركة Ecoxtrem",
-          "محرّك 1000 واط · بطارية ليثيوم 48 فولت 13 أمبير",
-          "3 أوضاع: 20 / 25 / حتى 50 كلم/س",
-          "مدى يصل إلى 40 كلم",
-          "حمولة قصوى 120 كلغ · عجلات 10 إنش",
-          "وقت الشحن 4-6 ساعات · 114×61×110 سم"
-        ]
-      },
       "images": [
         {
           "display": "img/bison-gt-1000w-front-1200.webp",
@@ -672,21 +934,81 @@
           "h": 1600
         }
       ],
-      "inStock": false
+      "image_meta": {
+        "/img/bison-gt-1000w-front-1200.webp": {
+          "display": "img/bison-gt-1000w-front-1200.webp",
+          "thumb": "img/bison-gt-1000w-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/bison-gt-1000w-1-1200.webp": {
+          "display": "img/bison-gt-1000w-1-1200.webp",
+          "thumb": "img/bison-gt-1000w-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/bison-gt-1000w-2-1200.webp": {
+          "display": "img/bison-gt-1000w-2-1200.webp",
+          "thumb": "img/bison-gt-1000w-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/bison-gt-1000w-3-1200.webp": {
+          "display": "img/bison-gt-1000w-3-1200.webp",
+          "thumb": "img/bison-gt-1000w-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/bison-gt-1000w-4-1200.webp": {
+          "display": "img/bison-gt-1000w-4-1200.webp",
+          "thumb": "img/bison-gt-1000w-4-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "perf",
+      "priceNum": 5490,
+      "inStock": false,
+      "shortDesc": {
+        "fr": "Trottinette Ecoxtrem 1000W, batterie 48V 13Ah et 3 modes de vitesse. Polyvalente et endurante.",
+        "ar": "دراجة Ecoxtrem بقوة 1000 واط، بطارية 48 فولت 13 أمبير و3 أوضاع للسرعة. متعددة الاستخدام وقوية التحمّل."
+      }
     },
     {
+      "id": "armored-one-m41",
       "name": "ARMORED ONE M41",
-      "cat": "perf",
-      "brand": "EcoXtrem",
       "category": {
         "fr": "Urban Mobility",
         "ar": "التنقل الحضري"
       },
+      "category_label": {
+        "fr": "Urban Mobility",
+        "ar": "التنقل الحضري"
+      },
+      "brand": "EcoXtrem",
       "badge": {
         "fr": "EcoXtrem",
         "ar": "EcoXtrem"
       },
-      "shortDesc": {
+      "price": "6 790",
+      "in_stock": true,
+      "power": "1000W",
+      "speed": {
+        "fr": "55 km/h",
+        "ar": "55 كلم/س"
+      },
+      "range": {
+        "fr": "40-65 km"
+      },
+      "speed_i18n": {
+        "fr": "55 km/h",
+        "ar": "55 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "40-65 km",
+        "ar": "40-65 كلم"
+      },
+      "short_desc": {
         "fr": "ARMORED ONE M41 — EcoXtrem Urban Mobility. Moteur 1000W, batterie 52V 22Ah et pneus 11 pouces.",
         "ar": "ARMORED ONE M41 — EcoXtrem Urban Mobility. محرّك 1000 واط، بطارية 52 فولت 22 أمبير وعجلات 11 إنش."
       },
@@ -694,17 +1016,24 @@
         "fr": "L'ARMORED ONE M41 d'EcoXtrem Urban Mobility est une trottinette haute performance. Son moteur 1000W et sa batterie lithium 52V 22Ah offrent jusqu'à 55 km/h et 40 à 65 km d'autonomie. Pneus 11 pouces, freins à disque avant et arrière, suspension renforcée et bandeaux LED — conçue pour la ville comme les chemins difficiles.",
         "ar": "ARMORED ONE M41 من EcoXtrem Urban Mobility دراجة عالية الأداء. محرّكها 1000 واط وبطاريتها ليثيوم 52 فولت 22 أمبير يوفّران حتى 55 كلم/س ومدى 40 إلى 65 كلم. عجلات 11 إنش، فرامل قرصية أمامية وخلفية، تعليق معزّز وشرائط LED — للمدينة والمسارات الصعبة."
       },
-      "power": "1000W",
-      "speed": {
-        "fr": "55 km/h",
-        "ar": "55 كلم/س"
+      "features": {
+        "fr": [
+          "Marque EcoXtrem",
+          "Moteur 1000W · batterie 52V 22Ah",
+          "Pneus tout-terrain 11 pouces",
+          "Freins à disque av/ar",
+          "Suspension renforcée",
+          "Bandeaux LED · écran LCD"
+        ],
+        "ar": [
+          "ماركة EcoXtrem",
+          "محرّك 1000 واط · بطارية 52 فولت 22 أمبير",
+          "عجلات 11 إنش للطرق الوعرة",
+          "فرامل قرصية أمامية/خلفية",
+          "تعليق معزّز",
+          "شرائط LED · شاشة LCD"
+        ]
       },
-      "range": {
-        "fr": "40-65 km",
-        "ar": "40-65 كلم"
-      },
-      "price": "6 790",
-      "priceNum": 6790,
       "specs": [
         {
           "label": {
@@ -741,24 +1070,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Marque EcoXtrem",
-          "Moteur 1000W · batterie 52V 22Ah",
-          "Pneus tout-terrain 11 pouces",
-          "Freins à disque av/ar",
-          "Suspension renforcée",
-          "Bandeaux LED · écran LCD"
-        ],
-        "ar": [
-          "ماركة EcoXtrem",
-          "محرّك 1000 واط · بطارية 52 فولت 22 أمبير",
-          "عجلات 11 إنش للطرق الوعرة",
-          "فرامل قرصية أمامية/خلفية",
-          "تعليق معزّز",
-          "شرائط LED · شاشة LCD"
-        ]
-      },
       "images": [
         {
           "display": "img/armored-one-m41-1-1200.webp",
@@ -796,21 +1107,88 @@
           "w": 768,
           "h": 1024
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/armored-one-m41-1-1200.webp": {
+          "display": "img/armored-one-m41-1-1200.webp",
+          "thumb": "img/armored-one-m41-1-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/armored-one-m41-2-1200.webp": {
+          "display": "img/armored-one-m41-2-1200.webp",
+          "thumb": "img/armored-one-m41-2-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/armored-one-m41-3-1200.webp": {
+          "display": "img/armored-one-m41-3-1200.webp",
+          "thumb": "img/armored-one-m41-3-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/armored-one-m41-4-1200.webp": {
+          "display": "img/armored-one-m41-4-1200.webp",
+          "thumb": "img/armored-one-m41-4-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/armored-one-m41-5-1200.webp": {
+          "display": "img/armored-one-m41-5-1200.webp",
+          "thumb": "img/armored-one-m41-5-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/armored-one-m41-6-1200.webp": {
+          "display": "img/armored-one-m41-6-1200.webp",
+          "thumb": "img/armored-one-m41-6-600.webp",
+          "w": 768,
+          "h": 1024
+        }
+      },
+      "cat": "perf",
+      "priceNum": 6790,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "ARMORED ONE M41 — EcoXtrem Urban Mobility. Moteur 1000W, batterie 52V 22Ah et pneus 11 pouces.",
+        "ar": "ARMORED ONE M41 — EcoXtrem Urban Mobility. محرّك 1000 واط، بطارية 52 فولت 22 أمبير وعجلات 11 إنش."
+      }
     },
     {
+      "id": "deimos",
       "name": "DEIMOS",
-      "cat": "perf",
-      "brand": "EcoXtrem",
       "category": {
         "fr": "Tout-terrain",
         "ar": "كل الطرقات"
       },
+      "category_label": {
+        "fr": "Tout-terrain",
+        "ar": "كل الطرقات"
+      },
+      "brand": "EcoXtrem",
       "badge": {
         "fr": "2WD EcoXtrem",
         "ar": "2WD EcoXtrem"
       },
-      "shortDesc": {
+      "price": "6 490",
+      "in_stock": true,
+      "power": "2×1000W",
+      "speed": {
+        "fr": "60 km/h",
+        "ar": "60 كلم/س"
+      },
+      "range": {
+        "fr": "50-60 km"
+      },
+      "speed_i18n": {
+        "fr": "60 km/h",
+        "ar": "60 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "50-60 km",
+        "ar": "50-60 كلم"
+      },
+      "short_desc": {
         "fr": "Double moteur 2WD, 48V 20Ah et 60 km/h. La puissance EcoXtrem tout-terrain.",
         "ar": "محرّكان 2WD، 48 فولت 20 أمبير و60 كلم/س. قوة EcoXtrem لكل الطرقات."
       },
@@ -818,17 +1196,24 @@
         "fr": "Le DEIMOS d'EcoXtrem est une trottinette tout-terrain 2WD haute performance. Ses deux moteurs de 1000W délivrent une puissance combinée jusqu'à 2000W pour atteindre 60 km/h, avec 50 à 60 km d'autonomie sur sa batterie 48V 20Ah. Pneus tout-terrain 10 pouces, double suspension, freins à disque, éclairage LED et application mobile — la puissance sans limites.",
         "ar": "DEIMOS من EcoXtrem دراجة 2WD عالية الأداء لكل الطرقات. محرّكاها بقوة 1000 واط يوفّران حتى 2000 واط مجمّعة للوصول إلى 60 كلم/س، مع مدى 50 إلى 60 كلم ببطارية 48 فولت 20 أمبير. عجلات 10 إنش لكل الطرقات، تعليق مزدوج، فرامل قرصية، إضاءة LED وتطبيق جوال — قوة بلا حدود."
       },
-      "power": "2×1000W",
-      "speed": {
-        "fr": "60 km/h",
-        "ar": "60 كلم/س"
+      "features": {
+        "fr": [
+          "Marque EcoXtrem · 2WD",
+          "Double moteur 2×1000W",
+          "Batterie 48V 20Ah",
+          "Pneus tout-terrain 10 pouces",
+          "Double suspension · freins à disque",
+          "App mobile · éclairage LED · pliable"
+        ],
+        "ar": [
+          "ماركة EcoXtrem · 2WD",
+          "محرّكان 2×1000 واط",
+          "بطارية 48 فولت 20 أمبير",
+          "عجلات 10 إنش لكل الطرقات",
+          "تعليق مزدوج · فرامل قرصية",
+          "تطبيق جوال · إضاءة LED · قابلة للطي"
+        ]
       },
-      "range": {
-        "fr": "50-60 km",
-        "ar": "50-60 كلم"
-      },
-      "price": "6 490",
-      "priceNum": 6490,
       "specs": [
         {
           "label": {
@@ -865,24 +1250,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Marque EcoXtrem · 2WD",
-          "Double moteur 2×1000W",
-          "Batterie 48V 20Ah",
-          "Pneus tout-terrain 10 pouces",
-          "Double suspension · freins à disque",
-          "App mobile · éclairage LED · pliable"
-        ],
-        "ar": [
-          "ماركة EcoXtrem · 2WD",
-          "محرّكان 2×1000 واط",
-          "بطارية 48 فولت 20 أمبير",
-          "عجلات 10 إنش لكل الطرقات",
-          "تعليق مزدوج · فرامل قرصية",
-          "تطبيق جوال · إضاءة LED · قابلة للطي"
-        ]
-      },
       "images": [
         {
           "display": "img/deimos-1-1200.webp",
@@ -902,21 +1269,70 @@
           "w": 768,
           "h": 1024
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/deimos-1-1200.webp": {
+          "display": "img/deimos-1-1200.webp",
+          "thumb": "img/deimos-1-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/deimos-2-1200.webp": {
+          "display": "img/deimos-2-1200.webp",
+          "thumb": "img/deimos-2-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/deimos-3-1200.webp": {
+          "display": "img/deimos-3-1200.webp",
+          "thumb": "img/deimos-3-600.webp",
+          "w": 768,
+          "h": 1024
+        }
+      },
+      "cat": "perf",
+      "priceNum": 6490,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Double moteur 2WD, 48V 20Ah et 60 km/h. La puissance EcoXtrem tout-terrain.",
+        "ar": "محرّكان 2WD، 48 فولت 20 أمبير و60 كلم/س. قوة EcoXtrem لكل الطرقات."
+      }
     },
     {
+      "id": "max-wheel-gt4",
       "name": "MAX WHEEL GT4",
-      "cat": "perf",
-      "brand": "MAX WHEEL",
       "category": {
         "fr": "Tout-terrain",
         "ar": "كل الطرقات"
       },
+      "category_label": {
+        "fr": "Tout-terrain",
+        "ar": "كل الطرقات"
+      },
+      "brand": "MAX WHEEL",
       "badge": {
         "fr": "Double suspension",
         "ar": "تعليق مزدوج"
       },
-      "shortDesc": {
+      "price": "4 700",
+      "in_stock": true,
+      "power": "2×1000W",
+      "speed": {
+        "fr": "55 km/h",
+        "ar": "55 كلم/س"
+      },
+      "range": {
+        "fr": "50-60 km"
+      },
+      "speed_i18n": {
+        "fr": "55 km/h",
+        "ar": "55 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "50-60 km",
+        "ar": "50-60 كلم"
+      },
+      "short_desc": {
         "fr": "Double moteur 2000W, double suspension hydraulique et gros pneus crantés 11 pouces. Performance brute.",
         "ar": "محرّكان 2000 واط، تعليق هيدروليكي مزدوج وعجلات مسننة 11 إنش. أداء خام."
       },
@@ -924,17 +1340,24 @@
         "fr": "La MAX WHEEL GT4 est conçue pour ceux qui veulent tout : ses deux moteurs de 1000W délivrent 2000W de puissance combinée pour atteindre 55 km/h et grimper les pentes les plus raides. Sa batterie 48V 20Ah assure 50 à 60 km d'autonomie. Double suspension hydraulique à bras oscillant, freins à disque avant/arrière, gros pneus tout-terrain de 11 pouces et bandeau LED — elle ne recule devant rien.",
         "ar": "MAX WHEEL GT4 مصمّمة لمن يريد كل شيء: محرّكاها بقوة 1000 واط يوفّران 2000 واط مجمّعة للوصول إلى 55 كلم/س وتسلّق أشدّ المنحدرات. بطاريتها 48 فولت 20 أمبير تضمن مدى 50 إلى 60 كلم. تعليق هيدروليكي مزدوج بذراع متأرجح، فرامل قرصية أمامية/خلفية، عجلات كبيرة 11 إنش لكل الطرقات وشريط LED — لا تتراجع أمام أي شيء."
       },
-      "power": "2×1000W",
-      "speed": {
-        "fr": "55 km/h",
-        "ar": "55 كلم/س"
+      "features": {
+        "fr": [
+          "Double moteur 2×1000W",
+          "Batterie 48V 20Ah",
+          "Double suspension hydraulique",
+          "Freins à disque av/ar",
+          "Pneus tout-terrain 11 pouces",
+          "Bandeau LED · clignotants · pliable"
+        ],
+        "ar": [
+          "محرّكان 2×1000 واط",
+          "بطارية 48 فولت 20 أمبير",
+          "تعليق هيدروليكي مزدوج",
+          "فرامل قرصية أمامية/خلفية",
+          "عجلات 11 إنش لكل الطرقات",
+          "شريط LED · إشارات انعطاف · قابلة للطي"
+        ]
       },
-      "range": {
-        "fr": "50-60 km",
-        "ar": "50-60 كلم"
-      },
-      "price": "4 700",
-      "priceNum": 4700,
       "specs": [
         {
           "label": {
@@ -971,24 +1394,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Double moteur 2×1000W",
-          "Batterie 48V 20Ah",
-          "Double suspension hydraulique",
-          "Freins à disque av/ar",
-          "Pneus tout-terrain 11 pouces",
-          "Bandeau LED · clignotants · pliable"
-        ],
-        "ar": [
-          "محرّكان 2×1000 واط",
-          "بطارية 48 فولت 20 أمبير",
-          "تعليق هيدروليكي مزدوج",
-          "فرامل قرصية أمامية/خلفية",
-          "عجلات 11 إنش لكل الطرقات",
-          "شريط LED · إشارات انعطاف · قابلة للطي"
-        ]
-      },
       "images": [
         {
           "display": "img/max-wheel-gt4-front-1200.webp",
@@ -1032,21 +1437,94 @@
           "w": 1200,
           "h": 1600
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/max-wheel-gt4-front-1200.webp": {
+          "display": "img/max-wheel-gt4-front-1200.webp",
+          "thumb": "img/max-wheel-gt4-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/max-wheel-gt4-1-1200.webp": {
+          "display": "img/max-wheel-gt4-1-1200.webp",
+          "thumb": "img/max-wheel-gt4-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/max-wheel-gt4-2-1200.webp": {
+          "display": "img/max-wheel-gt4-2-1200.webp",
+          "thumb": "img/max-wheel-gt4-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/max-wheel-gt4-3-1200.webp": {
+          "display": "img/max-wheel-gt4-3-1200.webp",
+          "thumb": "img/max-wheel-gt4-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/max-wheel-gt4-8-1200.webp": {
+          "display": "img/max-wheel-gt4-8-1200.webp",
+          "thumb": "img/max-wheel-gt4-8-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/max-wheel-gt4-9-1200.webp": {
+          "display": "img/max-wheel-gt4-9-1200.webp",
+          "thumb": "img/max-wheel-gt4-9-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/max-wheel-gt4-10-1200.webp": {
+          "display": "img/max-wheel-gt4-10-1200.webp",
+          "thumb": "img/max-wheel-gt4-10-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "perf",
+      "priceNum": 4700,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Double moteur 2000W, double suspension hydraulique et gros pneus crantés 11 pouces. Performance brute.",
+        "ar": "محرّكان 2000 واط، تعليق هيدروليكي مزدوج وعجلات مسننة 11 إنش. أداء خام."
+      }
     },
     {
+      "id": "aviator",
       "name": "AVIATOR",
-      "cat": "perf",
-      "brand": "FAUVE",
       "category": {
         "fr": "Tout-terrain",
         "ar": "كل الطرقات"
       },
+      "category_label": {
+        "fr": "Tout-terrain",
+        "ar": "كل الطرقات"
+      },
+      "brand": "FAUVE",
       "badge": {
         "fr": "FAUVE",
         "ar": "FAUVE"
       },
-      "shortDesc": {
+      "price": "5 990",
+      "in_stock": true,
+      "power": "2×1000W",
+      "speed": {
+        "fr": "70 km/h",
+        "ar": "70 كلم/س"
+      },
+      "range": {
+        "fr": "50-70 km"
+      },
+      "speed_i18n": {
+        "fr": "70 km/h",
+        "ar": "70 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "50-70 km",
+        "ar": "50-70 كلم"
+      },
+      "short_desc": {
         "fr": "Double moteur 2000W, batterie 52V 21Ah et vitesse jusqu'à 70 km/h. La bête FAUVE tout-terrain.",
         "ar": "محرّكان 2000 واط، بطارية 52 فولت 21 أمبير وسرعة حتى 70 كلم/س. وحش FAUVE لكل الطرقات."
       },
@@ -1054,17 +1532,24 @@
         "fr": "L'AVIATOR de FAUVE est une trottinette tout-terrain haute performance. Ses deux moteurs de 1000W délivrent 2000W de puissance combinée pour atteindre 70 km/h, tandis que sa batterie lithium 52V 21Ah assure 50 à 70 km d'autonomie. Double suspension, freins à disque avant/arrière, gros pneus tout-terrain de 10 pouces, bandeau LED vert et sac de rangement — conçue pour dominer la route comme les chemins difficiles.",
         "ar": "AVIATOR من FAUVE دراجة عالية الأداء لكل الطرقات. محرّكاها بقوة 1000 واط يوفّران 2000 واط مجمّعة للوصول إلى 70 كلم/س، بينما بطاريتها ليثيوم 52 فولت 21 أمبير تضمن مدى 50 إلى 70 كلم. تعليق مزدوج، فرامل قرصية أمامية/خلفية، عجلات كبيرة 10 إنش لكل الطرقات، شريط LED أخضر وحقيبة تخزين — للطرق والمسارات الصعبة."
       },
-      "power": "2×1000W",
-      "speed": {
-        "fr": "70 km/h",
-        "ar": "70 كلم/س"
+      "features": {
+        "fr": [
+          "Marque FAUVE",
+          "Double moteur 2×1000W",
+          "Batterie 52V 21Ah",
+          "Pneus tout-terrain 10 pouces",
+          "Double suspension · freins à disque av/ar",
+          "Bandeau LED · sac de rangement · pliable · charge 4-5h"
+        ],
+        "ar": [
+          "ماركة FAUVE",
+          "محرّكان 2×1000 واط",
+          "بطارية 52 فولت 21 أمبير",
+          "عجلات 10 إنش لكل الطرقات",
+          "تعليق مزدوج · فرامل قرصية أمامية/خلفية",
+          "شريط LED · حقيبة تخزين · قابلة للطي · شحن 4-5 ساعات"
+        ]
       },
-      "range": {
-        "fr": "50-70 km",
-        "ar": "50-70 كلم"
-      },
-      "price": "5 990",
-      "priceNum": 5990,
       "specs": [
         {
           "label": {
@@ -1101,24 +1586,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Marque FAUVE",
-          "Double moteur 2×1000W",
-          "Batterie 52V 21Ah",
-          "Pneus tout-terrain 10 pouces",
-          "Double suspension · freins à disque av/ar",
-          "Bandeau LED · sac de rangement · pliable · charge 4-5h"
-        ],
-        "ar": [
-          "ماركة FAUVE",
-          "محرّكان 2×1000 واط",
-          "بطارية 52 فولت 21 أمبير",
-          "عجلات 10 إنش لكل الطرقات",
-          "تعليق مزدوج · فرامل قرصية أمامية/خلفية",
-          "شريط LED · حقيبة تخزين · قابلة للطي · شحن 4-5 ساعات"
-        ]
-      },
       "images": [
         {
           "display": "img/aviator-1-1200.webp",
@@ -1144,21 +1611,76 @@
           "w": 768,
           "h": 1024
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/aviator-1-1200.webp": {
+          "display": "img/aviator-1-1200.webp",
+          "thumb": "img/aviator-1-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/aviator-2-1200.webp": {
+          "display": "img/aviator-2-1200.webp",
+          "thumb": "img/aviator-2-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/aviator-3-1200.webp": {
+          "display": "img/aviator-3-1200.webp",
+          "thumb": "img/aviator-3-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/aviator-4-1200.webp": {
+          "display": "img/aviator-4-1200.webp",
+          "thumb": "img/aviator-4-600.webp",
+          "w": 768,
+          "h": 1024
+        }
+      },
+      "cat": "perf",
+      "priceNum": 5990,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Double moteur 2000W, batterie 52V 21Ah et vitesse jusqu'à 70 km/h. La bête FAUVE tout-terrain.",
+        "ar": "محرّكان 2000 واط، بطارية 52 فولت 21 أمبير وسرعة حتى 70 كلم/س. وحش FAUVE لكل الطرقات."
+      }
     },
     {
+      "id": "kepow-max",
       "name": "KEPOW MAX",
-      "cat": "city",
-      "brand": "KEPOW",
       "category": {
         "fr": "Commuter",
         "ar": "للتنقّل اليومي"
       },
+      "category_label": {
+        "fr": "Commuter",
+        "ar": "للتنقّل اليومي"
+      },
+      "brand": "KEPOW",
       "badge": {
         "fr": "App Tuya",
         "ar": "تطبيق Tuya"
       },
-      "shortDesc": {
+      "price": "4 500",
+      "in_stock": true,
+      "power": "800W",
+      "speed": {
+        "fr": "45 km/h",
+        "ar": "45 كلم/س"
+      },
+      "range": {
+        "fr": "45-55 km"
+      },
+      "speed_i18n": {
+        "fr": "45 km/h",
+        "ar": "45 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "45-55 km",
+        "ar": "45-55 كلم"
+      },
+      "short_desc": {
         "fr": "Commuter premium, moteur 800W, app Tuya et pneus tubeless 10 pouces. Connectée et confortable.",
         "ar": "دراجة تنقّل فاخرة، محرّك 800 واط، تطبيق Tuya وعجلات tubeless 10 إنش. متّصلة ومريحة."
       },
@@ -1166,17 +1688,24 @@
         "fr": "La KEPOW MAX reprend les codes des grands commuters premium : moteur brushless 800W, batterie 48V 15Ah pour 45 à 55 km d'autonomie et 45 km/h (débridable). Pneus tubeless 10 pouces, double frein à disque, suspension, écran LED et contrôle via l'application Tuya — la trottinette quotidienne idéale, connectée et fiable.",
         "ar": "تستلهم KEPOW MAX رموز كبرى دراجات التنقّل الفاخرة: محرّك brushless 800 واط، بطارية 48 فولت 15 أمبير لمدى 45 إلى 55 كلم وسرعة 45 كلم/س (قابلة لرفع التقييد). عجلات tubeless 10 إنش، فرامل قرصية مزدوجة، تعليق، شاشة LED وتحكّم عبر تطبيق Tuya — دراجة التنقّل اليومية المثالية، متّصلة وموثوقة."
       },
-      "power": "800W",
-      "speed": {
-        "fr": "45 km/h",
-        "ar": "45 كلم/س"
+      "features": {
+        "fr": [
+          "Moteur brushless 800W",
+          "Batterie 48V 15Ah",
+          "Pneus tubeless 10 pouces",
+          "Double frein à disque",
+          "Contrôle via app Tuya",
+          "Écran LED · suspension · pliable"
+        ],
+        "ar": [
+          "محرّك brushless 800 واط",
+          "بطارية 48 فولت 15 أمبير",
+          "عجلات tubeless 10 إنش",
+          "فرامل قرصية مزدوجة",
+          "تحكّم عبر تطبيق Tuya",
+          "شاشة LED · تعليق · قابلة للطي"
+        ]
       },
-      "range": {
-        "fr": "45-55 km",
-        "ar": "45-55 كلم"
-      },
-      "price": "4 500",
-      "priceNum": 4500,
       "specs": [
         {
           "label": {
@@ -1213,24 +1742,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Moteur brushless 800W",
-          "Batterie 48V 15Ah",
-          "Pneus tubeless 10 pouces",
-          "Double frein à disque",
-          "Contrôle via app Tuya",
-          "Écran LED · suspension · pliable"
-        ],
-        "ar": [
-          "محرّك brushless 800 واط",
-          "بطارية 48 فولت 15 أمبير",
-          "عجلات tubeless 10 إنش",
-          "فرامل قرصية مزدوجة",
-          "تحكّم عبر تطبيق Tuya",
-          "شاشة LED · تعليق · قابلة للطي"
-        ]
-      },
       "images": [
         {
           "display": "img/kepow-max-front-1200.webp",
@@ -1262,21 +1773,82 @@
           "w": 1200,
           "h": 1600
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/kepow-max-front-1200.webp": {
+          "display": "img/kepow-max-front-1200.webp",
+          "thumb": "img/kepow-max-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/kepow-max-1-1200.webp": {
+          "display": "img/kepow-max-1-1200.webp",
+          "thumb": "img/kepow-max-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/kepow-max-2-1200.webp": {
+          "display": "img/kepow-max-2-1200.webp",
+          "thumb": "img/kepow-max-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/kepow-max-3-1200.webp": {
+          "display": "img/kepow-max-3-1200.webp",
+          "thumb": "img/kepow-max-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/kepow-max-4-1200.webp": {
+          "display": "img/kepow-max-4-1200.webp",
+          "thumb": "img/kepow-max-4-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "city",
+      "priceNum": 4500,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Commuter premium, moteur 800W, app Tuya et pneus tubeless 10 pouces. Connectée et confortable.",
+        "ar": "دراجة تنقّل فاخرة، محرّك 800 واط، تطبيق Tuya وعجلات tubeless 10 إنش. متّصلة ومريحة."
+      }
     },
     {
+      "id": "segway-e2-plus",
       "name": "SEGWAY E2 PLUS",
-      "cat": "city",
-      "brand": "SEGWAY",
       "category": {
         "fr": "Urbain",
         "ar": "حضري"
       },
+      "category_label": {
+        "fr": "Urbain",
+        "ar": "حضري"
+      },
+      "brand": "SEGWAY",
       "badge": {
         "fr": "Signé Segway",
         "ar": "من Segway"
       },
-      "shortDesc": {
+      "price": "2 490",
+      "in_stock": false,
+      "power": "300W",
+      "speed": {
+        "fr": "25 km/h",
+        "ar": "25 كلم/س"
+      },
+      "range": {
+        "fr": "25 km"
+      },
+      "speed_i18n": {
+        "fr": "25 km/h",
+        "ar": "25 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "25 km",
+        "ar": "25 كلم"
+      },
+      "short_desc": {
         "fr": "La citadine Segway-Ninebot par excellence. Moteur 300W, pneus tubeless et app dédiée. Fiable et sûre.",
         "ar": "دراجة المدينة من Segway-Ninebot. محرّك 300 واط، عجلات tubeless وتطبيق خاص. موثوقة وآمنة."
       },
@@ -1284,17 +1856,24 @@
         "fr": "La SEGWAY Ninebot E2 PLUS est une trottinette urbaine signée Segway. Son moteur 300W (700W en pic) atteint 25 km/h, avec jusqu'à 25 km d'autonomie sur sa batterie 36V. Pneus tubeless increvables, frein électronique + tambour, tableau de bord LED et application Segway-Ninebot : la citadine fiable par excellence.",
         "ar": "SEGWAY Ninebot E2 PLUS دراجة حضرية من Segway. محرّكها 300 واط (700 واط في الذروة) يصل إلى 25 كلم/س، مع مدى يصل إلى 25 كلم ببطارية 36 فولت. عجلات tubeless مقاومة للثقب، فرامل إلكترونية + طبلية، شاشة LED وتطبيق Segway-Ninebot: دراجة المدينة الموثوقة بامتياز."
       },
-      "power": "300W",
-      "speed": {
-        "fr": "25 km/h",
-        "ar": "25 كلم/س"
+      "features": {
+        "fr": [
+          "Marque Segway-Ninebot",
+          "Moteur 300W (700W en pic)",
+          "Batterie 36V",
+          "Pneus tubeless 9 pouces",
+          "Frein électronique + tambour",
+          "App Segway-Ninebot · tableau LED"
+        ],
+        "ar": [
+          "ماركة Segway-Ninebot",
+          "محرّك 300 واط (700 ذروة)",
+          "بطارية 36 فولت",
+          "عجلات tubeless 9 إنش",
+          "فرامل إلكترونية + طبلية",
+          "تطبيق Segway-Ninebot · شاشة LED"
+        ]
       },
-      "range": {
-        "fr": "25 km",
-        "ar": "25 كلم"
-      },
-      "price": "2 490",
-      "priceNum": 2490,
       "specs": [
         {
           "label": {
@@ -1334,24 +1913,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Marque Segway-Ninebot",
-          "Moteur 300W (700W en pic)",
-          "Batterie 36V",
-          "Pneus tubeless 9 pouces",
-          "Frein électronique + tambour",
-          "App Segway-Ninebot · tableau LED"
-        ],
-        "ar": [
-          "ماركة Segway-Ninebot",
-          "محرّك 300 واط (700 ذروة)",
-          "بطارية 36 فولت",
-          "عجلات tubeless 9 إنش",
-          "فرامل إلكترونية + طبلية",
-          "تطبيق Segway-Ninebot · شاشة LED"
-        ]
-      },
       "images": [
         {
           "display": "img/segway-e2-plus-front-1200.webp",
@@ -1378,21 +1939,75 @@
           "h": 1600
         }
       ],
-      "inStock": false
+      "image_meta": {
+        "/img/segway-e2-plus-front-1200.webp": {
+          "display": "img/segway-e2-plus-front-1200.webp",
+          "thumb": "img/segway-e2-plus-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/segway-e2-plus-1-1200.webp": {
+          "display": "img/segway-e2-plus-1-1200.webp",
+          "thumb": "img/segway-e2-plus-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/segway-e2-plus-2-1200.webp": {
+          "display": "img/segway-e2-plus-2-1200.webp",
+          "thumb": "img/segway-e2-plus-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/segway-e2-plus-3-1200.webp": {
+          "display": "img/segway-e2-plus-3-1200.webp",
+          "thumb": "img/segway-e2-plus-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "city",
+      "priceNum": 2490,
+      "inStock": false,
+      "shortDesc": {
+        "fr": "La citadine Segway-Ninebot par excellence. Moteur 300W, pneus tubeless et app dédiée. Fiable et sûre.",
+        "ar": "دراجة المدينة من Segway-Ninebot. محرّك 300 واط، عجلات tubeless وتطبيق خاص. موثوقة وآمنة."
+      }
     },
     {
+      "id": "teknes-kcity",
       "name": "TEKNES KCITY",
-      "cat": "city",
-      "brand": "TEKNES",
       "category": {
         "fr": "Urbain",
         "ar": "حضري"
       },
+      "category_label": {
+        "fr": "Urbain",
+        "ar": "حضري"
+      },
+      "brand": "TEKNES",
       "badge": {
         "fr": "Confort",
         "ar": "الراحة"
       },
-      "shortDesc": {
+      "price": "3 200",
+      "in_stock": true,
+      "power": "500W",
+      "speed": {
+        "fr": "30 km/h",
+        "ar": "30 كلم/س"
+      },
+      "range": {
+        "fr": "30-35 km"
+      },
+      "speed_i18n": {
+        "fr": "30 km/h",
+        "ar": "30 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "30-35 km",
+        "ar": "30-35 كلم"
+      },
+      "short_desc": {
         "fr": "Deck surbaissé, gros pneus 10 pouces et conduite souple. Le confort urbain avant tout.",
         "ar": "منصة منخفضة، عجلات كبيرة 10 إنش وقيادة سلسة. الراحة الحضرية أولاً."
       },
@@ -1400,17 +2015,24 @@
         "fr": "La TEKNES KCITY mise sur le confort urbain : deck surbaissé, gros pneus de 10 pouces et conduite souple. Son moteur 500W et sa batterie 48V offrent 30 km/h et jusqu'à 35 km d'autonomie. Pliable, écran LED au guidon et freins à disque — la compagne idéale des trajets quotidiens en ville.",
         "ar": "تراهن TEKNES KCITY على الراحة الحضرية: منصة منخفضة، عجلات كبيرة 10 إنش وقيادة سلسة. محرّكها 500 واط وبطاريتها 48 فولت يوفّران 30 كلم/س ومدى يصل إلى 35 كلم. قابلة للطي، شاشة LED في المقود وفرامل قرصية — الرفيق المثالي للتنقّلات اليومية في المدينة."
       },
-      "power": "500W",
-      "speed": {
-        "fr": "30 km/h",
-        "ar": "30 كلم/س"
+      "features": {
+        "fr": [
+          "Moteur 500W",
+          "Batterie 48V 10Ah",
+          "Deck surbaissé confort",
+          "Gros pneus 10 pouces",
+          "Frein à disque",
+          "Écran LED · pliable"
+        ],
+        "ar": [
+          "محرّك 500 واط",
+          "بطارية 48 فولت 10 أمبير",
+          "منصة منخفضة مريحة",
+          "عجلات كبيرة 10 إنش",
+          "فرامل قرصية",
+          "شاشة LED · قابلة للطي"
+        ]
       },
-      "range": {
-        "fr": "30-35 km",
-        "ar": "30-35 كلم"
-      },
-      "price": "3 200",
-      "priceNum": 3200,
       "specs": [
         {
           "label": {
@@ -1447,24 +2069,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Moteur 500W",
-          "Batterie 48V 10Ah",
-          "Deck surbaissé confort",
-          "Gros pneus 10 pouces",
-          "Frein à disque",
-          "Écran LED · pliable"
-        ],
-        "ar": [
-          "محرّك 500 واط",
-          "بطارية 48 فولت 10 أمبير",
-          "منصة منخفضة مريحة",
-          "عجلات كبيرة 10 إنش",
-          "فرامل قرصية",
-          "شاشة LED · قابلة للطي"
-        ]
-      },
       "images": [
         {
           "display": "img/teknes-kcity-front-1200.webp",
@@ -1490,21 +2094,76 @@
           "w": 1200,
           "h": 1600
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/teknes-kcity-front-1200.webp": {
+          "display": "img/teknes-kcity-front-1200.webp",
+          "thumb": "img/teknes-kcity-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/teknes-kcity-1-1200.webp": {
+          "display": "img/teknes-kcity-1-1200.webp",
+          "thumb": "img/teknes-kcity-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/teknes-kcity-2-1200.webp": {
+          "display": "img/teknes-kcity-2-1200.webp",
+          "thumb": "img/teknes-kcity-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/teknes-kcity-3-1200.webp": {
+          "display": "img/teknes-kcity-3-1200.webp",
+          "thumb": "img/teknes-kcity-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "city",
+      "priceNum": 3200,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Deck surbaissé, gros pneus 10 pouces et conduite souple. Le confort urbain avant tout.",
+        "ar": "منصة منخفضة، عجلات كبيرة 10 إنش وقيادة سلسة. الراحة الحضرية أولاً."
+      }
     },
     {
+      "id": "teknes-k-pro",
       "name": "TEKNES K-PRO",
-      "cat": "perf",
-      "brand": "TEKNES",
       "category": {
         "fr": "Performance",
         "ar": "أداء عالٍ"
       },
+      "category_label": {
+        "fr": "Performance",
+        "ar": "أداء عالٍ"
+      },
+      "brand": "TEKNES",
       "badge": {
         "fr": "Double suspension",
         "ar": "تعليق مزدوج"
       },
-      "shortDesc": {
+      "price": "3 500",
+      "in_stock": true,
+      "power": "600W",
+      "speed": {
+        "fr": "40 km/h",
+        "ar": "40 كلم/س"
+      },
+      "range": {
+        "fr": "40 km"
+      },
+      "speed_i18n": {
+        "fr": "40 km/h",
+        "ar": "40 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "40 km",
+        "ar": "40 كلم"
+      },
+      "short_desc": {
         "fr": "Double suspension à ressort, deck large et finition sport. Confort et nervosité réunis.",
         "ar": "تعليق نابضي مزدوج، منصة عريضة وتشطيب رياضي. راحة وحيوية معاً."
       },
@@ -1512,17 +2171,24 @@
         "fr": "La TEKNES K-PRO passe à la vitesse supérieure : double suspension à ressort (amortisseurs rouges avant et arrière), deck large et gros pneus 10 pouces pour un confort maximal. Son moteur 600W et sa batterie 48V 13Ah délivrent 40 km/h et jusqu'à 40 km d'autonomie. Freins à disque et finition sport.",
         "ar": "تنتقل TEKNES K-PRO إلى مستوى أعلى: تعليق نابضي مزدوج (ممتصّات حمراء أمامية وخلفية)، منصة عريضة وعجلات كبيرة 10 إنش لراحة قصوى. محرّكها 600 واط وبطاريتها 48 فولت 13 أمبير يوفّران 40 كلم/س ومدى يصل إلى 40 كلم. فرامل قرصية وتشطيب رياضي."
       },
-      "power": "600W",
-      "speed": {
-        "fr": "40 km/h",
-        "ar": "40 كلم/س"
+      "features": {
+        "fr": [
+          "Moteur 600W",
+          "Batterie 48V 13Ah",
+          "Double suspension à ressort",
+          "Deck large · pneus 10 pouces",
+          "Freins à disque av/ar",
+          "Écran LED · finition sport"
+        ],
+        "ar": [
+          "محرّك 600 واط",
+          "بطارية 48 فولت 13 أمبير",
+          "تعليق نابضي مزدوج",
+          "منصة عريضة · عجلات 10 إنش",
+          "فرامل قرصية أمامية/خلفية",
+          "شاشة LED · تشطيب رياضي"
+        ]
       },
-      "range": {
-        "fr": "40 km",
-        "ar": "40 كلم"
-      },
-      "price": "3 500",
-      "priceNum": 3500,
       "specs": [
         {
           "label": {
@@ -1559,24 +2225,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Moteur 600W",
-          "Batterie 48V 13Ah",
-          "Double suspension à ressort",
-          "Deck large · pneus 10 pouces",
-          "Freins à disque av/ar",
-          "Écran LED · finition sport"
-        ],
-        "ar": [
-          "محرّك 600 واط",
-          "بطارية 48 فولت 13 أمبير",
-          "تعليق نابضي مزدوج",
-          "منصة عريضة · عجلات 10 إنش",
-          "فرامل قرصية أمامية/خلفية",
-          "شاشة LED · تشطيب رياضي"
-        ]
-      },
       "images": [
         {
           "display": "img/teknes-k-pro-front-1200.webp",
@@ -1602,21 +2250,76 @@
           "w": 1200,
           "h": 1600
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/teknes-k-pro-front-1200.webp": {
+          "display": "img/teknes-k-pro-front-1200.webp",
+          "thumb": "img/teknes-k-pro-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/teknes-k-pro-1-1200.webp": {
+          "display": "img/teknes-k-pro-1-1200.webp",
+          "thumb": "img/teknes-k-pro-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/teknes-k-pro-5-1200.webp": {
+          "display": "img/teknes-k-pro-5-1200.webp",
+          "thumb": "img/teknes-k-pro-5-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/teknes-k-pro-6-1200.webp": {
+          "display": "img/teknes-k-pro-6-1200.webp",
+          "thumb": "img/teknes-k-pro-6-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "perf",
+      "priceNum": 3500,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Double suspension à ressort, deck large et finition sport. Confort et nervosité réunis.",
+        "ar": "تعليق نابضي مزدوج، منصة عريضة وتشطيب رياضي. راحة وحيوية معاً."
+      }
     },
     {
+      "id": "odys",
       "name": "ODYS",
-      "cat": "city",
-      "brand": "ODYS",
       "category": {
         "fr": "Urbain",
         "ar": "حضري"
       },
+      "category_label": {
+        "fr": "Urbain",
+        "ar": "حضري"
+      },
+      "brand": "ODYS",
       "badge": {
         "fr": "ODYS",
         "ar": "ODYS"
       },
-      "shortDesc": {
+      "price": "2 490",
+      "in_stock": true,
+      "power": "350W",
+      "speed": {
+        "fr": "20 km/h",
+        "ar": "20 كلم/س"
+      },
+      "range": {
+        "fr": "20-30 km"
+      },
+      "speed_i18n": {
+        "fr": "20 km/h",
+        "ar": "20 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "20-30 km",
+        "ar": "20-30 كلم"
+      },
+      "short_desc": {
         "fr": "Design épuré noir mat et accents cyan. Moteur 350W, pneus 10 pouces et autonomie 20-30 km. Citadine légère.",
         "ar": "تصميم أسود مطفي أنيق ولمسات سماوية. محرّك 350 واط، عجلات 10 إنش ومدى 20-30 كلم. دراجة حضرية خفيفة."
       },
@@ -1624,17 +2327,24 @@
         "fr": "L'ODYS est une trottinette urbaine au design minimaliste noir mat, rehaussée d'accents cyan sur les roues et le câblage. Son moteur 350W (700W en pic) atteint 20 km/h, avec 20 à 30 km d'autonomie grâce à sa batterie 36V 10,2Ah. Pneus 10 pouces, charge max 100 kg, écran LED et mécanisme pliable — légère et stylée pour la ville.",
         "ar": "ODYS دراجة حضرية بتصميم minimal أسود مطفي مع لمسات سماوية على العجلات والكابلات. محرّكها 350 واط (700 واط في الذروة) يصل إلى 20 كلم/س، مع مدى 20 إلى 30 كلم ببطارية 36 فولت 10,2 أمبير. عجلات 10 إنش، حمولة قصوى 100 كلغ، شاشة LED وآلية طي — خفيفة وأنيقة للمدينة."
       },
-      "power": "350W",
-      "speed": {
-        "fr": "20 km/h",
-        "ar": "20 كلم/س"
+      "features": {
+        "fr": [
+          "Marque ODYS",
+          "Moteur 350W (700W en pic)",
+          "Batterie 36V 10,2Ah",
+          "Pneus 10 pouces",
+          "Charge max 100 kg",
+          "Design noir mat · accents cyan · pliable"
+        ],
+        "ar": [
+          "ماركة ODYS",
+          "محرّك 350 واط (700 ذروة)",
+          "بطارية 36 فولت 10,2 أمبير",
+          "عجلات 10 إنش",
+          "حمولة قصوى 100 كلغ",
+          "أسود مطفي · لمسات سماوية · قابلة للطي"
+        ]
       },
-      "range": {
-        "fr": "20-30 km",
-        "ar": "20-30 كلم"
-      },
-      "price": "2 490",
-      "priceNum": 2490,
       "specs": [
         {
           "label": {
@@ -1674,24 +2384,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Marque ODYS",
-          "Moteur 350W (700W en pic)",
-          "Batterie 36V 10,2Ah",
-          "Pneus 10 pouces",
-          "Charge max 100 kg",
-          "Design noir mat · accents cyan · pliable"
-        ],
-        "ar": [
-          "ماركة ODYS",
-          "محرّك 350 واط (700 ذروة)",
-          "بطارية 36 فولت 10,2 أمبير",
-          "عجلات 10 إنش",
-          "حمولة قصوى 100 كلغ",
-          "أسود مطفي · لمسات سماوية · قابلة للطي"
-        ]
-      },
       "images": [
         {
           "display": "img/odys-1-1200.webp",
@@ -1717,21 +2409,76 @@
           "w": 768,
           "h": 1024
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/odys-1-1200.webp": {
+          "display": "img/odys-1-1200.webp",
+          "thumb": "img/odys-1-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/odys-2-1200.webp": {
+          "display": "img/odys-2-1200.webp",
+          "thumb": "img/odys-2-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/odys-3-1200.webp": {
+          "display": "img/odys-3-1200.webp",
+          "thumb": "img/odys-3-600.webp",
+          "w": 768,
+          "h": 1024
+        },
+        "/img/odys-4-1200.webp": {
+          "display": "img/odys-4-1200.webp",
+          "thumb": "img/odys-4-600.webp",
+          "w": 768,
+          "h": 1024
+        }
+      },
+      "cat": "city",
+      "priceNum": 2490,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Design épuré noir mat et accents cyan. Moteur 350W, pneus 10 pouces et autonomie 20-30 km. Citadine légère.",
+        "ar": "تصميم أسود مطفي أنيق ولمسات سماوية. محرّك 350 واط، عجلات 10 إنش ومدى 20-30 كلم. دراجة حضرية خفيفة."
+      }
     },
     {
+      "id": "athrum-city",
       "name": "ATHRUM CITY",
-      "cat": "city",
-      "brand": "ATHRUM",
       "category": {
         "fr": "Urbain",
         "ar": "حضري"
       },
+      "category_label": {
+        "fr": "Urbain",
+        "ar": "حضري"
+      },
+      "brand": "ATHRUM",
       "badge": {
         "fr": "Touches turquoise",
         "ar": "لمسات فيروزية"
       },
-      "shortDesc": {
+      "price": "2 500",
+      "in_stock": true,
+      "power": "350W",
+      "speed": {
+        "fr": "25 km/h",
+        "ar": "25 كلم/س"
+      },
+      "range": {
+        "fr": "25-30 km"
+      },
+      "speed_i18n": {
+        "fr": "25 km/h",
+        "ar": "25 كلم/س"
+      },
+      "range_i18n": {
+        "fr": "25-30 km",
+        "ar": "25-30 كلم"
+      },
+      "short_desc": {
         "fr": "Design épuré et touches turquoise. Moteur 350W, légère et pliable. Le style au quotidien.",
         "ar": "تصميم أنيق ولمسات فيروزية. محرّك 350 واط، خفيفة وقابلة للطي. الأناقة كل يوم."
       },
@@ -1739,17 +2486,24 @@
         "fr": "L'ATHRUM CITY habille la trottinette urbaine de touches turquoise et d'un design épuré. Moteur 350W, batterie 36V 10,4Ah, 25 km/h et jusqu'à 30 km d'autonomie. Pneus 8,5 pouces, frein à disque et électronique, écran LED — légère, pliable et stylée pour la ville.",
         "ar": "تكسو ATHRUM CITY الدراجة الحضرية بلمسات فيروزية وتصميم أنيق. محرّك 350 واط، بطارية 36 فولت 10,4 أمبير، 25 كلم/س ومدى يصل إلى 30 كلم. عجلات 8,5 إنش، فرامل قرصية وإلكترونية، شاشة LED — خفيفة وقابلة للطي وأنيقة للمدينة."
       },
-      "power": "350W",
-      "speed": {
-        "fr": "25 km/h",
-        "ar": "25 كلم/س"
+      "features": {
+        "fr": [
+          "Moteur 350W",
+          "Batterie 36V 10,4Ah",
+          "Pneus 8,5 pouces",
+          "Frein à disque + électronique",
+          "Touches turquoise · écran LED",
+          "Légère · pliable"
+        ],
+        "ar": [
+          "محرّك 350 واط",
+          "بطارية 36 فولت 10,4 أمبير",
+          "عجلات 8,5 إنش",
+          "فرامل قرصية + إلكترونية",
+          "لمسات فيروزية · شاشة LED",
+          "خفيفة · قابلة للطي"
+        ]
       },
-      "range": {
-        "fr": "25-30 km",
-        "ar": "25-30 كلم"
-      },
-      "price": "2 500",
-      "priceNum": 2500,
       "specs": [
         {
           "label": {
@@ -1786,24 +2540,6 @@
           }
         }
       ],
-      "features": {
-        "fr": [
-          "Moteur 350W",
-          "Batterie 36V 10,4Ah",
-          "Pneus 8,5 pouces",
-          "Frein à disque + électronique",
-          "Touches turquoise · écran LED",
-          "Légère · pliable"
-        ],
-        "ar": [
-          "محرّك 350 واط",
-          "بطارية 36 فولت 10,4 أمبير",
-          "عجلات 8,5 إنش",
-          "فرامل قرصية + إلكترونية",
-          "لمسات فيروزية · شاشة LED",
-          "خفيفة · قابلة للطي"
-        ]
-      },
       "images": [
         {
           "display": "img/athrum-city-front-1200.webp",
@@ -1829,7 +2565,40 @@
           "w": 1200,
           "h": 1600
         }
-      ]
+      ],
+      "image_meta": {
+        "/img/athrum-city-front-1200.webp": {
+          "display": "img/athrum-city-front-1200.webp",
+          "thumb": "img/athrum-city-front-600.webp",
+          "w": 1086,
+          "h": 1448
+        },
+        "/img/athrum-city-1-1200.webp": {
+          "display": "img/athrum-city-1-1200.webp",
+          "thumb": "img/athrum-city-1-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/athrum-city-2-1200.webp": {
+          "display": "img/athrum-city-2-1200.webp",
+          "thumb": "img/athrum-city-2-600.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        "/img/athrum-city-3-1200.webp": {
+          "display": "img/athrum-city-3-1200.webp",
+          "thumb": "img/athrum-city-3-600.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      },
+      "cat": "city",
+      "priceNum": 2500,
+      "inStock": true,
+      "shortDesc": {
+        "fr": "Design épuré et touches turquoise. Moteur 350W, légère et pliable. Le style au quotidien.",
+        "ar": "تصميم أنيق ولمسات فيروزية. محرّك 350 واط، خفيفة وقابلة للطي. الأناقة كل يوم."
+      }
     }
   ]
 }

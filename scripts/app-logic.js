@@ -40,7 +40,8 @@ class Component extends DCLogic {
     cat: 'all',
     brand: 'all',
     theme: 'light',
-    loaded: false
+    loaded: false,
+    loadError: false
   };
 
   applyTheme(theme) {
@@ -71,11 +72,28 @@ class Component extends DCLogic {
 
     // Catalog data — editable without touching code.
     try {
-      const r = await fetch('products.json', { cache: 'no-cache' });
+      const r = await fetch('/data/products.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error('Catalog HTTP ' + r.status);
       const data = await r.json();
-      this.PRODUCTS = Array.isArray(data.products) ? data.products : [];
+      if (!Array.isArray(data.products)) throw new Error('Invalid catalog');
+      this.PRODUCTS = data.products.map(p => ({ ...p,
+        cat: p.category,
+        category: (data.cats || this.CATS_FALLBACK).find(c => c.key === p.category) || p.category,
+        shortDesc: p.short_desc,
+        inStock: p.in_stock,
+        priceNum: p.price,
+        price: p.price.toLocaleString('fr-FR').replace(/[\u202f\u00a0]/g, ' '),
+        speed: { ...(p.speed_i18n || {}), fr: p.speed },
+        range: { ...(p.range_i18n || {}), fr: p.range },
+        specs: p.specs && p.specs.length ? p.specs.map(s => {
+          const label = typeof s.label === 'object' ? s.label.fr : s.label;
+          const value = { Puissance: p.power, Vitesse: p.speed, Autonomie: p.range }[label];
+          return value ? { ...s, value: typeof s.value === 'object' ? { ...s.value, fr: value } : value } : s;
+        }) : [{ label: { fr: 'Puissance', ar: 'القوة' }, value: p.power }, { label: { fr: 'Vitesse', ar: 'السرعة' }, value: p.speed }, { label: { fr: 'Autonomie', ar: 'المدى' }, value: p.range }],
+        images: p.images.map(src => ({ display: src, thumb: src, ...(p.image_meta || {})[src] }))
+      }));
       this.CATS = data.cats || [];
-      this.BRANDS = data.brands || [];
+      this.BRANDS = [...new Set(this.PRODUCTS.map(p => p.brand).filter(Boolean))];
       this.CAT_OF = {};
       this.BRAND_OF = {};
       for (const p of this.PRODUCTS) { this.CAT_OF[p.name] = p.cat; this.BRAND_OF[p.name] = p.brand; }
@@ -87,7 +105,7 @@ class Component extends DCLogic {
       if (!sel || sel.inStock === false) selected = first;
       this.setState({ loaded: true, selectedProduct: selected });
     } catch (e) {
-      this.setState({ loaded: true });
+      this.setState({ loaded: true, loadError: true });
     }
   }
 
@@ -103,7 +121,7 @@ class Component extends DCLogic {
   renderVals() {
     const { view, activeProduct, activeImage, selectedProduct, form, lang, theme } = this.state;
     const t = this.T[lang];
-    const L = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[lang] ?? v.fr) : v;
+    const L = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? ((Array.isArray(v[lang]) ? v[lang].length > 0 : !!v[lang]) ? v[lang] : v.fr) : v;
     const dir = lang === 'ar' ? 'rtl' : 'ltr';
     const cats = (this.CATS && this.CATS.length) ? this.CATS : this.CATS_FALLBACK;
     const palette = theme === 'dark' ? this.THEME_DARK : this.THEME_LIGHT;
@@ -169,7 +187,7 @@ class Component extends DCLogic {
 
     const qty = parseInt(form.qty) || 1;
     const selP = this.PRODUCTS.find(p => p.name === selectedProduct) || this.PRODUCTS.find(p => p.inStock !== false) || this.PRODUCTS[0] || { priceNum: 0, inStock: true };
-    const canOrder = selP.inStock !== false;
+    const canOrder = this.state.loaded && !this.state.loadError && this.PRODUCTS.some(p => p.inStock !== false) && selP.inStock !== false;
     const total = (selP.priceNum * qty).toLocaleString('fr-FR').replace(/,/g, ' ');
 
     const cities = t.cities;
@@ -212,7 +230,9 @@ class Component extends DCLogic {
     return {
       t, dir, lang, waLink, mapsUrl: this.MAPS_URL, theme, logoSrc, themeIcon,
       filteredProducts, orderableProducts, catChips, brandChips, resultLabel,
-      hasResults: n > 0, noResults: this.state.loaded && n === 0,
+      hasResults: n > 0, noResults: this.state.loaded && !this.state.loadError && n === 0,
+      loading: !this.state.loaded, loadError: this.state.loadError,
+      catalogStatus: lang === 'ar' ? (this.state.loadError ? 'تعذر تحميل المنتجات. أعد تحميل الصفحة.' : 'جارٍ تحميل المنتجات…') : (this.state.loadError ? 'Impossible de charger le catalogue. Rechargez la page.' : 'Chargement du catalogue…'),
       canOrder, orderBlocked: !canOrder,
       search,
       onSearch: (e) => this.setState({ search: e.currentTarget.value }),

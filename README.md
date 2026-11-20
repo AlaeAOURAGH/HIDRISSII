@@ -1,5 +1,9 @@
 # HIDRISSI — Catalogue trottinettes électriques (FR / AR)
 
+## CMS et publication
+
+Le catalogue modifiable est désormais `data/products.json`. Consultez `README-CMS.md` pour installer `/admin`, connecter GitHub et configurer Cloudflare Pages ou Netlify. `README-ADMIN.md` contient les instructions du propriétaire. Lancez `npm run build` et publiez `dist/`. Le fichier `products.json` à la racine est généré pour compatibilité ; les instructions historiques ci-dessous décrivent l'ancien pipeline d'import des photos, qui ne doit pas remplacer les modifications CMS.
+
 Bilingual (French / Arabic, RTL) electric-scooter catalog for HIDRISSI (Morocco).
 No online payment: orders go through WhatsApp with cash on delivery. Every order
 is also captured server-side (Google Sheet) so no lead is lost.
