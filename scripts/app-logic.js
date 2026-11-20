@@ -39,6 +39,9 @@ class Component extends DCLogic {
     search: '',
     cat: 'all',
     brand: 'all',
+    sort: 'recommended',
+    stockOnly: false,
+    orderError: '',
     theme: 'light',
     loaded: false,
     loadError: false
@@ -111,6 +114,44 @@ class Component extends DCLogic {
 
   // __T_BLOCK__
 
+  UI = {
+    fr: {
+      heroTitle: 'La ville vous', heroTitleAccent: 'appartient.',
+      heroBadge: 'LA MOBILITÉ, AUTREMENT',
+      heroSubtitle: 'Pour vos trajets quotidiens ou vos envies de liberté. Trouvez votre trottinette, on s’occupe de la livraison.',
+      heroCta: 'Trouver ma trottinette', talk: 'Être conseillé', from: 'À partir de',
+      showroom: 'Votre prochain départ commence ici.', showroomPlace: 'Notre showroom · Aïn Aouda, Rabat',
+      collectionEyebrow: 'CHOISISSEZ VOTRE PROCHAIN DÉPART', collectionTitle: 'À chacun sa façon de rouler.',
+      collectionGoal: 'Comparez les modèles, trouvez votre équilibre entre puissance, autonomie et budget.',
+      sortLabel: 'Trier par', recommended: 'Notre sélection', priceAsc: 'Prix croissant', priceDesc: 'Prix décroissant',
+      stockOnly: 'En stock uniquement', resetFilters: 'Tout réinitialiser', inStockLabel: 'Disponible',
+      discover: 'Voir le modèle', catalog: 'Le catalogue', advise: 'Un conseil ? Parlons-en.',
+      shipping: 'Livraison offerte', nationwide: 'Partout au Maroc', payment: 'À la livraison',
+      browseCollection: 'Voir la collection', formError: 'Indiquez votre nom et un numéro de téléphone valide pour continuer.',
+      step2Desc: 'Un conseiller confirme votre commande avec vous.', waSubtitle: 'Un conseiller vous accompagne',
+      orderTitle: 'Votre nouvelle liberté, en quelques clics.', orderEyebrow: 'ON S’OCCUPE DE VOUS',
+      compareEyebrow: 'LE BON CHOIX, SIMPLEMENT', compareTitle: 'Trouvez celle qui vous ressemble.',
+      mobileHome: 'Accueil', mobileCatalog: 'Modèles', mobileOrder: 'Commander'
+    },
+    ar: {
+      heroTitle: 'المدينة', heroTitleAccent: 'بين يديك.', heroBadge: 'تنقّل بطريقة مختلفة',
+      heroSubtitle: 'لتنقّلاتك اليومية أو رحلاتك بكل حرية. اختر دراجتك الكهربائية ودع التوصيل علينا.',
+      heroCta: 'اختر دراجتك', talk: 'استشر فريقنا', from: 'ابتداءً من',
+      showroom: 'انطلاقتك القادمة تبدأ هنا.', showroomPlace: 'معرضنا · عين عودة، الرباط',
+      collectionEyebrow: 'اختر انطلاقتك القادمة', collectionTitle: 'لكل شخص طريقته في التنقّل.',
+      collectionGoal: 'قارن الموديلات واختر التوازن المناسب بين القوة والمدى والميزانية.',
+      sortLabel: 'الترتيب', recommended: 'اختياراتنا', priceAsc: 'الثمن تصاعدياً', priceDesc: 'الثمن تنازلياً',
+      stockOnly: 'المتوفر فقط', resetFilters: 'إعادة ضبط الفلاتر', inStockLabel: 'متوفر',
+      discover: 'اكتشف الموديل', catalog: 'المنتجات', advise: 'تحتاج نصيحة؟ تواصل معنا.',
+      shipping: 'توصيل مجاني', nationwide: 'لكل أنحاء المغرب', payment: 'عند الاستلام',
+      browseCollection: 'عرض المنتجات', formError: 'أدخل اسمك ورقم هاتف صحيحاً للمتابعة.',
+      step2Desc: 'يتواصل معك مستشار لتأكيد الطلب.', waSubtitle: 'فريقنا هنا لمساعدتك',
+      orderTitle: 'حريتك الجديدة، بخطوات بسيطة.', orderEyebrow: 'نرافقك في كل خطوة',
+      compareEyebrow: 'الاختيار المناسب بكل سهولة', compareTitle: 'اختر الدراجة التي تناسبك.',
+      mobileHome: 'الرئيسية', mobileCatalog: 'الموديلات', mobileOrder: 'اطلب الآن'
+    }
+  };
+
   CATS_FALLBACK = [
     { key: 'all', fr: 'Tous', ar: 'الكل' },
     { key: 'perf', fr: 'Performance', ar: 'أداء عالٍ' },
@@ -120,14 +161,14 @@ class Component extends DCLogic {
 
   renderVals() {
     const { view, activeProduct, activeImage, selectedProduct, form, lang, theme } = this.state;
-    const t = this.T[lang];
+    const t = { ...this.T[lang], ...this.UI[lang], themeToggle: lang === 'ar' ? (theme === 'light' ? 'الوضع الداكن' : 'الوضع الفاتح') : (theme === 'light' ? 'Mode sombre' : 'Mode clair') };
     const L = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? ((Array.isArray(v[lang]) ? v[lang].length > 0 : !!v[lang]) ? v[lang] : v.fr) : v;
     const dir = lang === 'ar' ? 'rtl' : 'ltr';
     const cats = (this.CATS && this.CATS.length) ? this.CATS : this.CATS_FALLBACK;
     const palette = theme === 'dark' ? this.THEME_DARK : this.THEME_LIGHT;
     const isLight = theme !== 'dark';
     const logoSrc = isLight ? 'assets/logo-dark.png' : 'assets/logo-white.png';
-    const themeIcon = isLight ? '🌙' : '☀️';
+    const themeIcon = isLight ? '◐' : '◑';
 
     const products = this.PRODUCTS.map((p) => {
       const isSelected = p.name === selectedProduct;
@@ -204,7 +245,9 @@ class Component extends DCLogic {
     const matchCat = (name) => activeCat === 'all' || (this.CAT_OF[name] || 'city') === activeCat;
     const matchBrand = (name) => activeBrand === 'all' || this.BRAND_OF[name] === activeBrand;
     const matchSearch = (name) => { const q = search.trim().toLowerCase(); return !q || name.toLowerCase().includes(q); };
-    const filteredProducts = products.filter(p => matchCat(p.name) && matchBrand(p.name) && matchSearch(p.name));
+    const filteredProducts = products.filter(p => matchCat(p.name) && matchBrand(p.name) && matchSearch(p.name) && (!this.state.stockOnly || p.inStock));
+    if (this.state.sort === 'priceAsc') filteredProducts.sort((a,b) => this.PRODUCTS.find(p=>p.name===a.name).priceNum - this.PRODUCTS.find(p=>p.name===b.name).priceNum);
+    if (this.state.sort === 'priceDesc') filteredProducts.sort((a,b) => this.PRODUCTS.find(p=>p.name===b.name).priceNum - this.PRODUCTS.find(p=>p.name===a.name).priceNum);
     const chipStyle = (on) => ({
       weight: on ? 700 : 500,
       bg: on ? `rgba(${palette.goldRgb},0.12)` : 'transparent',
@@ -230,6 +273,16 @@ class Component extends DCLogic {
     return {
       t, dir, lang, waLink, mapsUrl: this.MAPS_URL, theme, logoSrc, themeIcon,
       filteredProducts, orderableProducts, catChips, brandChips, resultLabel,
+      productCount: products.length,
+      minPrice: this.PRODUCTS.length ? Math.min(...this.PRODUCTS.map(p=>p.priceNum)).toLocaleString('fr-FR') : '—',
+      sort: this.state.sort, stockOnly: this.state.stockOnly,
+      changeSort: e => this.setState({sort:e.currentTarget.value}),
+      toggleStock: e => this.setState({stockOnly:e.currentTarget.checked}),
+      resetFilters: () => this.setState({search:'',cat:'all',brand:'all',sort:'recommended',stockOnly:false}),
+      navigateCatalog: e => { if(e)e.preventDefault();this.setState({view:'home'});setTimeout(()=>document.getElementById('collection')?.scrollIntoView({behavior:'smooth'}),60); },
+      navigateOrder: e => { if(e)e.preventDefault();this.setState({view:'home'});setTimeout(()=>document.getElementById('commander')?.scrollIntoView({behavior:'smooth'}),60); },
+      openProductKey: e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();const idx=this.PRODUCTS.findIndex(p=>p.name===e.currentTarget.dataset.name);if(idx>=0){this.setState({view:'detail',activeProduct:idx,activeImage:0});window.scrollTo({top:0,behavior:'smooth'});}} },
+      hasOrderError: !!this.state.orderError, orderError: this.state.orderError,
       hasResults: n > 0, noResults: this.state.loaded && !this.state.loadError && n === 0,
       loading: !this.state.loaded, loadError: this.state.loadError,
       catalogStatus: lang === 'ar' ? (this.state.loadError ? 'تعذر تحميل المنتجات. أعد تحميل الصفحة.' : 'جارٍ تحميل المنتجات…') : (this.state.loadError ? 'Impossible de charger le catalogue. Rechargez la page.' : 'Chargement du catalogue…'),
@@ -245,7 +298,7 @@ class Component extends DCLogic {
       heroImage, heroW, heroH,
       cities, total,
       form: formView,
-      toggleLang: () => this.setState({ lang: lang === 'fr' ? 'ar' : 'fr' }),
+      toggleLang: () => { const next = lang === 'fr' ? 'ar' : 'fr'; document.documentElement.lang = next; this.setState({ lang: next, orderError: '' }); },
       toggleTheme: () => {
         const next = theme === 'light' ? 'dark' : 'light';
         this.applyTheme(next);
@@ -288,6 +341,8 @@ class Component extends DCLogic {
         const p = this.PRODUCTS.find(p => p.name === this.state.selectedProduct) || this.PRODUCTS.find(p => p.inStock !== false) || this.PRODUCTS[0];
         if (!p || p.inStock === false) return;
         const f = this.state.form;
+        if (!f.name.trim() || !/^[+\d][\d\s().-]{7,19}$/.test(f.phone.trim())) { this.setState({ orderError: this.UI[this.state.lang].formError }); return; }
+        this.setState({orderError:''});
         const city = f.city || this.T[this.state.lang].cities[0];
 
         // Capture the lead server-side first (fire-and-forget with keepalive so the

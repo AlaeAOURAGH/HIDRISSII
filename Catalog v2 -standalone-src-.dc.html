@@ -560,9 +560,13 @@
   }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.18.2/libheif-wasm/libheif-bundle.js"></script>
+<link rel="stylesheet" href="/storefront.css">
 </helmet>
 
 <div dir="{{ dir }}" class="site-root">
+
+  <a class="skip-link" href="#collection" onClick="{{ navigateCatalog }}">{{ t.browseCollection }}</a>
+  <div class="announcement"><span>{{ t.trust2 }}</span><span class="announcement-divider">·</span><span>{{ t.trust1 }}</span></div>
 
   <!-- NAV -->
   <nav class="site-nav">
@@ -572,8 +576,8 @@
       </a>
       <div class="nav-links" style="display:flex; align-items:center; gap:28px; font-size:14px; color:var(--text-nav);">
         <a href="#" onClick="{{ goHome }}" style="color:inherit; text-decoration:none; font-weight:500;">{{ t.navHome }}</a>
-        <a href="#collection" style="color:inherit; text-decoration:none;">{{ t.navCollection }}</a>
-        <a href="#commander" style="color:inherit; text-decoration:none;">{{ t.navOrder }}</a>
+        <a href="#collection" onClick="{{ navigateCatalog }}" style="color:inherit; text-decoration:none;">{{ t.navCollection }}</a>
+        <a href="#commander" onClick="{{ navigateOrder }}" style="color:inherit; text-decoration:none;">{{ t.navOrder }}</a>
       </div>
       <div style="display:flex; align-items:center; gap:10px;">
         <button onClick="{{ toggleTheme }}" class="nav-theme" aria-label="{{ t.themeToggle }}" title="{{ t.themeToggle }}">
@@ -583,7 +587,7 @@
           <span style="font-size:14px;">{{ t.langGlobe }}</span>
           {{ t.langSwitch }}
         </button>
-        <a href="#commander" class="nav-cta btn-wa" style="padding:11px 18px; font-size:13px; display:inline-flex; align-items:center; gap:8px;">
+        <a href="#commander" onClick="{{ navigateOrder }}" aria-label="{{ t.navOrder }}" class="nav-cta btn-wa" style="padding:11px 18px; font-size:13px; display:inline-flex; align-items:center; gap:8px;">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
           <span class="nav-cta-text">{{ t.navOrder }}</span>
         </a>
@@ -679,29 +683,32 @@
         <div class="hero-scrim" style="position:absolute; inset:0;"></div>
         <div class="hero-content" style="position:relative; z-index:1; padding:48px; max-width:640px;">
           <div class="hero-badge">{{ t.heroBadge }}</div>
-          <h1 class="resp-h1" style="margin:28px 0 24px; font-size:80px; line-height:1.02; letter-spacing:-0.04em; font-weight:800;">{{ t.heroTitle }}</h1>
+          <h1 class="resp-h1" style="margin:28px 0 24px; font-size:80px; line-height:1.02; letter-spacing:-0.04em; font-weight:800;">{{ t.heroTitle }} <span class="hero-accent">{{ t.heroTitleAccent }}</span></h1>
           <p style="font-size:18px; line-height:1.6; margin:0 0 36px;">{{ t.heroSubtitle }}</p>
-          <div style="display:flex; gap:14px; align-items:center;">
+          <div class="hero-actions" style="display:flex; gap:14px; align-items:center;">
             <a href="#collection" class="btn-gold" style="padding:16px 26px; font-size:14px; display:inline-flex; align-items:center; gap:10px;">
-              {{ t.heroCta }} <span style="font-size:12px;">{{ t.upArrow }}</span>
+              {{ t.heroCta }}
             </a>
+            <a class="btn-outline" href="{{ waLink }}" target="_blank" rel="noopener">{{ t.talk }}</a>
           </div>
+          <div class="hero-price"><span>{{ t.from }}</span><strong>{{ minPrice }} <small>{{ t.currency }}</small></strong><span>{{ t.trust1 }}</span></div>
         </div>
+        <div class="showroom-caption"><span>{{ t.showroomPlace }}</span><strong>{{ t.showroom }}</strong></div>
       </div>
 
       <!-- Stats -->
       <div class="resp-stats" style="margin-top:72px; padding-top:24px; border-top:1px solid var(--border-light); display:grid; grid-template-columns:repeat(4,1fr); gap:48px;">
         <div>
           <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.statModels }}</div>
-          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">15</div>
+          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">{{ productCount }}</div>
         </div>
         <div>
-          <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.statRange }}</div>
-          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">100<span style="font-size:18px; color:var(--text-subtle);"> {{ t.km }}</span></div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.shipping }}</div>
+          <div class="stat-word">{{ t.nationwide }}</div>
         </div>
         <div>
-          <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.statSpeed }}</div>
-          <div style="margin-top:10px; font-size:40px; letter-spacing:-0.03em; font-weight:800;">+70<span style="font-size:18px; color:var(--text-subtle);"> {{ t.kmh }}</span></div>
+          <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.trust1 }}</div>
+          <div class="stat-word">{{ t.payment }}</div>
         </div>
         <div>
           <div style="font-size:11px; letter-spacing:0.1em; color:var(--text-subtle); text-transform:uppercase;">{{ t.statWarranty }}</div>
@@ -768,7 +775,12 @@
             <input type="text" value="{{ search }}" onInput="{{ onSearch }}" placeholder="{{ t.searchPlaceholder }}" class="search-input" style="width:100%; background:var(--brand-surface); border:1px solid var(--border-light); border-radius:999px; padding:15px 18px 15px 46px; font-size:15px; color:var(--color-text); outline:none;">
           </div>
 
-          <div style="font-size:12px; letter-spacing:0.04em; color:var(--text-dim); margin-bottom:22px;">{{ resultLabel }}</div>
+          <div class="catalog-tools">
+            <span aria-live="polite">{{ resultLabel }}</span>
+            <label class="stock-filter"><input type="checkbox" checked="{{ stockOnly }}" onChange="{{ toggleStock }}"> {{ t.stockOnly }}</label>
+            <label class="sort-control"><span>{{ t.sortLabel }}</span><select aria-label="{{ t.sortLabel }}" value="{{ sort }}" onChange="{{ changeSort }}"><option value="recommended" label="{{ t.recommended }}">{{ t.recommended }}</option><option value="priceAsc" label="{{ t.priceAsc }}">{{ t.priceAsc }}</option><option value="priceDesc" label="{{ t.priceDesc }}">{{ t.priceDesc }}</option></select></label>
+            <button class="filter-reset" onClick="{{ resetFilters }}">{{ t.resetFilters }}</button>
+          </div>
 
           <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
             <div style="padding:72px 24px; text-align:center; color:var(--text-dim); border:1px dashed var(--border-medium); border-radius:18px; font-size:15px;">{{ t.noResults }}</div>
@@ -776,7 +788,7 @@
 
           <div class="resp-grid-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
         <sc-for list="{{ filteredProducts }}" as="p" hint-placeholder-count="6">
-          <article onClick="{{ openProduct }}" data-idx="{{ $index }}" class="pcard" style="position:relative; background:var(--brand-surface); border-radius:18px; overflow:hidden; border:1px solid var(--border-subtle); cursor:pointer; display:flex; flex-direction:column; opacity:{{ p.cardOpacity }};" style-hover="box-shadow:0 8px 32px rgba(0,0,0,0.55);">
+          <article onClick="{{ openProduct }}" data-idx="{{ $index }}" class="pcard" role="button" tabindex="0" onKeyDown="{{ openProductKey }}" aria-label="{{ p.name }}" style="position:relative; background:var(--brand-surface); border-radius:18px; overflow:hidden; border:1px solid var(--border-subtle); cursor:pointer; display:flex; flex-direction:column; opacity:{{ p.cardOpacity }};">
             <div class="pcard-imgspacer" style="aspect-ratio:4/3;" aria-hidden="true"></div>
 
             <div class="pcard-content" style="padding:20px 20px 24px; display:flex; flex-direction:column; flex:1;">
@@ -786,7 +798,7 @@
               </div>
               <p style="margin:8px 0 18px; font-size:13px; line-height:1.6; color:var(--text-subtle);">{{ p.shortDesc }}</p>
 
-              <div style="display:flex; gap:14px; margin-bottom:18px; font-size:12px; color:var(--text-body); flex-wrap:wrap;">
+              <div class="card-specs" style="display:flex; gap:14px; margin-bottom:18px; font-size:12px; color:var(--text-body); flex-wrap:wrap;">
                 <span>{{ p.power }}</span>
                 <span style="color:var(--text-muted);">·</span>
                 <span>{{ p.speed }}</span>
@@ -803,7 +815,7 @@
                 </sc-if>
                 <sc-if value="{{ p.inStock }}" hint-placeholder-val="{{ true }}">
                   <span style="font-size:13px; color:var(--brand-gold); font-weight:600; display:inline-flex; align-items:center; gap:6px;">
-                    {{ t.viewDetails }} <span style="font-size:11px;">{{ t.fwdArrow }}</span>
+                    {{ t.discover }}
                   </span>
                 </sc-if>
               </div>
@@ -926,7 +938,7 @@
               <span style="font-size:10px; letter-spacing:0.08em; color:var(--text-subtle); text-transform:uppercase;">{{ t.fieldCity }}</span>
               <select value="{{ form.city }}" onChange="{{ updateField }}" data-field="city" class="form-input" style="border:none; border-bottom:1px solid var(--border-input); padding:10px 0; font-size:15px; outline:none; background:transparent; color:var(--color-text); appearance:none;">
                 <sc-for list="{{ cities }}" as="c" hint-placeholder-count="7">
-                  <option>{{ c }}</option>
+                  <option value="{{ c }}" label="{{ c }}">{{ c }}</option>
                 </sc-for>
               </select>
             </label>
@@ -957,7 +969,7 @@
                 </button>
               </sc-for>
             </div>
-          </div>
+          <sc-if value="{{ hasOrderError }}"><p class="order-error" role="alert">{{ orderError }}</p></sc-if>
 
           <div class="form-total" style="margin-top:28px; padding-top:20px; border-top:1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center; gap:20px;">
             <div>
@@ -1021,6 +1033,11 @@
   </a>
 </div>
 
+  <nav class="mobile-store-nav" dir="{{ dir }}" aria-label="{{ t.catalog }}">
+    <a href="#" onClick="{{ goHome }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m3 10 9-7 9 7v10H4V10M9 20v-7h6v7"/></svg>{{ t.mobileHome }}</a>
+    <a href="#collection" onClick="{{ navigateCatalog }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>{{ t.mobileCatalog }}</a>
+    <a href="#commander" onClick="{{ navigateOrder }}">{{ t.mobileOrder }}</a>
+  </nav>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
 class Component extends DCLogic {
