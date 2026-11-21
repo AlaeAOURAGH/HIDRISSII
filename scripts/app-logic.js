@@ -43,6 +43,9 @@ class Component extends DCLogic {
     stockOnly: false,
     budget: 'all',
     comparison: ['', '', ''],
+    favorites: [], favoritesOnly: false, mobileDestination:'home',
+    minSpeed:0, minRange:0, minPower:0, filterDraft:{},
+    galleryOpen:false, filtersOpen:false,
     orderError: '',
     submitting: false,
     theme: 'light',
@@ -64,6 +67,9 @@ class Component extends DCLogic {
   BRAND_OF = {};
 
   async componentDidMount() {
+    try { const favorites=JSON.parse(localStorage.getItem('hidrissi-favorites')||'[]'); if(Array.isArray(favorites))this.setState({favorites:favorites.filter(x=>typeof x==='string')}); } catch {}
+    this.onRoute=()=>{const id=new URLSearchParams(window.location.search).get('modele');const index=this.PRODUCTS.findIndex(p=>p.id===id);this.setState(index>=0?{view:'detail',activeProduct:index,activeImage:0}:{view:'home'});};
+    window.addEventListener('popstate',this.onRoute);
     let theme = 'light';
     try { theme = localStorage.getItem('hidrissi-theme') || 'light'; } catch (e) { /* ignore */ }
     if (theme !== 'dark') theme = 'light';
@@ -110,12 +116,33 @@ class Component extends DCLogic {
       const sel = this.PRODUCTS.find(p => p.name === selected);
       if (!sel || sel.inStock === false) selected = first;
       this.setState({ loaded: true, selectedProduct: selected });
+      this.onRoute();
     } catch (e) {
       this.setState({ loaded: true, loadError: true });
     }
   }
 
   // __T_BLOCK__
+
+  openModel(name) {
+    const index=this.PRODUCTS.findIndex(p=>p.name===name);if(index<0)return;
+    history.pushState({},'', '?modele='+encodeURIComponent(this.PRODUCTS[index].id));
+    this.setState({view:'detail',activeProduct:index,activeImage:0});window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  componentWillUnmount(){window.removeEventListener('popstate',this.onRoute);}
+
+  openDialog(id, field, patch = {}) {
+    this.setState({...patch,[field]:true},()=>{
+      const dialog=document.getElementById(id);
+      if(dialog){dialog.close();dialog.showModal();}
+    });
+  }
+
+  closeDialog(id, field) {
+    document.getElementById(id)?.close();
+    this.setState({[field]:false});
+  }
 
   UI = {
     fr: {
@@ -181,6 +208,10 @@ class Component extends DCLogic {
       const first = p.images[0] || { thumb: '', w: '', h: '' };
       return {
         name: p.name,
+        brand:p.brand || '', favorite:this.state.favorites.includes(p.id),
+        favoriteIcon:this.state.favorites.includes(p.id)?'♥':'♡',
+        favoriteLabel:(lang==='ar'?'حفظ ':'Enregistrer ')+p.name,
+        id:p.id,
         category: L(p.category),
         badge: L(p.badge),
         shortDesc: L(p.shortDesc),
@@ -210,6 +241,7 @@ class Component extends DCLogic {
     const cpInStock = cp.inStock !== false;
     const currentProduct = {
       name: cp.name,
+      brand:cp.brand || '',
       category: L(cp.category),
       badge: L(cp.badge),
       hasBadge: !!L(cp.badge),
@@ -220,6 +252,8 @@ class Component extends DCLogic {
       specs: (cp.specs || []).map(s => ({ label: L(s.label), value: L(s.value) })),
       features: L(cp.features || { fr: [], ar: [] }),
       images: cpImages.map((im, i) => ({
+        label:(lang==='ar'?'الصورة ':'Photo ')+(i+1)+' · '+cp.name,
+        selected:i===activeImage,
         thumb: im.thumb,
         w: im.w,
         h: im.h,
@@ -251,6 +285,9 @@ class Component extends DCLogic {
     const matchBrand = (name) => activeBrand === 'all' || this.BRAND_OF[name] === activeBrand;
     const matchSearch = (name) => { const q = search.trim().toLowerCase(); return !q || name.toLowerCase().includes(q); };
     const filteredProducts = products.filter(p => { const price=this.PRODUCTS.find(x=>x.name===p.name).priceNum; return matchCat(p.name) && matchBrand(p.name) && matchSearch(p.name) && (!this.state.stockOnly || p.inStock) && (this.state.budget==='all' || (this.state.budget==='under' ? price<4000 : price>=4000)); });
+    const maxNumber=v=>Math.max(0,...(String(v).match(/[\d.]+/g)||[]).map(Number));
+    const powerNumber=v=>{const a=String(v).match(/[\d.]+/g)||[];return /[×x]/i.test(String(v))&&a.length>1?Number(a[0])*Number(a[1]):maxNumber(v);};
+    const mobileFiltered=filteredProducts.filter(p=>(!this.state.favoritesOnly||this.state.favorites.includes(p.id))&&maxNumber(p.speed)>=this.state.minSpeed&&maxNumber(p.range)>=this.state.minRange&&powerNumber(p.power)>=this.state.minPower);
     if (this.state.sort === 'priceAsc') filteredProducts.sort((a,b) => this.PRODUCTS.find(p=>p.name===a.name).priceNum - this.PRODUCTS.find(p=>p.name===b.name).priceNum);
     if (this.state.sort === 'priceDesc') filteredProducts.sort((a,b) => this.PRODUCTS.find(p=>p.name===b.name).priceNum - this.PRODUCTS.find(p=>p.name===a.name).priceNum);
     const chipStyle = (on) => ({
@@ -272,28 +309,58 @@ class Component extends DCLogic {
       const count = products.filter(p => matchSearch(p.name) && matchCat(p.name) && (b.key === 'all' || this.BRAND_OF[p.name] === b.key)).length;
       return { key: b.key, label: b.label, count, ...chipStyle(on) };
     });
-    const n = filteredProducts.length;
+    const n = mobileFiltered.length;
     const resultLabel = lang === 'ar' ? (n + ' نتيجة') : (n + (n > 1 ? ' résultats' : ' résultat'));
 
     return {
       t, dir, lang, waLink, mapsUrl: this.MAPS_URL, theme, logoSrc, themeIcon,
       partsLink:'https://wa.me/'+this.WA_NUMBER+'?text='+encodeURIComponent(lang==='ar'?'مرحباً، أبحث عن قطعة أو إكسسوار لدراجتي. الموديل: ... القطعة: ... هل هي متوافقة ومتوفرة؟':'Bonjour, je cherche une pièce ou un accessoire. Mon modèle : ... Pièce souhaitée : ... Pouvez-vous confirmer la compatibilité et la disponibilité ?'),
-      filteredProducts, orderableProducts, catChips, brandChips, resultLabel,
+      filteredProducts:mobileFiltered, orderableProducts, catChips, brandChips, resultLabel,
+      favoriteCount:this.state.favorites.length, favoritesOnly:this.state.favoritesOnly,
+      collectionHeading:this.state.favoritesOnly?(lang==='ar'?'المفضلة':'Vos favoris'):t.collectionTitle,
+      mobileHomeLabel:lang==='ar'?'الرئيسية':'Accueil',mobileDiscoverLabel:lang==='ar'?'اكتشف':'Explorer',mobileCompareLabel:lang==='ar'?'قارن':'Comparer',mobileFavoritesLabel:lang==='ar'?'المفضلة':'Favoris',mobileContactLabel:lang==='ar'?'تواصل':'Contact',
+      homeCurrent:this.state.mobileDestination==='home'?'page':false,discoverCurrent:this.state.mobileDestination==='discover'?'page':false,compareCurrent:this.state.mobileDestination==='compare'?'page':false,favoritesCurrent:this.state.mobileDestination==='favorites'?'page':false,contactCurrent:this.state.mobileDestination==='contact'?'page':false,
+      filterLabel:lang==='ar'?'الفلاتر والترتيب':'Filtrer et trier',applyLabel:lang==='ar'?'عرض النتائج':'Afficher les résultats',closeLabel:lang==='ar'?'إغلاق':'Fermer',savedLabel:lang==='ar'?'محفوظة على هذا الجهاز':'Enregistrés sur cet appareil',
+      speedLabel:lang==='ar'?'السرعة الدنيا (كلم/س)':'Vitesse annoncée min. (km/h)',rangeLabel:lang==='ar'?'المدى الأدنى (كلم)':'Autonomie annoncée min. (km)',powerLabel:lang==='ar'?'القوة الدنيا (واط)':'Puissance annoncée min. (W)',
+      activeFilterCount:[this.state.brand!=='all',this.state.budget!=='all',this.state.stockOnly,this.state.minSpeed>0,this.state.minRange>0,this.state.minPower>0].filter(Boolean).length,
+      filterDraft:this.state.filterDraft,brandOptions:this.BRANDS.map(name=>({name})),
+      toggleFavorite:e=>{e.preventDefault();e.stopPropagation();const id=e.currentTarget.dataset.id;const favorites=this.state.favorites.includes(id)?this.state.favorites.filter(x=>x!==id):[...this.state.favorites,id];this.setState({favorites});try{localStorage.setItem('hidrissi-favorites',JSON.stringify(favorites));}catch{}},
+      navigateMobile:e=>{e.preventDefault();const destination=e.currentTarget.dataset.destination;history.replaceState({},'',location.pathname);this.setState({view:'home',mobileDestination:destination,favoritesOnly:destination==='favorites',...(destination==='favorites'?{search:'',cat:'all',brand:'all',budget:'all',stockOnly:false,minSpeed:0,minRange:0,minPower:0}:{})});setTimeout(()=>{const id={discover:'collection',compare:'comparer',favorites:'collection',contact:'atelier'}[destination];if(id)document.getElementById(id)?.scrollIntoView({behavior:'smooth'});else window.scrollTo({top:0,behavior:'smooth'});},60);},
+      mobileSearch:e=>{if(e)e.preventDefault();history.replaceState({},'',location.pathname);this.setState({view:'home',mobileDestination:'discover',favoritesOnly:false});setTimeout(()=>{document.getElementById('collection')?.scrollIntoView();document.querySelector('.search-input')?.focus({preventScroll:true});},80);},
+      galleryOpen:this.state.galleryOpen,filtersOpen:this.state.filtersOpen,
+      openFilters:()=>this.openDialog('mobile-filters','filtersOpen',{filterDraft:{brand:this.state.brand,budget:this.state.budget,stockOnly:this.state.stockOnly,minSpeed:this.state.minSpeed,minRange:this.state.minRange,minPower:this.state.minPower,sort:this.state.sort}}),
+      editFilter:e=>{const field=e.currentTarget.dataset.field;const value=e.currentTarget.type==='checkbox'?e.currentTarget.checked:['minSpeed','minRange','minPower'].includes(field)?Math.max(0,Number(e.currentTarget.value)||0):e.currentTarget.value;this.setState({filterDraft:{...this.state.filterDraft,[field]:value}});},
+      applyFilters:()=>{this.setState({...this.state.filterDraft});this.closeDialog('mobile-filters','filtersOpen');},
+      clearDraft:()=>this.setState({filterDraft:{brand:'all',budget:'all',stockOnly:false,minSpeed:0,minRange:0,minPower:0,sort:'recommended'}}),
+      closeFilters:()=>this.closeDialog('mobile-filters','filtersOpen'),
+      imageCounter:(activeImage+1)+' / '+cpImages.length,
+      relatedProducts:products.filter(p=>p.name!==cp.name).slice(0,3),
+      relatedLabel:lang==='ar'?'اكتشف أيضاً':'À découvrir aussi',
+      homeHeroLabel:lang==='ar'?'تحرك بطريقتك.':'ROULEZ À VOTRE RYTHME.',
+      previousPhotoLabel:lang==='ar'?'الصورة السابقة':'Photo précédente',nextPhotoLabel:lang==='ar'?'الصورة التالية':'Photo suivante',
+      galleryLabel:lang==='ar'?'عرض الصورة كاملة':'Agrandir la photo',
+      nextImage:()=>this.setState({activeImage:(activeImage+1)%Math.max(cpImages.length,1)}),
+      previousImage:()=>this.setState({activeImage:(activeImage-1+cpImages.length)%Math.max(cpImages.length,1)}),
+      swipeStart:e=>{this.swipeX=e.changedTouches[0].clientX;},
+      swipeEnd:e=>{const delta=e.changedTouches[0].clientX-this.swipeX;if(Math.abs(delta)>45)this.setState({activeImage:(activeImage+(delta<0?1:-1)+cpImages.length)%Math.max(cpImages.length,1)});},
+      openGallery:()=>this.openDialog('gallery-dialog','galleryOpen'),closeGallery:()=>this.closeDialog('gallery-dialog','galleryOpen'),
+      detailInquiry:'https://wa.me/'+this.WA_NUMBER+'?text='+encodeURIComponent((lang==='ar'?'مرحباً، أود الاستفسار عن هذا الموديل.':'Bonjour, je suis intéressé par ce modèle.')+'\n\n'+cp.name+'\n'+(cp.brand||'')+'\n'+cp.price+' MAD\n'+(lang==='ar'?'الكمية: 1':'Quantité : 1')+'\nhttps://www.hidrissi.com/?modele='+encodeURIComponent(cp.id||'')+'\n\n'+(lang==='ar'?'هل يمكن تأكيد التوفر والتوصيل؟':'Pouvez-vous confirmer la disponibilité et la livraison ?')),
+      inquiryLabel:lang==='ar'?'اسأل عبر واتساب':'Demander sur WhatsApp',
       budget:this.state.budget, changeBudget:e=>this.setState({budget:e.currentTarget.value}),
       compareSlots:this.state.comparison.map((name,i)=>({index:i,name,label:(lang==='ar'?'الموديل ':'Modèle ')+(i+1)})),
       comparisonProducts:products.filter(p=>this.state.comparison.some(Boolean)?this.state.comparison.includes(p.name):products.slice(0,3).some(x=>x.name===p.name)),
       changeComparison:e=>{const comparison=[...this.state.comparison];comparison[Number(e.currentTarget.dataset.slot)]=e.currentTarget.value;this.setState({comparison});},
-      chooseRide:e=>{this.setState({cat:e.currentTarget.dataset.category,brand:'all',search:'',budget:'all',view:'home'});setTimeout(()=>document.getElementById('collection')?.scrollIntoView({behavior:'smooth'}),60);},
-      navigateSection:e=>{e.preventDefault();const id=e.currentTarget.dataset.section;this.setState({view:'home'});setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'}),60);},
+      chooseRide:e=>{history.replaceState({},'',location.pathname);this.setState({cat:e.currentTarget.dataset.category,brand:'all',search:'',budget:'all',view:'home'});setTimeout(()=>document.getElementById('collection')?.scrollIntoView({behavior:'smooth'}),60);},
+      navigateSection:e=>{e.preventDefault();history.replaceState({},'',location.pathname);const id=e.currentTarget.dataset.section;this.setState({view:'home'});setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'}),60);},
       productCount: products.length,
       minPrice: this.PRODUCTS.length ? Math.min(...this.PRODUCTS.map(p=>p.priceNum)).toLocaleString('fr-FR') : '—',
       sort: this.state.sort, stockOnly: this.state.stockOnly,
       changeSort: e => this.setState({sort:e.currentTarget.value}),
       toggleStock: e => this.setState({stockOnly:e.currentTarget.checked}),
-      resetFilters: () => this.setState({search:'',cat:'all',brand:'all',sort:'recommended',stockOnly:false,budget:'all'}),
-      navigateCatalog: e => { if(e)e.preventDefault();this.setState({view:'home'});setTimeout(()=>document.getElementById('collection')?.scrollIntoView({behavior:'smooth'}),60); },
-      navigateOrder: e => { if(e)e.preventDefault();this.setState({view:'home'});setTimeout(()=>document.getElementById('commander')?.scrollIntoView({behavior:'smooth'}),60); },
-      openProductKey: e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();const idx=this.PRODUCTS.findIndex(p=>p.name===e.currentTarget.dataset.name);if(idx>=0){this.setState({view:'detail',activeProduct:idx,activeImage:0});window.scrollTo({top:0,behavior:'smooth'});}} },
+      resetFilters: () => this.setState({search:'',cat:'all',brand:'all',sort:'recommended',stockOnly:false,budget:'all',minSpeed:0,minRange:0,minPower:0}),
+      navigateCatalog: e => { if(e)e.preventDefault();history.replaceState({},'',location.pathname);this.setState({view:'home'});setTimeout(()=>document.getElementById('collection')?.scrollIntoView({behavior:'smooth'}),60); },
+      navigateOrder: e => { if(e)e.preventDefault();history.replaceState({},'',location.pathname);this.setState({view:'home'});setTimeout(()=>document.getElementById('commander')?.scrollIntoView({behavior:'smooth'}),60); },
+      openProductKey: e => { if(e.target===e.currentTarget&&(e.key==='Enter'||e.key===' ')){e.preventDefault();this.openModel(e.currentTarget.dataset.name);} },
       hasOrderError: !!this.state.orderError, orderError: this.state.orderError,
       submitting: this.state.submitting,
       orderButtonLabel: this.state.submitting ? (lang === 'ar' ? 'جارٍ تسجيل الطلب…' : 'Enregistrement de la commande…') : t.waCta,
@@ -319,14 +386,13 @@ class Component extends DCLogic {
         this.setState({ theme: next });
       },
       openProduct: (e) => {
-        const name = e.currentTarget.dataset.name;
-        const idx = Math.max(0, this.PRODUCTS.findIndex(p => p.name === name));
-        this.setState({ view: 'detail', activeProduct: idx, activeImage: 0 });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        e.stopPropagation();
+        this.openModel(e.currentTarget.dataset.name);
       },
       goHome: (e) => {
         if (e) e.preventDefault();
-        this.setState({ view: 'home' });
+        history.replaceState({},'',location.pathname);
+        this.setState({ view: 'home',favoritesOnly:false,mobileDestination:'home' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       selectImage: (e) => this.setState({ activeImage: parseInt(e.currentTarget.dataset.idx) }),
@@ -341,6 +407,7 @@ class Component extends DCLogic {
         if (cp.inStock === false) return;
         // The order form lives in the home view, so switch back to it, pre-select
         // the scooter being viewed, then scroll down to the form once it renders.
+        history.replaceState({},'',location.pathname);
         this.setState({ view: 'home', selectedProduct: cp.name });
         setTimeout(() => {
           const el = document.getElementById('commander');

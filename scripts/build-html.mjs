@@ -134,6 +134,7 @@ function replaceOnce(s, find, repl, label) {
 async function main() {
   let html = await readFile(SRC, 'utf8');
   const tBlock = extractT(html);
+  html = html.replace('</x-dc>', await readFile(path.join(ROOT,'scripts/mobile-fragments.html'),'utf8') + '\n</x-dc>');
   let logic = await readFile(LOGIC, 'utf8');
   logic = logic.replace('  // __T_BLOCK__', tBlock);
 
@@ -206,6 +207,12 @@ async function main() {
     (_m, open, close) => open + '\n' + logic.trimEnd() + '\n' + close
   );
 
+  // Preserve dynamic children through the browser's first HTML parse. Native
+  // select/table parsing otherwise discards or moves sc-for before DC boots.
+  html = html.replace(/(<x-dc\b[^>]*>)([\s\S]*?)(<\/x-dc>)/, (_all, open, template, close) =>
+    open + template
+      .replace(/(<\/?)(select|table|tbody|thead|tfoot|tr|td|th|caption)(?=[\s>])/gi, '$1sc-raw-$2')
+      .replace(/\sonTouch(Start|End)=/g, (_event, phase) => ' sc-camel-on-touch-'+phase.toLowerCase()+'=') + close);
   await writeFile(OUT, html, 'utf8');
   console.log('Wrote index.html (' + html.length + ' bytes).');
 }

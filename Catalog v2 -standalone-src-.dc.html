@@ -562,6 +562,7 @@
 <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.18.2/libheif-wasm/libheif-bundle.js"></script>
 <link rel="stylesheet" href="/storefront.css">
 <link rel="stylesheet" href="/premium.css">
+<link rel="stylesheet" href="/mobile.css">
 </helmet>
 
 <div dir="{{ dir }}" class="site-root">
@@ -583,6 +584,7 @@
         <a href="#commander" onClick="{{ navigateOrder }}" style="color:inherit; text-decoration:none;">{{ t.navOrder }}</a>
       </div>
       <div style="display:flex; align-items:center; gap:10px;">
+        <button class="mobile-search" onClick="{{ mobileSearch }}" aria-label="{{ t.searchPlaceholder }}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg></button>
         <button onClick="{{ toggleTheme }}" class="nav-theme" aria-label="{{ t.themeToggle }}" title="{{ t.themeToggle }}">
           <span style="font-size:15px;">{{ themeIcon }}</span>
         </button>
@@ -608,13 +610,14 @@
       <div class="resp-detail detail-layout">
         <!-- Gallery -->
         <div class="detail-gallery">
-          <div class="detail-main">
+          <div class="detail-main" onTouchStart="{{ swipeStart }}" onTouchEnd="{{ swipeEnd }}">
             <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:1;"><div class="spinner-ring" style="width:28px; height:28px;"></div></div>
             <img ref="{{ currentImageRef }}" alt="{{ currentProduct.name }}">
+            <button class="gallery-expand" onClick="{{ openGallery }}" aria-label="{{ galleryLabel }}">⛶</button><div class="gallery-controls"><button onClick="{{ previousImage }}" aria-label="{{ previousPhotoLabel }}">‹</button><span aria-live="polite">{{ imageCounter }}</span><button onClick="{{ nextImage }}" aria-label="{{ nextPhotoLabel }}">›</button></div>
           </div>
           <div class="detail-thumbs scroll-x">
             <sc-for list="{{ currentProduct.images }}" as="img" hint-placeholder-count="4">
-              <button onClick="{{ selectImage }}" data-idx="{{ $index }}" class="detail-thumb" style="border:2px solid {{ img.borderColor }};">
+              <button onClick="{{ selectImage }}" data-idx="{{ $index }}" class="detail-thumb" aria-label="{{ img.label }}" aria-pressed="{{ img.selected }}" style="border:2px solid {{ img.borderColor }};">
                 <img ref="{{ img.srcRef }}" style="width:100%; height:100%; object-fit:cover;" alt="">
               </button>
             </sc-for>
@@ -658,6 +661,8 @@
           </div>
 
           <p class="detail-desc">{{ currentProduct.desc }}</p>
+          <details class="mobile-spec-accordion"><summary>{{ t.features }}</summary><div><sc-for list="{{ currentProduct.features }}" as="feature"><p>{{ feature }}</p></sc-for></div></details>
+          <div class="mobile-related"><h2>{{ relatedLabel }}</h2><sc-for list="{{ relatedProducts }}" as="related"><button onClick="{{ openProduct }}" data-name="{{ related.name }}"><img src="{{ related.thumb }}" alt="{{ related.name }}" loading="lazy"><span>{{ related.name }}<strong>{{ related.price }} {{ t.currency }}</strong></span></button></sc-for></div>
 
           <div>
             <div class="detail-features-title">{{ t.features }}</div>
@@ -737,7 +742,7 @@
     <section id="collection" class="sec sec-collection" style="max-width:1320px; margin:0 auto; padding:100px 32px 80px;">
       <div style="margin-bottom:32px;">
         <div style="font-size:11px; letter-spacing:0.16em; color:var(--text-subtle); text-transform:uppercase;">{{ t.collectionEyebrow }}</div>
-        <h2 class="resp-h2" style="margin:16px 0 0; font-size:54px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ t.collectionTitle }}</h2>
+        <h2 class="resp-h2" style="margin:16px 0 0; font-size:54px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ collectionHeading }}</h2>
         <p style="margin:18px 0 0; max-width:580px; font-size:15px; line-height:1.65; color:var(--text-body);">{{ t.collectionGoal }}</p>
       </div>
 
@@ -778,10 +783,12 @@
         <div>
           <div style="position:relative; margin-bottom:20px;">
             <span style="position:absolute; inset-inline-start:18px; top:50%; transform:translateY(-50%); color:var(--text-dim); font-size:18px; pointer-events:none;">⌕</span>
-            <input type="text" value="{{ search }}" onInput="{{ onSearch }}" placeholder="{{ t.searchPlaceholder }}" class="search-input" style="width:100%; background:var(--brand-surface); border:1px solid var(--border-light); border-radius:999px; padding:15px 18px 15px 46px; font-size:15px; color:var(--color-text); outline:none;">
+            <input type="text" value="{{ search }}" onInput="{{ onSearch }}" placeholder="{{ t.searchPlaceholder }}" aria-label="{{ t.searchPlaceholder }}" class="search-input" style="width:100%; background:var(--brand-surface); border:1px solid var(--border-light); border-radius:999px; padding:15px 18px 15px 46px; font-size:15px; color:var(--color-text); outline:none;">
           </div>
 
           <div class="catalog-tools">
+            <div class="mobile-category-row"><sc-for list="{{ catChips }}" as="category"><button onClick="{{ selectCat }}" data-cat="{{ category.key }}">{{ category.label }}</button></sc-for></div>
+            <button class="mobile-filter-trigger" onClick="{{ openFilters }}">{{ filterLabel }}<b>{{ activeFilterCount }}</b></button>
             <label class="budget-control"><span>{{ t.budget }}</span><select aria-label="{{ t.budget }}" value="{{ budget }}" onChange="{{ changeBudget }}"><option value="all" label="{{ t.allPrices }}"></option><option value="under" label="{{ t.under4000 }}"></option><option value="over" label="{{ t.over4000 }}"></option></select></label>
             <span aria-live="polite">{{ resultLabel }}</span>
             <label class="stock-filter"><input type="checkbox" checked="{{ stockOnly }}" onChange="{{ toggleStock }}"> {{ t.stockOnly }}</label>
@@ -795,12 +802,13 @@
 
           <div class="resp-grid-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
         <sc-for list="{{ filteredProducts }}" as="p" hint-placeholder-count="6">
-          <article onClick="{{ openProduct }}" data-idx="{{ $index }}" class="pcard" role="button" tabindex="0" onKeyDown="{{ openProductKey }}" aria-label="{{ p.name }}" style="position:relative; background:var(--brand-surface); border-radius:18px; overflow:hidden; border:1px solid var(--border-subtle); cursor:pointer; display:flex; flex-direction:column; opacity:{{ p.cardOpacity }};">
+          <article onClick="{{ openProduct }}" data-idx="{{ $index }}" class="pcard" role="group" onKeyDown="{{ openProductKey }}" aria-label="{{ p.name }}" style="position:relative; background:var(--brand-surface); border-radius:18px; overflow:hidden; border:1px solid var(--border-subtle); cursor:pointer; display:flex; flex-direction:column; opacity:{{ p.cardOpacity }};">
+            <button class="favorite-action" onClick="{{ toggleFavorite }}" data-id="{{ p.id }}" aria-label="{{ p.favoriteLabel }}" aria-pressed="{{ p.favorite }}">{{ p.favoriteIcon }}</button>
             <div class="pcard-imgspacer" style="aspect-ratio:4/3;" aria-hidden="true"></div>
 
             <div class="pcard-content" style="padding:20px 20px 24px; display:flex; flex-direction:column; flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
-                <h3 style="font-size:20px; letter-spacing:-0.02em; font-weight:800;">{{ p.name }}</h3>
+                <sc-if value="{{ p.inStock }}"><span class="card-availability">● {{ t.inStockLabel }}</span></sc-if><h3><button class="card-open" onClick="{{ openProduct }}" data-name="{{ p.name }}">{{ p.name }}</button></h3>
                 <span style="font-size:10px; color:var(--text-subtle); letter-spacing:0.05em; text-transform:uppercase; flex-shrink:0;">{{ p.category }}</span>
               </div>
               <p style="margin:8px 0 18px; font-size:13px; line-height:1.6; color:var(--text-subtle);">{{ p.shortDesc }}</p>
@@ -861,6 +869,7 @@
         </div>
 
         <p class="comparison-help">{{ t.compareHelp }}</p><div class="comparison-picker"><sc-for list="{{ compareSlots }}" as="slot"><label><span>{{ slot.label }}</span><select aria-label="{{ slot.label }}" data-slot="{{ slot.index }}" value="{{ slot.name }}" onChange="{{ changeComparison }}"><option value="" label="{{ t.chooseModel }}"></option><sc-for list="{{ products }}" as="model"><option value="{{ model.name }}" label="{{ model.name }}"></option></sc-for></select></label></sc-for></div>
+        <div class="mobile-compare"><sc-for list="{{ comparisonProducts }}" as="model"><article class="mobile-compare-card"><div><img src="{{ model.thumb }}" alt="{{ model.name }}" loading="lazy"><section><h3>{{ model.name }}</h3><strong>{{ model.price }} {{ t.currency }}</strong></section></div><dl><dt>{{ t.colPower }}</dt><dd>{{ model.power }}</dd><dt>{{ t.colSpeed }}</dt><dd>{{ model.speed }}</dd><dt>{{ t.colRange }}</dt><dd>{{ model.range }}</dd></dl></article></sc-for></div>
         <div class="resp-table-wrap" style="border:1px solid var(--compare-border); border-radius:16px; overflow:hidden;">
           <table class="resp-table compare-table" style="width:100%; border-collapse:collapse; font-size:13px;">
             <thead>

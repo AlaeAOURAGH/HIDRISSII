@@ -8,15 +8,39 @@ const products = require('../data/catalogue.json');
 const fs = require('node:fs'), vm = require('node:vm');
 function storefront(fetch) {
   const popup = {document:{body:{}},closed:false,location:{replace(url){this.url=url;}},close(){this.closed=true;}};
-  const context = { DCLogic:class{setState(value){Object.assign(this.state,value);}},fetch,Date,crypto:{randomUUID},AbortSignal,URLSearchParams,setTimeout,window:{open:()=>popup,location:{assign(url){this.url=url;}}} };
+  const storage=new Map();
+  const context = { localStorage:{setItem:(key,value)=>storage.set(key,value),getItem:key=>storage.get(key)},DCLogic:class{setState(value){Object.assign(this.state,value);}},fetch,Date,crypto:{randomUUID},AbortSignal,URLSearchParams,setTimeout,window:{open:()=>popup,location:{assign(url){this.url=url;}}} };
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(require.resolve('../scripts/app-logic.js'),'utf8').replace('class Component extends','globalThis.Component = class Component extends'),context);
   const c = new context.Component();
   c.T={fr:{cities:['Rabat'],waCta:'Commander via WhatsApp',photos:n=>n+' photos'},ar:{cities:['الرباط'],waCta:'طلب',photos:n=>n+' صور'}};
   c.PRODUCTS=products.map(p=>({...p,inStock:p.in_stock,priceNum:p.price,price:String(p.price),speed:{fr:p.speed},range:{fr:p.range},images:p.images.map(src=>({display:src,thumb:src})),shortDesc:p.short_desc}));
   c.state.form={name:'Client test',phone:'0600000000',qty:'2',city:'Rabat'};c.state.selectedProduct=c.PRODUCTS.find(p=>p.inStock).name;c.state.loaded=true;
-  return {c,popup};
+  return {c,popup,storage};
 }
+
+test('favourites persist product IDs and filter without opening a product',()=>{
+  const {c,storage}=storefront();const id=c.PRODUCTS[0].id;let stopped=false;
+  const event={preventDefault(){},stopPropagation(){stopped=true;},currentTarget:{dataset:{id}}};
+  c.renderVals().toggleFavorite(event);assert.ok(stopped);assert.deepEqual(JSON.parse(storage.get('hidrissi-favorites')),[id]);
+  c.state.favoritesOnly=true;assert.equal(c.renderVals().filteredProducts.length,1);assert.equal(c.renderVals().filteredProducts[0].id,id);
+  c.renderVals().toggleFavorite(event);assert.equal(c.renderVals().filteredProducts.length,0);
+});
+
+test('specification filters use advertised upper ranges and combined motor power',()=>{
+  const {c}=storefront();c.state.minSpeed=55;c.state.minRange=65;c.state.minPower=3000;
+  const matches=c.renderVals().filteredProducts;assert.ok(matches.some(p=>p.name==='WATHIUM RS-2'));assert.ok(matches.every(p=>p.name!=='ODYS'));
+  c.renderVals().resetFilters();assert.equal(c.renderVals().filteredProducts.length,c.PRODUCTS.length);
+});
+
+test('photo navigation wraps and ignores small touch movements',()=>{
+  const {c}=storefront();const total=c.PRODUCTS[0].images.length;
+  c.renderVals().previousImage();assert.equal(c.state.activeImage,total-1);
+  c.renderVals().nextImage();assert.equal(c.state.activeImage,0);
+  c.renderVals().swipeStart({changedTouches:[{clientX:200}]});
+  c.renderVals().swipeEnd({changedTouches:[{clientX:180}]});assert.equal(c.state.activeImage,0);
+  c.renderVals().swipeEnd({changedTouches:[{clientX:80}]});assert.equal(c.state.activeImage,1%total);
+});
 function res() { return { code: 200, headers: {}, setHeader(k,v) { this.headers[k]=v; }, status(n) { this.code=n;return this; }, json(body) { this.body=body;return this; } }; }
 const request = (body, extra={}) => ({ method:'POST', body, headers:{}, ...extra });
 const input = () => ({ name:'Client test',phone:'0600000000',qty:'2',product:products.find(p=>p.in_stock).name,price:1,city:'Rabat',address:'Adresse test',note:'=untrusted',lang:'fr',orderId:Date.now()+'-'+randomUUID() });
