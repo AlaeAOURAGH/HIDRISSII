@@ -8,6 +8,7 @@
     "build": "node scripts/build.js"
   },
   "dependencies": {
+    "@vercel/blob": "^2.9.0",
     "googleapis": "^144.0.0"
   },
   "devDependencies": {

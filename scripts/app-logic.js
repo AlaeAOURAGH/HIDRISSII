@@ -42,6 +42,7 @@ class Component extends DCLogic {
     sort: 'recommended',
     stockOnly: false,
     orderError: '',
+    submitting: false,
     theme: 'light',
     loaded: false,
     loadError: false
@@ -283,6 +284,8 @@ class Component extends DCLogic {
       navigateOrder: e => { if(e)e.preventDefault();this.setState({view:'home'});setTimeout(()=>document.getElementById('commander')?.scrollIntoView({behavior:'smooth'}),60); },
       openProductKey: e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();const idx=this.PRODUCTS.findIndex(p=>p.name===e.currentTarget.dataset.name);if(idx>=0){this.setState({view:'detail',activeProduct:idx,activeImage:0});window.scrollTo({top:0,behavior:'smooth'});}} },
       hasOrderError: !!this.state.orderError, orderError: this.state.orderError,
+      submitting: this.state.submitting,
+      orderButtonLabel: this.state.submitting ? (lang === 'ar' ? 'جارٍ تسجيل الطلب…' : 'Enregistrement de la commande…') : t.waCta,
       hasResults: n > 0, noResults: this.state.loaded && !this.state.loadError && n === 0,
       loading: !this.state.loaded, loadError: this.state.loadError,
       catalogStatus: lang === 'ar' ? (this.state.loadError ? 'تعذر تحميل المنتجات. أعد تحميل الصفحة.' : 'جارٍ تحميل المنتجات…') : (this.state.loadError ? 'Impossible de charger le catalogue. Rechargez la page.' : 'Chargement du catalogue…'),
@@ -337,37 +340,53 @@ class Component extends DCLogic {
         const field = e.currentTarget.dataset.field;
         this.setState({ form: { ...this.state.form, [field]: e.currentTarget.value } });
       },
-      submitOrder: () => {
+      submitOrder: async () => {
+        if (this.state.submitting) return;
         const p = this.PRODUCTS.find(p => p.name === this.state.selectedProduct) || this.PRODUCTS.find(p => p.inStock !== false) || this.PRODUCTS[0];
         if (!p || p.inStock === false) return;
         const f = this.state.form;
         if (!f.name.trim() || !/^[+\d][\d\s().-]{7,19}$/.test(f.phone.trim())) { this.setState({ orderError: this.UI[this.state.lang].formError }); return; }
-        this.setState({orderError:''});
+        this.setState({orderError:'', submitting:true});
         const city = f.city || this.T[this.state.lang].cities[0];
 
-        // Capture the lead server-side first (fire-and-forget with keepalive so the
-        // request survives navigation to WhatsApp and the popup keeps the user gesture).
-        // This way we keep every lead even if the customer never hits "send" in WhatsApp.
+        // Keep the same request ID on retry, even after an uncertain network response.
+        const fingerprint = JSON.stringify([f, p.name, p.priceNum, this.state.lang]);
+        if (this.orderFingerprint !== fingerprint) {
+          this.orderFingerprint = fingerprint;
+          this.orderRequestId = Date.now() + '-' + crypto.randomUUID();
+        }
         const payload = {
           name: f.name, phone: f.phone, city, qty: f.qty,
           product: p.name, price: p.priceNum,
           address: f.address || '', note: f.note || '',
           lang: this.state.lang, hp: f.hp || '',
-          ts: new Date().toISOString()
+          orderId: this.orderRequestId
         };
+        const popup = window.open('about:blank', '_blank');
+        if (popup) { popup.opener = null; popup.document.title = 'HIDRISSI'; popup.document.body.textContent = this.state.lang === 'ar' ? 'جارٍ تسجيل طلبك…' : 'Enregistrement de votre commande…'; }
         try {
-          fetch('/api/order', {
+          const response = await fetch('/api/order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
-            keepalive: true
-          }).catch(() => {});
-        } catch (e) { /* never block the WhatsApp handoff */ }
+            keepalive: true,
+            signal: AbortSignal.timeout(25000)
+          });
+          const saved = await response.json();
+          if (!response.ok || !saved.ok) throw new Error('order_not_saved');
+        } catch (e) {
+          if (popup && !popup.closed) popup.close();
+          this.setState({submitting:false,orderError:this.state.lang === 'ar' ? 'لم نتمكن من تسجيل الطلب. معلوماتك ما زالت هنا. أعد المحاولة.' : 'La commande n’a pas pu être enregistrée. Vos informations sont conservées ici. Réessayez.'});
+          return;
+        }
 
         const lines = this.state.lang === 'ar'
           ? `مرحباً،\n\nأرغب في طلب :\n\nالمنتج : ${p.name}\nالثمن : ${p.price} درهم\nالكمية : ${f.qty}\n\nالاسم : ${f.name}\nالهاتف : ${f.phone}\nالمدينة : ${city}\nالعنوان : ${f.address || '—'}${f.note ? `\nملاحظة : ${f.note}` : ''}\n\nشكراً.`
           : `Bonjour,\n\nJe souhaite commander :\n\nProduit : ${p.name}\nPrix : ${p.price} MAD\nQuantité : ${f.qty}\n\nNom : ${f.name}\nTéléphone : ${f.phone}\nVille : ${city}\nAdresse : ${f.address || '—'}${f.note ? `\nNote : ${f.note}` : ''}\n\nMerci.`;
-        window.open('https://wa.me/' + this.WA_NUMBER + '?text=' + encodeURIComponent(lines), '_blank', 'noopener');
+        const destination = 'https://wa.me/' + this.WA_NUMBER + '?text=' + encodeURIComponent(lines);
+        this.setState({submitting:false});
+        if (popup && !popup.closed) popup.location.replace(destination);
+        else window.location.assign(destination);
       }
     };
   }
