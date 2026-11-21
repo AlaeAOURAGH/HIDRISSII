@@ -565,6 +565,7 @@
 <link rel="stylesheet" href="/mobile.css">
 <link rel="stylesheet" href="/footer.css">
 <link rel="stylesheet" href="/product.css">
+<link rel="stylesheet" href="/navigation.css">
 </helmet>
 
 <div dir="{{ dir }}" class="site-root">
@@ -573,34 +574,37 @@
   <div class="announcement"><span>{{ t.trust2 }}</span><span class="announcement-divider">·</span><span>{{ t.trust1 }}</span></div>
 
   <!-- NAV -->
-  <nav class="site-nav">
-    <div class="resp-nav-pad" style="max-width:1320px; margin:0 auto; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; gap:32px;">
-      <a href="#" onClick="{{ goHome }}" style="display:flex; align-items:center;">
-        <img src="{{ logoSrc }}" alt="HIDRISSI" class="nav-logo" style="height:38px; width:auto; display:block;">
-      </a>
-      <div class="nav-links" style="display:flex; align-items:center; gap:28px; font-size:14px; color:var(--text-nav);">
-        <a href="#" onClick="{{ goHome }}" style="color:inherit; text-decoration:none; font-weight:500;">{{ t.navHome }}</a>
-        <a href="#collection" onClick="{{ navigateCatalog }}" style="color:inherit; text-decoration:none;">{{ t.navCollection }}</a>
-        <a href="#comparer" data-section="comparer" onClick="{{ navigateSection }}">{{ t.compareNav }}</a>
-        <a href="#atelier" data-section="atelier" onClick="{{ navigateSection }}">{{ t.parts }}</a>
-        <a href="#commander" onClick="{{ navigateOrder }}" style="color:inherit; text-decoration:none;">{{ t.navOrder }}</a>
+  <nav class="site-nav" aria-label="{{ t.navMain }}">
+    <div class="resp-nav-pad nav-shell">
+      <a class="nav-brand" href="#" onClick="{{ goHome }}" aria-label="HIDRISSI"><img src="assets/logo-white.png" alt="HIDRISSI" class="nav-logo" width="180" height="38"></a>
+      <div class="nav-links">
+        <a href="#" data-destination="home" onClick="{{ navigateMobile }}" aria-current="{{ headerHomeCurrent }}">{{ t.navHome }}</a>
+        <a href="#collection" data-destination="discover" onClick="{{ navigateMobile }}" aria-current="{{ headerCatalogCurrent }}">{{ t.navCollection }}</a>
+        <a href="#comparer" data-destination="compare" onClick="{{ navigateMobile }}" aria-current="{{ headerCompareCurrent }}">{{ t.compareNav }}</a>
+        <a href="#atelier" data-destination="contact" onClick="{{ navigateMobile }}" aria-current="{{ headerWorkshopCurrent }}">{{ t.navWorkshop }}</a>
       </div>
-      <div style="display:flex; align-items:center; gap:10px;">
-        <button class="mobile-search" onClick="{{ mobileSearch }}" aria-label="{{ t.searchPlaceholder }}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg></button>
-        <button onClick="{{ toggleTheme }}" class="nav-theme" aria-label="{{ t.themeToggle }}" title="{{ t.themeToggle }}">
-          <span style="font-size:15px;">{{ themeIcon }}</span>
-        </button>
-        <button onClick="{{ toggleLang }}" class="nav-lang">
-          <span style="font-size:14px;">{{ t.langGlobe }}</span>
-          {{ t.langSwitch }}
-        </button>
-        <a href="#commander" onClick="{{ navigateOrder }}" aria-label="{{ t.navOrder }}" class="nav-cta btn-wa" style="padding:11px 18px; font-size:13px; display:inline-flex; align-items:center; gap:8px;">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          <span class="nav-cta-text">{{ t.navOrder }}</span>
-        </a>
+      <div class="nav-actions">
+        <button class="nav-search" onClick="{{ mobileSearch }}" aria-label="{{ t.navSearch }}" title="{{ t.navSearch }}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+        <div class="nav-desktop-tools">
+          <button onClick="{{ toggleTheme }}" class="nav-theme" aria-label="{{ t.themeToggle }}" title="{{ t.themeToggle }}"><sc-if value="{{ themeIsLight }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z"/></svg></sc-if><sc-if value="{{ themeIsDark }}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></sc-if></button>
+          <button onClick="{{ toggleLang }}" class="nav-lang" aria-label="{{ t.navLanguage }}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a19 19 0 0 1 0 18 19 19 0 0 1 0-18Z"/></svg><b>{{ t.langSwitch }}</b></button>
+        </div>
+        <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="{{ t.navContact }}" class="nav-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L3 20l1.5-5.2A8 8 0 1 1 20 11.5Z"/><path d="M8 8c0 4 4 8 8 8l1-2-3-1-1 1-3-3 1-1-1-3z"/></svg><span class="nav-cta-text">WhatsApp</span></a>
+        <button class="nav-menu-toggle" onClick="{{ openNavigation }}" aria-label="{{ t.navMenu }}" aria-expanded="{{ navigationOpen }}" aria-controls="navigation-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
       </div>
     </div>
   </nav>
+  <dialog id="navigation-menu" class="nav-menu" dir="{{ dir }}" open="{{ navigationOpen }}" onCancel="{{ closeNavigation }}" aria-label="{{ t.navMain }}">
+    <div class="nav-menu-header"><img src="assets/logo-white.png" alt="HIDRISSI" width="156" height="33"><button onClick="{{ closeNavigation }}" aria-label="{{ t.navClose }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <nav class="nav-menu-links" aria-label="{{ t.navMain }}">
+      <a href="#" data-destination="home" onClick="{{ navigateMobile }}" aria-current="{{ headerHomeCurrent }}">{{ t.navHome }}</a>
+      <a href="#collection" data-destination="discover" onClick="{{ navigateMobile }}" aria-current="{{ headerCatalogCurrent }}">{{ t.navCollection }}</a>
+      <a href="#comparer" data-destination="compare" onClick="{{ navigateMobile }}" aria-current="{{ headerCompareCurrent }}">{{ t.compareNav }}</a>
+      <a href="#atelier" data-destination="contact" onClick="{{ navigateMobile }}" aria-current="{{ headerWorkshopCurrent }}">{{ t.navWorkshop }}</a>
+    </nav>
+    <div class="nav-menu-settings"><button onClick="{{ toggleLang }}"><span>{{ t.navLanguage }}</span><b>{{ t.langSwitch }}</b></button><button onClick="{{ toggleTheme }}"><span>{{ t.navAppearance }}</span><b>{{ t.themeToggle }}</b></button></div>
+    <a class="nav-menu-contact" href="{{ waLink }}" target="_blank" rel="noopener">{{ t.navContact }}</a>
+  </dialog>
 
   <!-- PRODUCT DETAIL VIEW -->
   <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">

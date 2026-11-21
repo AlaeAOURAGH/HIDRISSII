@@ -45,7 +45,7 @@ class Component extends DCLogic {
     comparison: ['', '', ''],
     favorites: [], favoritesOnly: false, mobileDestination:'home',
     minSpeed:0, minRange:0, minPower:0, filterDraft:{},
-    galleryOpen:false, filtersOpen:false,
+    galleryOpen:false, filtersOpen:false, navigationOpen:false,
     orderError: '',
     submitting: false,
     theme: 'light',
@@ -146,6 +146,7 @@ class Component extends DCLogic {
 
   UI = {
     fr: {
+      navMain:'Navigation principale',navWorkshop:'Atelier & pièces',navSearch:'Rechercher un modèle',navLanguage:'Langue',navAppearance:'Apparence',navMenu:'Ouvrir le menu',navClose:'Fermer le menu',navContact:'Discuter sur WhatsApp',
       productPrice:'Prix du modèle',productAbout:'À propos de ce modèle',productQuestion:'Poser une question sur WhatsApp',
       footerLabel:'Pied de page HIDRISSI',footerTitle:'On en parle ?',footerCopy:'Un modèle en tête ? Notre équipe vous aide à trouver le bon.',footerChat:'Discuter sur WhatsApp',footerExplore:'Explorer',footerShowroom:'LE SHOWROOM',footerLocation:'Aïn Aouda, Rabat',footerVisitCopy:'Le conseil, l’entretien et votre prochain départ. Retrouvez-nous au showroom.',footerDirections:'Nous trouver',footerService:'Atelier & SAV',footerTop:'Retour en haut',
       heroTitle: 'VOTRE VILLE.', heroTitleAccent: 'VOTRE RYTHME.',
@@ -167,6 +168,7 @@ class Component extends DCLogic {
       mobileHome: 'Accueil', mobileCatalog: 'Modèles', mobileOrder: 'Commander'
     },
     ar: {
+      navMain:'القائمة الرئيسية',navWorkshop:'الورشة والقطع',navSearch:'البحث عن موديل',navLanguage:'اللغة',navAppearance:'المظهر',navMenu:'فتح القائمة',navClose:'إغلاق القائمة',navContact:'تواصل عبر واتساب',
       productPrice:'ثمن الموديل',productAbout:'حول هذا الموديل',productQuestion:'اسألنا عبر واتساب',
       footerLabel:'تذييل موقع إدريسي',footerTitle:'نتحدث عن رحلتك؟',footerCopy:'لديك موديل في بالك؟ فريقنا يساعدك على الاختيار.',footerChat:'تواصل عبر واتساب',footerExplore:'اكتشف',footerShowroom:'المعرض',footerLocation:'عين عودة، الرباط',footerVisitCopy:'للاستشارة والصيانة واختيار دراجتك القادمة، تفضل بزيارتنا في المعرض.',footerDirections:'موقعنا على الخريطة',footerService:'ورشة وخدمة ما بعد البيع',footerTop:'العودة إلى الأعلى',
       heroTitle: 'مدينتك.', heroTitleAccent: 'بإيقاعك.', heroBadge: 'HIDRISSI · التنقل الكهربائي',
@@ -317,6 +319,9 @@ class Component extends DCLogic {
     const resultLabel = lang === 'ar' ? (n + ' نتيجة') : (n + (n > 1 ? ' résultats' : ' résultat'));
 
     return {
+      navigationOpen:this.state.navigationOpen,themeIsLight:isLight,themeIsDark:!isLight,
+      headerHomeCurrent:view==='home'&&this.state.mobileDestination==='home'?'page':false,headerCatalogCurrent:view==='detail'||this.state.mobileDestination==='discover'||this.state.mobileDestination==='favorites'?'page':false,headerCompareCurrent:view==='home'&&this.state.mobileDestination==='compare'?'page':false,headerWorkshopCurrent:view==='home'&&this.state.mobileDestination==='contact'?'page':false,
+      openNavigation:()=>this.openDialog('navigation-menu','navigationOpen'),closeNavigation:()=>this.closeDialog('navigation-menu','navigationOpen'),
       t, dir, lang, waLink, mapsUrl: this.MAPS_URL, theme, logoSrc, themeIcon,
       partsLink:'https://wa.me/'+this.WA_NUMBER+'?text='+encodeURIComponent(lang==='ar'?'مرحباً، أبحث عن قطعة أو إكسسوار لدراجتي. الموديل: ... القطعة: ... هل هي متوافقة ومتوفرة؟':'Bonjour, je cherche une pièce ou un accessoire. Mon modèle : ... Pièce souhaitée : ... Pouvez-vous confirmer la compatibilité et la disponibilité ?'),
       filteredProducts:mobileFiltered, orderableProducts, catChips, brandChips, resultLabel,
@@ -329,7 +334,7 @@ class Component extends DCLogic {
       activeFilterCount:[this.state.brand!=='all',this.state.budget!=='all',this.state.stockOnly,this.state.minSpeed>0,this.state.minRange>0,this.state.minPower>0].filter(Boolean).length,
       filterDraft:this.state.filterDraft,brandOptions:this.BRANDS.map(name=>({name})),
       toggleFavorite:e=>{e.preventDefault();e.stopPropagation();const id=e.currentTarget.dataset.id;const favorites=this.state.favorites.includes(id)?this.state.favorites.filter(x=>x!==id):[...this.state.favorites,id];this.setState({favorites});try{localStorage.setItem('hidrissi-favorites',JSON.stringify(favorites));}catch{}},
-      navigateMobile:e=>{e.preventDefault();const destination=e.currentTarget.dataset.destination;history.replaceState({},'',location.pathname);this.setState({view:'home',mobileDestination:destination,favoritesOnly:destination==='favorites',...(destination==='favorites'?{search:'',cat:'all',brand:'all',budget:'all',stockOnly:false,minSpeed:0,minRange:0,minPower:0}:{})});setTimeout(()=>{const id={discover:'collection',compare:'comparer',favorites:'collection',contact:'atelier'}[destination];if(id)document.getElementById(id)?.scrollIntoView({behavior:'smooth'});else window.scrollTo({top:0,behavior:'smooth'});},60);},
+      navigateMobile:e=>{e.preventDefault();if(this.state.navigationOpen)this.closeDialog('navigation-menu','navigationOpen');const destination=e.currentTarget.dataset.destination;history.replaceState({},'',location.pathname);this.setState({view:'home',mobileDestination:destination,favoritesOnly:destination==='favorites',...(destination==='favorites'?{search:'',cat:'all',brand:'all',budget:'all',stockOnly:false,minSpeed:0,minRange:0,minPower:0}:{})});setTimeout(()=>{const id={discover:'collection',compare:'comparer',favorites:'collection',contact:'atelier'}[destination];if(id)document.getElementById(id)?.scrollIntoView({behavior:'smooth'});else window.scrollTo({top:0,behavior:'smooth'});},60);},
       mobileSearch:e=>{if(e)e.preventDefault();history.replaceState({},'',location.pathname);this.setState({view:'home',mobileDestination:'discover',favoritesOnly:false});setTimeout(()=>{document.getElementById('collection')?.scrollIntoView();document.querySelector('.search-input')?.focus({preventScroll:true});},80);},
       galleryOpen:this.state.galleryOpen,filtersOpen:this.state.filtersOpen,
       openFilters:()=>this.openDialog('mobile-filters','filtersOpen',{filterDraft:{brand:this.state.brand,budget:this.state.budget,stockOnly:this.state.stockOnly,minSpeed:this.state.minSpeed,minRange:this.state.minRange,minPower:this.state.minPower,sort:this.state.sort}}),
