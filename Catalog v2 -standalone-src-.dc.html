@@ -561,6 +561,7 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.18.2/libheif-wasm/libheif-bundle.js"></script>
 <link rel="stylesheet" href="/storefront.css">
+<link rel="stylesheet" href="/premium.css">
 </helmet>
 
 <div dir="{{ dir }}" class="site-root">
@@ -577,6 +578,8 @@
       <div class="nav-links" style="display:flex; align-items:center; gap:28px; font-size:14px; color:var(--text-nav);">
         <a href="#" onClick="{{ goHome }}" style="color:inherit; text-decoration:none; font-weight:500;">{{ t.navHome }}</a>
         <a href="#collection" onClick="{{ navigateCatalog }}" style="color:inherit; text-decoration:none;">{{ t.navCollection }}</a>
+        <a href="#comparer" data-section="comparer" onClick="{{ navigateSection }}">{{ t.compareNav }}</a>
+        <a href="#atelier" data-section="atelier" onClick="{{ navigateSection }}">{{ t.parts }}</a>
         <a href="#commander" onClick="{{ navigateOrder }}" style="color:inherit; text-decoration:none;">{{ t.navOrder }}</a>
       </div>
       <div style="display:flex; align-items:center; gap:10px;">
@@ -693,7 +696,8 @@
           </div>
           <div class="hero-price"><span>{{ t.from }}</span><strong>{{ minPrice }} <small>{{ t.currency }}</small></strong><span>{{ t.trust1 }}</span></div>
         </div>
-        <div class="showroom-caption"><span>{{ t.showroomPlace }}</span><strong>{{ t.showroom }}</strong></div>
+        <div class="showroom-caption"><span>{{ t.imageNote }}</span><strong>WATHIUM RS-2</strong></div>
+        <a class="hero-scroll" href="#collection">{{ t.browseCollection }}<span aria-hidden="true">↓</span></a>
       </div>
 
       <!-- Stats -->
@@ -716,6 +720,8 @@
         </div>
       </div>
     </section>
+
+    <section class="ride-editorial sec"><div class="editorial-heading"><span>HIDRISSI / MOBILITY</span><h2>{{ t.chooseRide }}</h2></div><div class="ride-grid"><button class="ride-tile" onClick="{{ chooseRide }}" data-category="city"><img src="/img/athrum-city-1-1200.webp" alt="ATHRUM CITY" loading="lazy"><div><span>URBAN</span><h3>{{ t.urbanTitle }}</h3><strong>{{ t.explore }}</strong></div></button><button class="ride-tile" onClick="{{ chooseRide }}" data-category="perf"><img src="/img/wathium-rs-2-1-1200.webp" alt="WATHIUM RS-2" loading="lazy"><div><span>PERFORMANCE</span><h3>{{ t.perfTitle }}</h3><strong>{{ t.explore }}</strong></div></button></div></section>
 
     <!-- TRUST BAR -->
     <section class="section-deep">
@@ -776,6 +782,7 @@
           </div>
 
           <div class="catalog-tools">
+            <label class="budget-control"><span>{{ t.budget }}</span><select aria-label="{{ t.budget }}" value="{{ budget }}" onChange="{{ changeBudget }}"><option value="all" label="{{ t.allPrices }}"></option><option value="under" label="{{ t.under4000 }}"></option><option value="over" label="{{ t.over4000 }}"></option></select></label>
             <span aria-live="polite">{{ resultLabel }}</span>
             <label class="stock-filter"><input type="checkbox" checked="{{ stockOnly }}" onChange="{{ toggleStock }}"> {{ t.stockOnly }}</label>
             <label class="sort-control"><span>{{ t.sortLabel }}</span><select aria-label="{{ t.sortLabel }}" value="{{ sort }}" onChange="{{ changeSort }}"><option value="recommended" label="{{ t.recommended }}">{{ t.recommended }}</option><option value="priceAsc" label="{{ t.priceAsc }}">{{ t.priceAsc }}</option><option value="priceDesc" label="{{ t.priceDesc }}">{{ t.priceDesc }}</option></select></label>
@@ -847,12 +854,13 @@
 
     <!-- COMPARISON -->
     <section class="section-deep">
-      <div class="sec sec-compare" style="max-width:1320px; margin:0 auto; padding:100px 32px;">
+      <div id="comparer" class="sec sec-compare" style="max-width:1320px; margin:0 auto; padding:100px 32px;">
         <div style="margin-bottom:48px;">
           <div style="font-size:11px; letter-spacing:0.16em; color:var(--text-dim); text-transform:uppercase;">{{ t.compareEyebrow }}</div>
           <h2 class="resp-h2" style="margin:16px 0 0; font-size:46px; line-height:1.05; letter-spacing:-0.04em; font-weight:800;">{{ t.compareTitle }}</h2>
         </div>
 
+        <p class="comparison-help">{{ t.compareHelp }}</p><div class="comparison-picker"><sc-for list="{{ compareSlots }}" as="slot"><label><span>{{ slot.label }}</span><select aria-label="{{ slot.label }}" data-slot="{{ slot.index }}" value="{{ slot.name }}" onChange="{{ changeComparison }}"><option value="" label="{{ t.chooseModel }}"></option><sc-for list="{{ products }}" as="model"><option value="{{ model.name }}" label="{{ model.name }}"></option></sc-for></select></label></sc-for></div>
         <div class="resp-table-wrap" style="border:1px solid var(--compare-border); border-radius:16px; overflow:hidden;">
           <table class="resp-table compare-table" style="width:100%; border-collapse:collapse; font-size:13px;">
             <thead>
@@ -865,7 +873,7 @@
               </tr>
             </thead>
             <tbody>
-              <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
+              <sc-for list="{{ comparisonProducts }}" as="p" hint-placeholder-count="3">
                 <tr style="border-bottom:1px solid var(--compare-row-border);">
                   <td style="padding:18px 20px; font-weight:700;">{{ p.name }}</td>
                   <td style="padding:18px 20px; color:var(--color-text);">{{ p.power }}</td>
@@ -882,6 +890,8 @@
         </div>
       </div>
     </section>
+
+    <section class="service-editorial sec" id="atelier"><div><span class="section-kicker">{{ t.parts }}</span><h2>{{ t.partsTitle }}</h2><p>{{ t.partsCopy }}</p><a class="btn-gold" href="{{ partsLink }}" target="_blank" rel="noopener">{{ t.partsCta }}</a></div><div class="service-photo"><img src="/assets/hero-1600.webp" alt="Showroom HIDRISSI à Aïn Aouda" loading="lazy"><span>AÏN AOUDA · MAROC</span></div><div class="showroom-story"><span class="section-kicker">HIDRISSI / SHOWROOM</span><h2>{{ t.shopTitle }}</h2><p>{{ t.shopCopy }}</p><a href="{{ mapsUrl }}" target="_blank" rel="noopener">{{ t.visit }}</a></div></section>
 
     <!-- ORDER -->
     <section id="commander" class="sec sec-order" style="max-width:1320px; margin:0 auto; padding:100px 32px;">

@@ -58,7 +58,7 @@ html = html.replace('</head>', '<script type="application/ld+json">' + JSON.stri
 html = html.replace('<sc-if value="{{ noResults }}"', '<div role="status"><sc-if value="{{ loading }}"><p>{{ catalogStatus }}</p></sc-if><sc-if value="{{ loadError }}"><p>{{ catalogStatus }}</p></sc-if></div><sc-if value="{{ noResults }}"');
 fs.writeFileSync('index.html', html);
 fs.mkdirSync('dist', { recursive: true });
-for (const item of ['index.html','support.js','storefront.css','data','admin','img','assets','robots.txt','sitemap.xml']) fs.cpSync(item, path.join('dist', item), { recursive: true });
+for (const item of ['index.html','support.js','storefront.css','premium.css','data','admin','img','assets','robots.txt','sitemap.xml']) fs.cpSync(item, path.join('dist', item), { recursive: true });
 fs.writeFileSync('dist/data/products.json', JSON.stringify(catalog, null, 2) + '\n');
 if (fs.existsSync('uploads')) fs.cpSync('uploads', 'dist/uploads', { recursive: true });
 console.log('Built', catalog.products.length, 'products into dist/');

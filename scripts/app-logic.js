@@ -41,6 +41,8 @@ class Component extends DCLogic {
     brand: 'all',
     sort: 'recommended',
     stockOnly: false,
+    budget: 'all',
+    comparison: ['', '', ''],
     orderError: '',
     submitting: false,
     theme: 'light',
@@ -117,10 +119,11 @@ class Component extends DCLogic {
 
   UI = {
     fr: {
-      heroTitle: 'La ville vous', heroTitleAccent: 'appartient.',
-      heroBadge: 'LA MOBILITÉ, AUTREMENT',
-      heroSubtitle: 'Pour vos trajets quotidiens ou vos envies de liberté. Trouvez votre trottinette, on s’occupe de la livraison.',
-      heroCta: 'Trouver ma trottinette', talk: 'Être conseillé', from: 'À partir de',
+      heroTitle: 'VOTRE VILLE.', heroTitleAccent: 'VOTRE RYTHME.',
+      heroBadge: 'HIDRISSI · ELECTRIC MOBILITY',
+      heroSubtitle: 'Une nouvelle façon de vivre la ville. Découvrez votre prochaine trottinette électrique.',
+      heroCta: 'Explorer la collection', talk: 'Parlons de votre projet', from: 'À partir de',
+      budget:'Votre budget', allPrices:'Tous les prix', under4000:'Moins de 4 000 MAD',over4000:'4 000 MAD et plus',chooseModel:'Choisir un modèle',compareHelp:'Sélectionnez jusqu’à trois modèles et comparez leurs caractéristiques.',compareNav:'Comparer',parts:'Accessoires & pièces',partsTitle:'Votre trajet continue.',partsCopy:'Pneu, chargeur ou frein : indiquez votre modèle pour vérifier la compatibilité et la disponibilité.',partsCta:'Trouver ma pièce',shopTitle:'Du premier conseil au prochain kilomètre.',shopCopy:'Rencontrez notre équipe au showroom d’Aïn Aouda. Choix du modèle, entretien et assistance : parlons de ce dont vous avez besoin.',visit:'Visiter le showroom',chooseRide:'À chaque trajet, son caractère.',urbanTitle:'La ville, en toute liberté.',perfTitle:'Changez de rythme.',explore:'Explorer',imageNote:'Mise en scène studio',
       showroom: 'Votre prochain départ commence ici.', showroomPlace: 'Notre showroom · Aïn Aouda, Rabat',
       collectionEyebrow: 'CHOISISSEZ VOTRE PROCHAIN DÉPART', collectionTitle: 'À chacun sa façon de rouler.',
       collectionGoal: 'Comparez les modèles, trouvez votre équilibre entre puissance, autonomie et budget.',
@@ -135,7 +138,8 @@ class Component extends DCLogic {
       mobileHome: 'Accueil', mobileCatalog: 'Modèles', mobileOrder: 'Commander'
     },
     ar: {
-      heroTitle: 'المدينة', heroTitleAccent: 'بين يديك.', heroBadge: 'تنقّل بطريقة مختلفة',
+      heroTitle: 'مدينتك.', heroTitleAccent: 'بإيقاعك.', heroBadge: 'HIDRISSI · التنقل الكهربائي',
+      budget:'الميزانية',allPrices:'كل الأثمنة',under4000:'أقل من 4000 درهم',over4000:'4000 درهم وأكثر',chooseModel:'اختر موديل',compareHelp:'اختر حتى ثلاثة موديلات وقارن مواصفاتها.',compareNav:'قارن',parts:'الإكسسوارات والقطع',partsTitle:'نرافقك بعد الشراء أيضاً.',partsCopy:'أخبرنا بموديل دراجتك للتحقق من التوافق وتوفر القطعة المناسبة.',partsCta:'ابحث عن قطعتي',shopTitle:'من أول نصيحة إلى الكيلومتر القادم.',shopCopy:'زر فريقنا في معرض عين عودة لاختيار الموديل والصيانة والمساعدة.',visit:'زيارة المعرض',chooseRide:'لكل رحلة طابعها.',urbanTitle:'المدينة بكل حرية.',perfTitle:'غيّر إيقاعك.',explore:'اكتشف',imageNote:'تصوير استوديو توضيحي',
       heroSubtitle: 'لتنقّلاتك اليومية أو رحلاتك بكل حرية. اختر دراجتك الكهربائية ودع التوصيل علينا.',
       heroCta: 'اختر دراجتك', talk: 'استشر فريقنا', from: 'ابتداءً من',
       showroom: 'انطلاقتك القادمة تبدأ هنا.', showroomPlace: 'معرضنا · عين عودة، الرباط',
@@ -225,7 +229,7 @@ class Component extends DCLogic {
     const curMain = cpImages[activeImage] || cpImages[0] || { display: '', w: '', h: '' };
     const currentImage = curMain.display, currentImageW = curMain.w, currentImageH = curMain.h;
 
-    const heroImage = 'assets/hero-1600.webp', heroW = 1536, heroH = 1024;
+    const heroImage = 'assets/hero-studio-v3.webp', heroW = 1536, heroH = 1024;
 
     const qty = parseInt(form.qty) || 1;
     const selP = this.PRODUCTS.find(p => p.name === selectedProduct) || this.PRODUCTS.find(p => p.inStock !== false) || this.PRODUCTS[0] || { priceNum: 0, inStock: true };
@@ -246,7 +250,7 @@ class Component extends DCLogic {
     const matchCat = (name) => activeCat === 'all' || (this.CAT_OF[name] || 'city') === activeCat;
     const matchBrand = (name) => activeBrand === 'all' || this.BRAND_OF[name] === activeBrand;
     const matchSearch = (name) => { const q = search.trim().toLowerCase(); return !q || name.toLowerCase().includes(q); };
-    const filteredProducts = products.filter(p => matchCat(p.name) && matchBrand(p.name) && matchSearch(p.name) && (!this.state.stockOnly || p.inStock));
+    const filteredProducts = products.filter(p => { const price=this.PRODUCTS.find(x=>x.name===p.name).priceNum; return matchCat(p.name) && matchBrand(p.name) && matchSearch(p.name) && (!this.state.stockOnly || p.inStock) && (this.state.budget==='all' || (this.state.budget==='under' ? price<4000 : price>=4000)); });
     if (this.state.sort === 'priceAsc') filteredProducts.sort((a,b) => this.PRODUCTS.find(p=>p.name===a.name).priceNum - this.PRODUCTS.find(p=>p.name===b.name).priceNum);
     if (this.state.sort === 'priceDesc') filteredProducts.sort((a,b) => this.PRODUCTS.find(p=>p.name===b.name).priceNum - this.PRODUCTS.find(p=>p.name===a.name).priceNum);
     const chipStyle = (on) => ({
@@ -273,13 +277,20 @@ class Component extends DCLogic {
 
     return {
       t, dir, lang, waLink, mapsUrl: this.MAPS_URL, theme, logoSrc, themeIcon,
+      partsLink:'https://wa.me/'+this.WA_NUMBER+'?text='+encodeURIComponent(lang==='ar'?'مرحباً، أبحث عن قطعة أو إكسسوار لدراجتي. الموديل: ... القطعة: ... هل هي متوافقة ومتوفرة؟':'Bonjour, je cherche une pièce ou un accessoire. Mon modèle : ... Pièce souhaitée : ... Pouvez-vous confirmer la compatibilité et la disponibilité ?'),
       filteredProducts, orderableProducts, catChips, brandChips, resultLabel,
+      budget:this.state.budget, changeBudget:e=>this.setState({budget:e.currentTarget.value}),
+      compareSlots:this.state.comparison.map((name,i)=>({index:i,name,label:(lang==='ar'?'الموديل ':'Modèle ')+(i+1)})),
+      comparisonProducts:products.filter(p=>this.state.comparison.some(Boolean)?this.state.comparison.includes(p.name):products.slice(0,3).some(x=>x.name===p.name)),
+      changeComparison:e=>{const comparison=[...this.state.comparison];comparison[Number(e.currentTarget.dataset.slot)]=e.currentTarget.value;this.setState({comparison});},
+      chooseRide:e=>{this.setState({cat:e.currentTarget.dataset.category,brand:'all',search:'',budget:'all',view:'home'});setTimeout(()=>document.getElementById('collection')?.scrollIntoView({behavior:'smooth'}),60);},
+      navigateSection:e=>{e.preventDefault();const id=e.currentTarget.dataset.section;this.setState({view:'home'});setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'}),60);},
       productCount: products.length,
       minPrice: this.PRODUCTS.length ? Math.min(...this.PRODUCTS.map(p=>p.priceNum)).toLocaleString('fr-FR') : '—',
       sort: this.state.sort, stockOnly: this.state.stockOnly,
       changeSort: e => this.setState({sort:e.currentTarget.value}),
       toggleStock: e => this.setState({stockOnly:e.currentTarget.checked}),
-      resetFilters: () => this.setState({search:'',cat:'all',brand:'all',sort:'recommended',stockOnly:false}),
+      resetFilters: () => this.setState({search:'',cat:'all',brand:'all',sort:'recommended',stockOnly:false,budget:'all'}),
       navigateCatalog: e => { if(e)e.preventDefault();this.setState({view:'home'});setTimeout(()=>document.getElementById('collection')?.scrollIntoView({behavior:'smooth'}),60); },
       navigateOrder: e => { if(e)e.preventDefault();this.setState({view:'home'});setTimeout(()=>document.getElementById('commander')?.scrollIntoView({behavior:'smooth'}),60); },
       openProductKey: e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();const idx=this.PRODUCTS.findIndex(p=>p.name===e.currentTarget.dataset.name);if(idx>=0){this.setState({view:'detail',activeProduct:idx,activeImage:0});window.scrollTo({top:0,behavior:'smooth'});}} },
