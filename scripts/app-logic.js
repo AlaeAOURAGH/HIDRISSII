@@ -146,6 +146,7 @@ class Component extends DCLogic {
 
   UI = {
     fr: {
+      footerLabel:'Pied de page HIDRISSI',footerTitle:'On en parle ?',footerCopy:'Un modèle en tête ? Notre équipe vous aide à trouver le bon.',footerChat:'Discuter sur WhatsApp',footerExplore:'Explorer',footerShowroom:'LE SHOWROOM',footerLocation:'Aïn Aouda, Rabat',footerVisitCopy:'Le conseil, l’entretien et votre prochain départ. Retrouvez-nous au showroom.',footerDirections:'Nous trouver',footerService:'Atelier & SAV',footerTop:'Retour en haut',
       heroTitle: 'VOTRE VILLE.', heroTitleAccent: 'VOTRE RYTHME.',
       heroBadge: 'HIDRISSI · ELECTRIC MOBILITY',
       heroSubtitle: 'Une nouvelle façon de vivre la ville. Découvrez votre prochaine trottinette électrique.',
@@ -165,6 +166,7 @@ class Component extends DCLogic {
       mobileHome: 'Accueil', mobileCatalog: 'Modèles', mobileOrder: 'Commander'
     },
     ar: {
+      footerLabel:'تذييل موقع إدريسي',footerTitle:'نتحدث عن رحلتك؟',footerCopy:'لديك موديل في بالك؟ فريقنا يساعدك على الاختيار.',footerChat:'تواصل عبر واتساب',footerExplore:'اكتشف',footerShowroom:'المعرض',footerLocation:'عين عودة، الرباط',footerVisitCopy:'للاستشارة والصيانة واختيار دراجتك القادمة، تفضل بزيارتنا في المعرض.',footerDirections:'موقعنا على الخريطة',footerService:'ورشة وخدمة ما بعد البيع',footerTop:'العودة إلى الأعلى',
       heroTitle: 'مدينتك.', heroTitleAccent: 'بإيقاعك.', heroBadge: 'HIDRISSI · التنقل الكهربائي',
       budget:'الميزانية',allPrices:'كل الأثمنة',under4000:'أقل من 4000 درهم',over4000:'4000 درهم وأكثر',chooseModel:'اختر موديل',compareHelp:'اختر حتى ثلاثة موديلات وقارن مواصفاتها.',compareNav:'قارن',parts:'الإكسسوارات والقطع',partsTitle:'نرافقك بعد الشراء أيضاً.',partsCopy:'أخبرنا بموديل دراجتك للتحقق من التوافق وتوفر القطعة المناسبة.',partsCta:'ابحث عن قطعتي',shopTitle:'من أول نصيحة إلى الكيلومتر القادم.',shopCopy:'زر فريقنا في معرض عين عودة لاختيار الموديل والصيانة والمساعدة.',visit:'زيارة المعرض',chooseRide:'لكل رحلة طابعها.',urbanTitle:'المدينة بكل حرية.',perfTitle:'غيّر إيقاعك.',explore:'اكتشف',imageNote:'تصوير استوديو توضيحي',
       heroSubtitle: 'لتنقّلاتك اليومية أو رحلاتك بكل حرية. اختر دراجتك الكهربائية ودع التوصيل علينا.',
