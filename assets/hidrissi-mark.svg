@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>HIDRISSI</title>
+  <rect width="64" height="64" rx="14" fill="#0e1621"/>
+  <path d="M15 14h10l-2 14h16l2-14h10l-5 36H36l2-14H22l-2 14H10z" fill="#e6b75f"/>
+  <path d="M43 10 27 33h9L22 55l27-29H38z" fill="#0e1621"/>
+  <path d="m43 15-12 17h9L27 49l18-21h-9z" fill="#e6b75f"/>
+</svg>

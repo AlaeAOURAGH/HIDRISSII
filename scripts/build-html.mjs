@@ -43,9 +43,10 @@ function buildSeo(modelCount, priceMin, priceMax) {
 <link rel="canonical" href="${SITE_URL}/">
 <meta name="theme-color" content="#FAF7F2">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/x-icon" href="/assets/hidrissi-mark.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/hidrissi-mark-32.png">
+<link rel="icon" type="image/svg+xml" sizes="any" href="/assets/hidrissi-mark.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/hidrissi-mark-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HIDRISSI">
 <meta property="og:title" content="Scooters &amp; trottinettes électriques au Maroc — dès ${minDh} dh">
