@@ -17,10 +17,10 @@
 .sec-detail .detail-thumb{width:64px;height:64px;min-width:64px!important;min-height:64px!important;flex:0 0 64px;border:1px solid var(--border-light);border-radius:10px!important;background:var(--brand-surface);opacity:.65;scroll-snap-align:start;transition:opacity .15s,border-color .15s;padding:3px}
 .sec-detail .detail-thumb img{border-radius:6px;object-fit:contain!important}
 .sec-detail .detail-thumb:hover{opacity:1;transform:none}
-.sec-detail .detail-thumb[aria-pressed="true"]{border:2px solid #ed2024!important;opacity:1;padding:2px}
+.sec-detail .detail-thumb[aria-pressed="true"]{border:2px solid var(--accent)!important;opacity:1;padding:2px}
 .sec-detail .detail-info{grid-area:info;display:flex;flex-direction:column;gap:24px}
 .sec-detail .detail-heading{grid-area:heading}
-.sec-detail .detail-brand{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;color:#da2024;margin:0 0 12px}
+.sec-detail .detail-brand{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);margin:0 0 12px}
 .sec-detail .detail-meta{gap:8px;margin-bottom:14px}
 .sec-detail .detail-pill{font-size:10px;line-height:1.4;letter-spacing:.06em;padding:6px 10px;border:1px solid var(--border-light);border-radius:6px;background:var(--brand-surface-alt);color:var(--text-body);font-weight:650}
 .sec-detail .detail-title{font-size:clamp(30px,3vw,42px)!important;line-height:1.12!important;letter-spacing:-.04em;margin:0!important;color:var(--color-text);font-weight:780;overflow-wrap:anywhere}
@@ -50,12 +50,12 @@
 .sec-detail .product-features[open] summary>svg{transform:rotate(180deg)}
 .sec-detail .product-features>div{display:grid;gap:12px;padding:0 0 20px}
 .sec-detail .product-features p{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.7;color:var(--text-body);margin:0}
-.sec-detail .product-features p svg{width:16px;height:16px;margin-top:4px;color:#ed2024}
+.sec-detail .product-features p svg{width:16px;height:16px;margin-top:4px;color:var(--accent)}
 .sec-detail .detail-related{margin-top:64px;padding-top:32px;border-top:1px solid var(--border-light)}
 .sec-detail .detail-related h2{font-size:23px;margin-bottom:20px}
 .sec-detail .detail-related>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .sec-detail .detail-related button{display:flex;align-items:center;gap:16px;padding:16px;border:1px solid var(--border-light);border-radius:12px;background:var(--brand-surface);color:var(--color-text);text-align:start;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
-.sec-detail .detail-related button:hover{border-color:#ed2024}
+.sec-detail .detail-related button:hover{border-color:var(--accent)}
 .sec-detail .detail-related img{width:64px;height:80px;object-fit:contain;border-radius:6px;background:#eee;flex-shrink:0}
 .sec-detail .detail-related strong{display:block;font-size:14px;font-weight:500;color:var(--text-subtle);margin-top:8px}
 .site-root:has(.sec-detail)>.fab-wa{display:none!important}

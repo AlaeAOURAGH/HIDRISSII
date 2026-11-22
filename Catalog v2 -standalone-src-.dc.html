@@ -566,6 +566,7 @@
 <link rel="stylesheet" href="/footer.css">
 <link rel="stylesheet" href="/product.css">
 <link rel="stylesheet" href="/navigation.css">
+<link rel="stylesheet" href="/showroom-theme.css">
 </helmet>
 
 <div dir="{{ dir }}" class="site-root">
@@ -576,7 +577,7 @@
   <!-- NAV -->
   <nav class="site-nav" aria-label="{{ t.navMain }}">
     <div class="resp-nav-pad nav-shell">
-      <a class="nav-brand" href="#" onClick="{{ goHome }}" aria-label="HIDRISSI"><img src="assets/logo-white.png" alt="HIDRISSI" class="nav-logo" width="180" height="38"></a>
+      <a class="nav-brand" href="#" onClick="{{ goHome }}" aria-label="HIDRISSI"><img src="{{ logoSrc }}" alt="HIDRISSI" class="nav-logo" width="180" height="38"></a>
       <div class="nav-links">
         <a href="#" data-destination="home" onClick="{{ navigateMobile }}" aria-current="{{ headerHomeCurrent }}">{{ t.navHome }}</a>
         <a href="#collection" data-destination="discover" onClick="{{ navigateMobile }}" aria-current="{{ headerCatalogCurrent }}">{{ t.navCollection }}</a>
@@ -595,7 +596,7 @@
     </div>
   </nav>
   <dialog id="navigation-menu" class="nav-menu" dir="{{ dir }}" open="{{ navigationOpen }}" onCancel="{{ closeNavigation }}" aria-label="{{ t.navMain }}">
-    <div class="nav-menu-header"><img src="assets/logo-white.png" alt="HIDRISSI" width="156" height="33"><button onClick="{{ closeNavigation }}" aria-label="{{ t.navClose }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <div class="nav-menu-header"><img src="{{ logoSrc }}" alt="HIDRISSI" width="156" height="33"><button onClick="{{ closeNavigation }}" aria-label="{{ t.navClose }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
     <nav class="nav-menu-links" aria-label="{{ t.navMain }}">
       <a href="#" data-destination="home" onClick="{{ navigateMobile }}" aria-current="{{ headerHomeCurrent }}">{{ t.navHome }}</a>
       <a href="#collection" data-destination="discover" onClick="{{ navigateMobile }}" aria-current="{{ headerCatalogCurrent }}">{{ t.navCollection }}</a>
@@ -984,7 +985,7 @@
         </div>
         <div class="footer-directory">
           <div class="footer-brand">
-            <a href="#" onClick="{{ goHome }}" aria-label="HIDRISSI"><img src="assets/logo-white.png" alt="HIDRISSI" width="220" height="46" loading="lazy"></a>
+            <a href="#" onClick="{{ goHome }}" aria-label="HIDRISSI"><img src="{{ logoSrc }}" alt="HIDRISSI" width="220" height="46" loading="lazy"></a>
             <p>{{ t.footerTagline }}</p>
             <div class="footer-socials">
               <a href="https://www.instagram.com/h.idrissielectro" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
