@@ -16,7 +16,7 @@ function storefront(fetch) {
   c.T={fr:{cities:['Rabat'],waCta:'Commander via WhatsApp',photos:n=>n+' photos'},ar:{cities:['الرباط'],waCta:'طلب',photos:n=>n+' صور'}};
   c.PRODUCTS=products.map(p=>({...p,inStock:p.in_stock,priceNum:p.price,price:String(p.price),speed:{fr:p.speed},range:{fr:p.range},images:p.images.map(src=>({display:src,thumb:src})),shortDesc:p.short_desc}));
   c.state.form={name:'Client test',phone:'0600000000',qty:'2',city:'Rabat'};c.state.selectedProduct=c.PRODUCTS.find(p=>p.inStock).name;c.state.loaded=true;
-  return {c,popup,storage};
+  return {c,popup,storage,context};
 }
 
 test('favourites persist product IDs and filter without opening a product',()=>{
@@ -33,13 +33,30 @@ test('specification filters use advertised upper ranges and combined motor power
   c.renderVals().resetFilters();assert.equal(c.renderVals().filteredProducts.length,c.PRODUCTS.length);
 });
 
-test('photo navigation wraps and ignores small touch movements',()=>{
+test('photo navigation wraps and ignores small touch movements',async()=>{
   const {c}=storefront();const total=c.PRODUCTS[0].images.length;
-  c.renderVals().previousImage();assert.equal(c.state.activeImage,total-1);
-  c.renderVals().nextImage();assert.equal(c.state.activeImage,0);
+  await c.renderVals().previousImage();assert.equal(c.state.activeImage,total-1);
+  await c.renderVals().nextImage();assert.equal(c.state.activeImage,0);
   c.renderVals().swipeStart({changedTouches:[{clientX:200}]});
-  c.renderVals().swipeEnd({changedTouches:[{clientX:180}]});assert.equal(c.state.activeImage,0);
-  c.renderVals().swipeEnd({changedTouches:[{clientX:80}]});assert.equal(c.state.activeImage,1%total);
+  await c.renderVals().swipeEnd({changedTouches:[{clientX:180}]});assert.equal(c.state.activeImage,0);
+  await c.renderVals().swipeEnd({changedTouches:[{clientX:80}]});assert.equal(c.state.activeImage,1%total);
+});
+
+test('gallery retains the visible photograph until decode and ignores stale rapid taps',async()=>{
+  const {c,context}=storefront(),pending=new Map();
+  context.Image=class{decode(){return new Promise((resolve,reject)=>pending.set(this.src,{resolve,reject}));}};
+  const first=c.renderVals().nextImage(),second=c.renderVals().nextImage();
+  await Promise.resolve();assert.equal(c.state.activeImage,0);assert.equal(c.state.imageLoading,true);
+  const photos=c.PRODUCTS[0].images;
+  pending.get(photos[2].display).resolve();await second;assert.equal(c.state.activeImage,2);
+  pending.get(photos[1].display).resolve();await first;assert.equal(c.state.activeImage,2);
+});
+
+test('failed photograph preserves the current image and can be retried',async()=>{
+  const {c,context}=storefront();let fail=true;
+  context.Image=class{decode(){return fail?Promise.reject(Error('offline')):Promise.resolve();}};
+  await c.renderVals().nextImage();assert.equal(c.state.activeImage,0);assert.equal(c.state.imageLoadError,true);
+  fail=false;await c.renderVals().retryPhoto();assert.equal(c.state.activeImage,1);assert.equal(c.state.imageLoadError,false);
 });
 function res() { return { code: 200, headers: {}, setHeader(k,v) { this.headers[k]=v; }, status(n) { this.code=n;return this; }, json(body) { this.body=body;return this; } }; }
 const request = (body, extra={}) => ({ method:'POST', body, headers:{}, ...extra });
