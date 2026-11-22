@@ -40,6 +40,13 @@ for (const p of catalog.products) {
     if (!/^\/(img|uploads)\/[^<>]+$/.test(src) || src.includes('..') || !fs.existsSync('.' + src)) throw new Error('Missing/invalid image: ' + src);
   }
 }
+// Content-addressed responsive images are generated at build time. CMS source
+// photos and canonical product entries stay untouched.
+execFileSync(process.execPath, ['scripts/gallery-images.cjs'], { stdio: 'inherit' });
+const galleryImages = read('dist/media/image-manifest.json');
+catalog.products = catalog.products.map(p => ({ ...p, image_meta: {
+  ...(p.image_meta || {}), ...Object.fromEntries(p.images.map(src => [src, galleryImages[src]]))
+} }));
 // Root products.json remains generated for older scripts; edit data/products.json only.
 const legacy = { ...catalog, products: catalog.products.map(p => ({ ...p,
   cat: p.category, category: p.category_label || p.category,
@@ -50,6 +57,8 @@ const legacy = { ...catalog, products: catalog.products.map(p => ({ ...p,
 fs.writeFileSync('products.json', JSON.stringify(legacy, null, 2) + '\n');
 execFileSync(process.execPath, ['scripts/build-html.mjs'], { stdio: 'inherit' });
 let html = fs.readFileSync('index.html', 'utf8');
+html = html.replace(/(<img\b[^>]*\bsrc=")(\/img\/[^"<>]+)(")/g,
+  (match, before, src, after) => galleryImages[src] ? before + galleryImages[src].small + after : match);
 const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
 const rows = catalog.products.map(p => `<li>${esc(p.name)} — ${p.in_stock ? format(p.price) + ' dh' : 'Rupture de stock'} · ${esc(p.power)} · ${esc(p.range)}</li>`).join('\n');
 html = html.replace(/(<noscript>[\s\S]*?<ul>)[\s\S]*?(<\/ul>)/, '$1\n<!-- PRODUCTS_START -->\n' + rows + '\n<!-- PRODUCTS_END -->\n$2');
