@@ -613,8 +613,10 @@
       <button onClick="{{ goHome }}" class="detail-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h13"/></svg>{{ t.backToCollection }}</button>
       <div class="resp-detail detail-layout">
         <div class="detail-gallery">
-          <div class="detail-main" onTouchStart="{{ swipeStart }}" onTouchEnd="{{ swipeEnd }}">
+          <div class="detail-main" aria-busy="{{ imageLoading }}" onTouchStart="{{ swipeStart }}" onTouchEnd="{{ swipeEnd }}">
+            <img class="gallery-preview" src="{{ currentPreview }}" alt="" aria-hidden="true" decoding="async" fetchpriority="low">
             <img ref="{{ currentImageRef }}" alt="{{ currentProduct.name }}">
+            <sc-if value="{{ imageLoading }}"><span class="gallery-loading" role="status">{{ photoStatus }}</span></sc-if><sc-if value="{{ imageLoadError }}"><button class="gallery-loading gallery-retry" onClick="{{ retryPhoto }}">{{ photoStatus }}</button></sc-if>
             <button class="gallery-expand" onClick="{{ openGallery }}" aria-label="{{ galleryLabel }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5"/></svg></button>
             <div class="gallery-controls"><button onClick="{{ previousImage }}" aria-label="{{ previousPhotoLabel }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><span aria-live="polite">{{ imageCounter }}</span><button onClick="{{ nextImage }}" aria-label="{{ nextPhotoLabel }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button></div>
           </div>
