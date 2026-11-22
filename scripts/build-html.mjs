@@ -173,7 +173,7 @@ async function main() {
     'hero img');
   html = replaceOnce(html,
     '<img ref="{{ currentImageRef }}" alt="{{ currentProduct.name }}">',
-    '<img src="{{ currentImage }}" width="{{ currentImageW }}" height="{{ currentImageH }}" decoding="async" alt="{{ currentProduct.name }}">',
+    '<img src="{{ currentImage }}" width="{{ currentImageW }}" height="{{ currentImageH }}" loading="eager" fetchpriority="high" decoding="async" alt="{{ currentProduct.name }}">',
     'detail main img');
   html = replaceOnce(html,
     '<img ref="{{ img.srcRef }}" style="width:100%; height:100%; object-fit:cover;" alt="">',
