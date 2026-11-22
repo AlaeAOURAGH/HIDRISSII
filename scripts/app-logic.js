@@ -46,6 +46,7 @@ class Component extends DCLogic {
     favorites: [], favoritesOnly: false, mobileDestination:'home',
     minSpeed:0, minRange:0, minPower:0, filterDraft:{},
     galleryOpen:false, filtersOpen:false, navigationOpen:false,
+    imageLoading:false, imageLoadError:false, fullImageSrc:'',
     orderError: '',
     submitting: false,
     theme: 'light',
@@ -68,7 +69,7 @@ class Component extends DCLogic {
 
   async componentDidMount() {
     try { const favorites=JSON.parse(localStorage.getItem('hidrissi-favorites')||'[]'); if(Array.isArray(favorites))this.setState({favorites:favorites.filter(x=>typeof x==='string')}); } catch {}
-    this.onRoute=()=>{const id=new URLSearchParams(window.location.search).get('modele');const index=this.PRODUCTS.findIndex(p=>p.id===id);this.setState(index>=0?{view:'detail',activeProduct:index,activeImage:0}:{view:'home'});};
+    this.onRoute=()=>{const id=new URLSearchParams(window.location.search).get('modele');const index=this.PRODUCTS.findIndex(p=>p.id===id);if(index>=0)this.activateProduct(index);else{this.imageRequest++;this.pendingImage=null;this.setState({view:'home',imageLoading:false});}};
     window.addEventListener('popstate',this.onRoute);
     let theme = 'light';
     try { theme = localStorage.getItem('hidrissi-theme') || 'light'; } catch (e) { /* ignore */ }
@@ -77,10 +78,11 @@ class Component extends DCLogic {
     this.setState({ theme });
 
     // WhatsApp number from the serverless env, so it lives in WA_NUMBER (not code).
-    try {
-      const rc = await fetch('/api/config', { cache: 'no-store' });
-      if (rc.ok) { const c = await rc.json(); if (c && c.waNumber) this.WA_NUMBER = c.waNumber; }
-    } catch (e) { /* keep fallback */ }
+    // Load configuration independently: a slow config endpoint must not hold
+    // back the catalog or first product photograph.
+    fetch('/api/config', { cache: 'no-store' }).then(rc=>rc.ok?rc.json():null).then(c=>{
+      if(c&&c.waNumber){this.WA_NUMBER=c.waNumber;this.setState({});}
+    }).catch(()=>{});
 
     // Catalog data — editable without touching code.
     try {
@@ -127,10 +129,86 @@ class Component extends DCLogic {
   openModel(name) {
     const index=this.PRODUCTS.findIndex(p=>p.name===name);if(index<0)return;
     history.pushState({},'', '?modele='+encodeURIComponent(this.PRODUCTS[index].id));
-    this.setState({view:'detail',activeProduct:index,activeImage:0});window.scrollTo({top:0,behavior:'smooth'});
+    this.activateProduct(index);window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  componentWillUnmount(){window.removeEventListener('popstate',this.onRoute);}
+  imageCache = new Map();
+  imageRequest = 0;
+  pendingImage = null;
+
+  gallerySource(image) {
+    const mobile = typeof window !== 'undefined' && window.innerWidth <= 760;
+    const density = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
+    return mobile && density <= 1.25 && image.small ? image.small : image.display;
+  }
+
+  decodePhoto(src, priority = 'auto') {
+    if (!src || typeof Image === 'undefined') return Promise.resolve();
+    if (this.imageCache.has(src)) {
+      const cached=this.imageCache.get(src);
+      if(priority==='high')cached.image.fetchPriority='high';
+      return cached.ready;
+    }
+    const image=new Image();image.decoding='async';image.fetchPriority=priority;
+    let ready;
+    if(typeof image.decode==='function') {
+      image.src=src;
+      ready=Promise.resolve().then(()=>image.decode());
+    } else {
+      ready=new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject;image.src=src;});
+    }
+    const entry={image,ready:null};
+    entry.ready=ready.catch(error=>{if(this.imageCache.get(src)===entry)this.imageCache.delete(src);throw error;});
+    this.imageCache.set(src,entry);
+    while(this.imageCache.size>8)this.imageCache.delete(this.imageCache.keys().next().value);
+    return entry.ready;
+  }
+
+  warmGallery(productIndex, photoIndex) {
+    const images=this.PRODUCTS[productIndex]?.images || [];
+    if(!images.length)return;
+    this.decodePhoto(this.gallerySource(images[photoIndex]),'high').catch(()=>{});
+    const connection=typeof navigator!=='undefined'?navigator.connection:null;
+    if(connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType || ''))return;
+    for(const i of new Set([(photoIndex+1)%images.length,(photoIndex-1+images.length)%images.length])) {
+      this.decodePhoto(this.gallerySource(images[i]),'low').catch(()=>{});
+    }
+  }
+
+  activateProduct(index) {
+    this.imageRequest++;this.pendingImage=null;
+    this.setState({view:'detail',activeProduct:index,activeImage:0,imageLoading:false,imageLoadError:false,fullImageSrc:''});
+    this.warmGallery(index,0);
+  }
+
+  async changeImage(index) {
+    const product=this.state.activeProduct,images=this.PRODUCTS[product]?.images || [];
+    if(!images.length)return false;
+    index=((index%images.length)+images.length)%images.length;
+    const request=++this.imageRequest;this.pendingImage=index;
+    this.setState({imageLoading:true,imageLoadError:false});
+    try {
+      await this.decodePhoto(this.gallerySource(images[index]),'high');
+      if(request!==this.imageRequest || product!==this.state.activeProduct)return false;
+      this.pendingImage=null;
+      this.setState({activeImage:index,imageLoading:false,fullImageSrc:''});
+      this.warmGallery(product,index);
+      if(this.state.galleryOpen)this.upgradeFullPhoto();
+      return true;
+    } catch {
+      if(request===this.imageRequest)this.setState({imageLoading:false,imageLoadError:true});
+      return false;
+    }
+  }
+
+  async upgradeFullPhoto() {
+    const product=this.state.activeProduct,index=this.state.activeImage;
+    const image=this.PRODUCTS[product]?.images[index];if(!image)return;
+    const src=image.full || image.display;
+    try{await this.decodePhoto(src);if(this.state.galleryOpen&&product===this.state.activeProduct&&index===this.state.activeImage)this.setState({fullImageSrc:src});}catch{}
+  }
+
+  componentWillUnmount(){this.imageRequest++;this.imageCache.clear();window.removeEventListener('popstate',this.onRoute);}
 
   openDialog(id, field, patch = {}) {
     this.setState({...patch,[field]:true},()=>{
@@ -225,7 +303,7 @@ class Component extends DCLogic {
         speed: L(p.speed),
         range: L(p.range),
         price: p.price,
-        thumb: first.thumb,
+        thumb: first.card || first.small || first.thumb,
         thumbW: first.w,
         thumbH: first.h,
         imageCountLabel: t.photos(p.images.length),
@@ -267,7 +345,7 @@ class Component extends DCLogic {
       }))
     };
     const curMain = cpImages[activeImage] || cpImages[0] || { display: '', w: '', h: '' };
-    const currentImage = curMain.display, currentImageW = curMain.w, currentImageH = curMain.h;
+    const currentImage = this.gallerySource(curMain), currentImageW = curMain.w, currentImageH = curMain.h;
 
     const heroImage = 'assets/hero-studio-v3.webp', heroW = 1536, heroH = 1024;
 
@@ -348,11 +426,15 @@ class Component extends DCLogic {
       homeHeroLabel:lang==='ar'?'تحرك بطريقتك.':'ROULEZ À VOTRE RYTHME.',
       previousPhotoLabel:lang==='ar'?'الصورة السابقة':'Photo précédente',nextPhotoLabel:lang==='ar'?'الصورة التالية':'Photo suivante',
       galleryLabel:lang==='ar'?'عرض الصورة كاملة':'Agrandir la photo',
-      nextImage:()=>this.setState({activeImage:(activeImage+1)%Math.max(cpImages.length,1)}),
-      previousImage:()=>this.setState({activeImage:(activeImage-1+cpImages.length)%Math.max(cpImages.length,1)}),
+      imageLoading:this.state.imageLoading,imageLoadError:this.state.imageLoadError,
+      photoStatus:this.state.imageLoadError?(lang==='ar'?'تعذر تحميل الصورة. حاول مجدداً.':'Photo indisponible. Réessayez.'):(lang==='ar'?'جارٍ تحميل الصورة…':'Chargement de la photo…'),
+      retryPhoto:()=>this.changeImage(this.pendingImage ?? activeImage),
+      fullCurrentImage:this.state.fullImageSrc || currentImage,
+      nextImage:()=>this.changeImage((this.pendingImage ?? this.state.activeImage)+1),
+      previousImage:()=>this.changeImage((this.pendingImage ?? this.state.activeImage)-1),
       swipeStart:e=>{this.swipeX=e.changedTouches[0].clientX;},
-      swipeEnd:e=>{const delta=e.changedTouches[0].clientX-this.swipeX;if(Math.abs(delta)>45)this.setState({activeImage:(activeImage+(delta<0?1:-1)+cpImages.length)%Math.max(cpImages.length,1)});},
-      openGallery:()=>this.openDialog('gallery-dialog','galleryOpen'),closeGallery:()=>this.closeDialog('gallery-dialog','galleryOpen'),
+      swipeEnd:e=>{const delta=e.changedTouches[0].clientX-this.swipeX;if(Math.abs(delta)>45)return this.changeImage((this.pendingImage ?? this.state.activeImage)+(delta<0?1:-1));},
+      openGallery:()=>{this.openDialog('gallery-dialog','galleryOpen');this.upgradeFullPhoto();},closeGallery:()=>this.closeDialog('gallery-dialog','galleryOpen'),
       detailInquiry:'https://wa.me/'+this.WA_NUMBER+'?text='+encodeURIComponent((lang==='ar'?'مرحباً، أود الاستفسار عن هذا الموديل.':'Bonjour, je suis intéressé par ce modèle.')+'\n\n'+cp.name+'\n'+(cp.brand||'')+'\n'+cp.price+' MAD\n'+(lang==='ar'?'الكمية: 1':'Quantité : 1')+'\nhttps://www.hidrissi.com/?modele='+encodeURIComponent(cp.id||'')+'\n\n'+(lang==='ar'?'هل يمكن تأكيد التوفر والتوصيل؟':'Pouvez-vous confirmer la disponibilité et la livraison ?')),
       inquiryLabel:lang==='ar'?'اسأل عبر واتساب':'Demander sur WhatsApp',
       budget:this.state.budget, changeBudget:e=>this.setState({budget:e.currentTarget.value}),
@@ -385,6 +467,7 @@ class Component extends DCLogic {
       showDetail: view === 'detail',
       products, currentProduct,
       currentImage, currentImageW, currentImageH,
+      currentPreview:curMain.thumb || currentImage,
       heroImage, heroW, heroH,
       cities, total,
       form: formView,
@@ -400,11 +483,12 @@ class Component extends DCLogic {
       },
       goHome: (e) => {
         if (e) e.preventDefault();
+        this.imageRequest++;this.pendingImage=null;
         history.replaceState({},'',location.pathname);
         this.setState({ view: 'home',favoritesOnly:false,mobileDestination:'home' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
-      selectImage: (e) => this.setState({ activeImage: parseInt(e.currentTarget.dataset.idx) }),
+      selectImage: (e) => this.changeImage(parseInt(e.currentTarget.dataset.idx)),
       selectProduct: (e) => {
         const name = e.currentTarget.dataset.product;
         const p = this.PRODUCTS.find(x => x.name === name);
