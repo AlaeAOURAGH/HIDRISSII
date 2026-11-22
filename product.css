@@ -95,3 +95,5 @@
  .mobile-purchase .mobile-unavailable{font-size:12px;white-space:normal}
 }
 @media(prefers-reduced-motion:reduce){.sec-detail .detail-thumb{transition:none}}
+
+.sec-detail .gallery-loading{position:absolute;top:14px;inset-inline-start:14px;z-index:5;background:var(--brand-surface);color:var(--color-text);padding:9px 12px;border:1px solid var(--border-light);border-radius:8px;font-size:12px;line-height:1.5;max-width:calc(100% - 86px)}.sec-detail .gallery-retry{min-height:44px;cursor:pointer}.sec-detail .detail-main{contain:layout paint}.gallery-dialog>img{height:calc(100dvh - 160px)}
