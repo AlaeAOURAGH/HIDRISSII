@@ -65,6 +65,9 @@ html = html.replace(/(<noscript>[\s\S]*?<ul>)[\s\S]*?(<\/ul>)/, '$1\n<!-- PRODUC
 const graph = catalog.products.map(p => ({ '@type':'Product', '@id':'https://hidrissi.ma/#' + p.id, name:p.name, description:p.desc?.fr || p.short_desc?.fr || '', image:p.images.map(src => 'https://hidrissi.ma' + src), brand:{ '@type':'Brand', name:p.brand }, offers:{ '@type':'Offer', priceCurrency:'MAD', price:p.price, availability:'https://schema.org/' + (p.in_stock ? 'InStock' : 'OutOfStock'), url:'https://hidrissi.ma/' } }));
 html = html.replace('</head>', '<script type="application/ld+json">' + JSON.stringify({ '@context':'https://schema.org', '@graph':graph }).replace(/</g, '\\u003c') + '</script>\n</head>');
 html = html.replace('<sc-if value="{{ noResults }}"', '<div role="status"><sc-if value="{{ loading }}"><p>{{ catalogStatus }}</p></sc-if><sc-if value="{{ loadError }}"><p>{{ catalogStatus }}</p></sc-if></div><sc-if value="{{ noResults }}"');
+// Template images bound to "{{ … }}" would be fetched literally (404) while the
+// browser parses the hidden template; support.js restores src at boot.
+html = html.replace(/(<img\b[^>]*?\s)src="(\{\{[^"]*\}\})"/g, '$1data-dc-src="$2"');
 fs.writeFileSync('index.html', html);
 fs.mkdirSync('dist', { recursive: true });
 for (const item of ['index.html','support.js','storefront.css','premium.css','mobile.css','footer.css','product.css','navigation.css','showroom-theme.css','data','admin','img','assets','robots.txt','sitemap.xml']) fs.cpSync(item, path.join('dist', item), { recursive: true });

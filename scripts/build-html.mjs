@@ -158,8 +158,9 @@ async function main() {
   html = replaceOnce(html, vp, vp + seo, 'viewport meta');
 
   // 3. Remove the libheif client decoder
+  // (the source file uses CRLF line endings, so match any line ending)
   html = html.replace(
-    '<script src="https://cdn.jsdelivr.net/npm/libheif-js@1.18.2/libheif-wasm/libheif-bundle.js"></script>\n',
+    /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/libheif-js@[^"]*"><\/script>\r?\n?/g,
     ''
   );
 
